@@ -26,7 +26,7 @@
     <a href="<%=path%>/test/${test.id}">返回详情</a>&nbsp;<a href="<%=path%>/test/list">列表</a> &nbsp;<a href="<%=path%>/">首页</a>
     &nbsp;<a href="<%=path%>/convention/add_answer?testBoyId=${test.id}">继续添加</a>
     &nbsp;<a
-        href="<%=path%>/test/edit?testBoyId=${test.id}&conventionId=${convention.id}&testcase=${test.testcase }">编辑</a>
+        href="<%=path%>/convention/edit?testBoyId=${test.id}&conventionId=${convention.id}&testcase=${test.testcase }">编辑</a>
     <div>
         ${convention.answer}
     </div>

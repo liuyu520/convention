@@ -31,7 +31,7 @@
     <img src="<%=path%>/static/img/minus.png" alt="隐藏" style="background-color: #fd05ae;padding: 1px;">
     <span>【${test.testcase}】</span></h4>
 <a href="<%=path%>/test/${test.id}/delete" onclick="return confirm('确认删除吗')">删除问题</a>
-&nbsp; <a href="<%=path%>/test/${test.id}/edit?targetView=test/edit">编辑</a>
+&nbsp; <a href="<%=path%>/test/${test.id}/edit?targetView=test/edit">编辑问题</a>
 <div>
     <jsp:include page="./detail_common.jsp"></jsp:include>
 </div>
