@@ -82,17 +82,17 @@
                 </c:choose>
 				
 				<c:choose>
-                    <c:when test="${view.currentPage<=1}">上一页</c:when>
+                    <c:when test="${view.currentPage<=1}">上页</c:when>
                     <c:otherwise>
                         <a name="previousPageHref" href="javascript:toPagePre($('#form_page'),${param.action});"
-                           style="color:#fff;">上一页</a>
+                           style="color:#fff;">上页</a>
                     </c:otherwise>
                 </c:choose>
 				
 				<c:choose>
-                    <c:when test="${view.currentPage>=view.totalPages }">下一页</c:when>
+                    <c:when test="${view.currentPage>=view.totalPages }">下页</c:when>
                     <c:otherwise>
-                        <a name="nextPageHref" href="javascript:toPageNext($('#form_page'),${param.action});">下一页</a>
+                        <a name="nextPageHref" href="javascript:toPageNext($('#form_page'),${param.action});">下页</a>
                     </c:otherwise>
                 </c:choose>
 				
