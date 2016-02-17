@@ -1,0 +1,69 @@
+* {
+    font-family: "Microsoft YaHei", "微软雅黑", "宋体", sans-serif;
+}
+
+ul, li {
+    list-style: outside none none;
+}
+
+ul {
+    margin-left: -25px;;
+}
+
+ul > li {
+    margin-left: -10px;;
+}
+
+.answer-list > div {
+    border: 1px solid #f38399;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+div.divider {
+    border-bottom: 2px solid #f38399;
+}
+
+h2 a, h3 a, h4 a {
+    font-weight: normal;
+    font-size: 18px;
+}
+
+.tips .success {
+    color: #02ff98;
+    font-weight: bold;
+}
+
+.test-list > li {
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+div.toggleClass {
+    display: none;
+}
+
+a {
+    text-decoration: none;
+    font-size: 18px;
+}
+
+ul.operate-list li {
+    display: inline;
+    padding-right: 40px;
+}
+
+.gray {
+    color: #cccccc;
+}
+
+/*问题列表的菜单*/
+.list-menu {
+    background-color: #ffd;
+    border: 2px solid #F1B5FD;
+    border-radius: 3px;
+    position: absolute;
+    padding-top: 20px;
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+            http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+       default-lazy-init="false">
+
+    <context:component-scan base-package="com.girltest,oa"
+    ></context:component-scan>
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--<property name="packagesToScan"> <list> <value>com.pass.bean</value>
+            </list> </property> -->
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">
+                    org.hibernate.dialect.MySQL5Dialect
+                </prop>
+                <!-- org.hibernate.dialect.PostgreSQLDialect
+
+                 -->
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">none</prop>
+                <prop key="hibernate.use_sql_comments">true</prop>
+                <prop key="current_session_context_class">thread</prop>
+                <prop key="javax.persistence.validation.mode">none</prop>
+            </props>
+        </property>
+        <!-- <property name="mappingLocations">
+            <list>
+                <value>classpath:com/shop/**/*.hbm.xml</value>
+            </list>
+        </property> -->
+        <property name="packagesToScan">
+            <list>
+                <value>com.girltest.entity</value>
+                <value>oa.entity</value>
+            </list>
+        </property>
+    </bean>
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+</beans>
