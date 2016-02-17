@@ -26,7 +26,7 @@
     <title>【${test.testcase}】-答案</title>
 </head>
 <body>
-<a href="<%=path%>/test/list">列表</a> &nbsp; <a href="/">首页</a>
+<a href="<%=path%>/test/list">列表</a> &nbsp; <a href="<%=path%>/">首页</a>
 <h4 class="test-detail">
     <img src="<%=path%>/static/img/minus.png" alt="隐藏" style="background-color: #fd05ae;padding: 1px;">
     <span>【${test.testcase}】</span></h4>

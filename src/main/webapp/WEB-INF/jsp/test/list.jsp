@@ -26,7 +26,7 @@
     <title>测试列表</title>
 </head>
 <body>
-<a href="<%=path%>/test/add">添加测试</a> &nbsp; <a href="/">首页</a>&nbsp;<a href="<%=path%>/test/list">列表</a>
+<a href="<%=path%>/test/add">添加测试</a> &nbsp; <a href="<%=path%>/">首页</a>&nbsp;<a href="<%=path%>/test/list">列表</a>
 <hr>
 <div>
     <ul class="test-list">
