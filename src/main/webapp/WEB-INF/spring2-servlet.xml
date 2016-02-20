@@ -43,7 +43,7 @@
 			<mvc:mapping path="/recruitment/**"></mvc:mapping>
 			<mvc:exclude-mapping path="/index/**" />
 			<mvc:exclude-mapping path="/user/loginInput" />
-			<bean class="oa.web.controller.intercept.MemberInterceptor">
+			<bean class="com.girltest.web.controller.intercept.ConventionMemberInterceptor">
 			</bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
