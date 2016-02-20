@@ -39,26 +39,29 @@ public class Test2BoyDao extends GenericDao<Test2Boy> {
      * @param testId
      */
     public void update2(String testcase, int testId) {
-        super.getCurrentSession().createQuery("update Test2Boy t set t.testcase=?,t.updateTime=? where t.id=?")
+        /*super.getCurrentSession().createQuery("update Test2Boy t set t.testcase=?,t.updateTime=? where t.id=?")
                 .setString(0, testcase)
                 .setString(1, TimeHWUtil.getCurrentDateTime())
                 .setInteger(2, testId)
-                .executeUpdate();
+                .executeUpdate();*/
+        updateSpecail(testId, "testcase", testcase, "updateTime", TimeHWUtil.getCurrentDateTime());
     }
 
     public void updateStatus(int status, int testId) {
-        super.getCurrentSession().createQuery("update Test2Boy t set t.status=?,t.updateTime=? where t.id=?")
+        /*super.getCurrentSession().createQuery("update Test2Boy t set t.status=?,t.updateTime=? where t.id=?")
                 .setInteger(0, status)
                 .setString(1, TimeHWUtil.getCurrentDateTime())
                 .setInteger(2, testId)
-                .executeUpdate();
+                .executeUpdate();*/
+        updateSpecail(testId, "updateTime", TimeHWUtil.getCurrentDateTime(), "status", status);
     }
 
     public void updateTime(int testId) {
-        super.getCurrentSession().createQuery("update Test2Boy t set t.updateTime=? where t.id=?")
+        /*super.getCurrentSession().createQuery("update Test2Boy t set t.updateTime=? where t.id=?")
                 .setString(0, TimeHWUtil.getCurrentDateTime())
                 .setInteger(1, testId)
-                .executeUpdate();
+                .executeUpdate();*/
+        updateSpecail(testId, "updateTime", TimeHWUtil.getCurrentDateTime());
     }
 
     /***
@@ -68,11 +71,12 @@ public class Test2BoyDao extends GenericDao<Test2Boy> {
      * @param testId
      */
     public void updateAlias(String alias, int testId) {
-        super.getCurrentSession().createQuery("update Test2Boy t set t.alias=?,t.updateTime=? where t.id=?")
+       /* super.getCurrentSession().createQuery("update Test2Boy t set t.alias=?,t.updateTime=? where t.id=?")
                 .setString(0, alias)
                 .setString(1, TimeHWUtil.getCurrentDateTime())
                 .setInteger(2, testId)
-                .executeUpdate();
+                .executeUpdate();*/
+        updateSpecail(testId, "updateTime", TimeHWUtil.getCurrentDateTime(), "alias", alias);
     }
 
     public void delete(Test2Boy test2Boy) {

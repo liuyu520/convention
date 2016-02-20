@@ -133,18 +133,7 @@
             <classifier>bin</classifier>
         </dependency>
 
-        <dependency>
-            <groupId>com.kunlunsoft</groupId>
-            <artifactId>common_ssh</artifactId>
-            <version>0.0.3.3-SNAPSHOT</version>
-            <type>jar</type>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.struts</groupId>
-                    <artifactId>struts2-core</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+
 
         <dependency>
             <groupId>javax.transaction</groupId>
@@ -224,9 +213,9 @@
 
 
         <dependency>
-            <groupId>yunmasoft.com</groupId>
-            <artifactId>oa_framework</artifactId>
-            <version>0.0.2-SNAPSHOT</version>
+            <groupId>com.kunlunsoft</groupId>
+            <artifactId>frameworkLinkDB</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
