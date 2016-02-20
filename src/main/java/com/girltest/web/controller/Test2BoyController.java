@@ -6,8 +6,10 @@ import com.girltest.dao.Test2BoyDao;
 import com.girltest.entity.Convention;
 import com.girltest.entity.Test2Boy;
 import com.girltest.util.ConventionUtil;
+import com.io.hw.json.HWJacksonUtils;
 import com.string.widget.util.ValueWidget;
 import com.time.util.TimeHWUtil;
+import oa.entity.common.AccessLog;
 import oa.web.controller.base.BaseController;
 import org.apache.commons.collections.map.ListOrderedMap;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +51,13 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         convention.setUpdateTime(TimeHWUtil.getCurrentDateTime());
         convention.setStatus(Constant2.NEWS_STATUS_ON);
         conventionDao.addAnswer(convention, testBoyId);
+
+        AccessLog accessLog = logAdd(request);
+        accessLog.setDescription("add convention");
+        accessLog.setOperateResult("add convention id:" + convention.getId());
+        accessLog.setReserved("test id:" + testBoyId);
+        logSave(accessLog, request);
+        
         model.addAttribute("test", test2Boy);
         convention.setAnswer(ConventionUtil.convertBr(convention.getAnswer()));
         model.addAttribute("convention", convention);
@@ -59,7 +70,14 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         init(request);
         beforeUpdate(roleLevel);
         Test2BoyDao test2BoyDao = (Test2BoyDao) getDao();
+        String oldTest = test2BoyDao.get(id).getTestcase();
         test2BoyDao.update2(roleLevel.getTestcase(), id);
+
+        AccessLog accessLog = logUpdate(request);
+        accessLog.setDescription("update test");
+        accessLog.setOperateResult("update test id:" + id);
+        accessLog.setReserved(oldTest);
+        logSave(accessLog, request);
 
         String resultUrl = getRedirectViewAll() + "?fsdf=" + new Date().getTime();
         if (!ValueWidget.isNullOrEmpty(targetView)) {
@@ -87,6 +105,11 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         roleLevel.setStatus(Constant2.NEWS_STATUS_ON);//额外的条件
         super.beforeList(roleLevel);
 
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        AccessLog accessLog = logInto(request);
+        accessLog.setDescription("list test");
+        accessLog.setOperateResult("list test conditon:" + HWJacksonUtils.getJsonP(roleLevel));
+        logSave(accessLog, request);
     }
 
     @Override
@@ -114,6 +137,13 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         roleLevel.setUpdateTime(TimeHWUtil.getCurrentDateTime());
         roleLevel.setStars(0);
         roleLevel.setStatus(Constant2.NEWS_STATUS_ON);
+
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        AccessLog accessLog = logAdd(request);
+        accessLog.setDescription("add test");
+        accessLog.setOperateResult("add test:" + roleLevel.getTestcase());
+        logSave(accessLog, request);
+        
     }
 
     @Override
@@ -130,6 +160,11 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         init(request);
         Test2BoyDao test2BoyDao = (Test2BoyDao) getDao();
         test2BoyDao.delete(roleLevel);
+
+        AccessLog accessLog = logDelete(request);
+        accessLog.setDescription("delete test");
+        accessLog.setOperateResult("delete test id:" + id);
+        logSave(accessLog, request);
     }
 
 

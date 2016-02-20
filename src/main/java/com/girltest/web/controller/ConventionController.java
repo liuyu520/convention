@@ -7,6 +7,7 @@ import com.girltest.entity.Convention;
 import com.girltest.entity.Test2Boy;
 import com.girltest.util.ConventionUtil;
 import com.time.util.TimeHWUtil;
+import oa.entity.common.AccessLog;
 import oa.web.controller.base.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +46,11 @@ public class ConventionController extends BaseController<Convention> {
         init(request);
         ConventionDao conventionDao = (ConventionDao) this.getDao();
         conventionDao.deleteConvention(id);
+
+        AccessLog accessLog = logDelete(request);
+        accessLog.setDescription("delete convention");
+        accessLog.setOperateResult("delete convention id:" + id);
+        logSave(accessLog, request);
         return Constant2.RESPONSE_RIGHT_RESULT;
     }
 
@@ -52,10 +58,17 @@ public class ConventionController extends BaseController<Convention> {
     public String update(int id, Convention roleLevel, int testBoyId, Model model, HttpServletRequest request) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         ConventionDao conventionDao = (ConventionDao) this.getDao();
         Convention convention = conventionDao.get(id);
+        String oldAnswer = convention.getAnswer();
         convention.setUpdateTime(TimeHWUtil.getCurrentDateTime());
         convention.setAnswer(roleLevel.getAnswer());
         updateCommon(id, convention, model, request);
         test2BoyDao.updateTime(testBoyId);
+
+        AccessLog accessLog = logUpdate(request);
+        accessLog.setDescription("update convention");
+        accessLog.setOperateResult("update convention id:" + id);
+        accessLog.setReserved(oldAnswer);
+        logSave(accessLog, request);
 
         roleLevel.setAnswer(ConventionUtil.convertBr(roleLevel.getAnswer()));
         Test2Boy test2Boy = test2BoyDao.get(testBoyId);
