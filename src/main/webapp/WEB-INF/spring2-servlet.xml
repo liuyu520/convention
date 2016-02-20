@@ -23,17 +23,30 @@
             class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
 
     <!-- 配置mvc的拦截器 可以配置多个 -->
-    <!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/product/**"></mvc:mapping>
-        <mvc:mapping path="/news/**"></mvc:mapping> <mvc:mapping path="/orders/**"></mvc:mapping>
-        <mvc:mapping path="/message/delete"></mvc:mapping> <mvc:mapping path="/message/list"></mvc:mapping>
-        <mvc:mapping path="/message/detail"></mvc:mapping> <mvc:mapping path="/blog/add"></mvc:mapping>
-        <mvc:mapping path="/message/save"></mvc:mapping> <mvc:mapping path="/mobile/orders/list"></mvc:mapping>
-        <mvc:mapping path="/productSmallClass/**"></mvc:mapping> <mvc:mapping path="/user/add"></mvc:mapping>
-        <mvc:mapping path="/user/addInput"></mvc:mapping> <mvc:mapping path="/user/updateInput"></mvc:mapping>
-        <mvc:mapping path="/company/edit"></mvc:mapping> <mvc:mapping path="/carousel/**"></mvc:mapping>
-        <mvc:mapping path="/recruitment/**"></mvc:mapping> <mvc:exclude-mapping path="/index/**"/>
-        <mvc:exclude-mapping path="/user/loginInput"/> <bean class="com.web.controller.intercept.MemberInterceptor">
-        </bean> </mvc:interceptor> </mvc:interceptors> -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/test/**"></mvc:mapping>
+			<mvc:mapping path="/convention/**"></mvc:mapping>
+			<mvc:mapping path="/search/**"></mvc:mapping>
+			<mvc:mapping path="/message/delete"></mvc:mapping>
+			<mvc:mapping path="/message/list"></mvc:mapping>
+			<mvc:mapping path="/message/detail"></mvc:mapping>
+			<mvc:mapping path="/blog/add"></mvc:mapping>
+			<mvc:mapping path="/message/save"></mvc:mapping>
+			<mvc:mapping path="/mobile/orders/list"></mvc:mapping>
+			<mvc:mapping path="/productSmallClass/**"></mvc:mapping>
+			<mvc:mapping path="/user/add"></mvc:mapping>
+			<mvc:mapping path="/user/addInput"></mvc:mapping>
+			<mvc:mapping path="/user/updateInput"></mvc:mapping>
+			<mvc:mapping path="/company/edit"></mvc:mapping>
+			<mvc:mapping path="/carousel/**"></mvc:mapping>
+			<mvc:mapping path="/recruitment/**"></mvc:mapping>
+			<mvc:exclude-mapping path="/index/**" />
+			<mvc:exclude-mapping path="/user/loginInput" />
+			<bean class="oa.web.controller.intercept.MemberInterceptor">
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 
     <!-- ViewResolver -->

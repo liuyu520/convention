@@ -14,7 +14,7 @@ import java.util.List;
 public class IndexController {
     private Test2BoyDao test2BoyDao;
 
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/search")
     public String index(Model model) {
         List<Test2Boy> test2Boys = test2BoyDao.getFrontList(3, "testcase", getListOrderBy());
         model.addAttribute("recordList", test2Boys);
