@@ -23,14 +23,14 @@
    status TINYINT COMMENT '1:有效;2:被删除'
  );
  create table t_test_to_boy (
-	 id integer not null auto_increment,
-	 testcase varchar(255), 
-	 alias varchar(255), 
-	 alias2 varchar(255),
-   update_time VARCHAR(30),
-   stars int DEFAULT 0,
-   status TINYINT COMMENT '1:有效;2:被删除',
-	 best_convention_id integer, primary key (id)
+   id                 integer not null auto_increment,
+   testcase           LONGTEXT,
+   alias              LONGTEXT,
+   alias2             LONGTEXT,
+   update_time        VARCHAR(30),
+   stars              int DEFAULT 0,
+   status             TINYINT COMMENT '1:有效;2:被删除',
+   best_convention_id integer, primary key (id)
  );
  alter table t_test_convention add index FK_91bx427t6kip2wibhjwqe9cdn (convention_id), 
  add constraint FK_91bx427t6kip2wibhjwqe9cdn foreign key (convention_id) references t_convention (id);
@@ -40,3 +40,14 @@
  
  alter table t_test_to_boy add index FK_8ne5od9idt81yb0pndbvoap7f (convention_id), 
  add constraint FK_8ne5od9idt81yb0pndbvoap7f foreign key (convention_id) references t_convention (id);
+ CREATE TABLE t_user (
+   id          INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+   username    VARCHAR(50),
+   password    VARCHAR(50),
+   nickname    VARCHAR(50),
+   email       VARCHAR(50),
+   potrait     VARCHAR(50),
+   level       TINYINT,
+   create_time DATETIME
+ );
+ INSERT INTO t_user (username, password) VALUES ('whuang', '0192023a7bbd73250516f069df18b500');

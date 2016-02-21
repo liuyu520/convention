@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,6 +30,11 @@ public class UserController extends UserBaseController<User> {
         if (loginResultBean.isFailed()) {
             logDesc = "failed";
         } else {
+            Cookie c = new Cookie("JSESSIONID", request.getSession().getId());
+            c.setPath("/");
+            //先设置cookie有效期为2天
+            c.setMaxAge(48 * 60 * 60);
+            response.addCookie(c);
             logDesc = "success,session id:" + request.getSession().getId();
         }
         accessLog.setOperateResult(logDesc);
