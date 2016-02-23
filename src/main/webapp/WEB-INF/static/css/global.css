@@ -52,7 +52,7 @@ a {
 
 ul.operate-list li {
     display: inline;
-    padding-right: 40px;
+    padding-right: 30px;
 }
 
 .gray {
@@ -86,4 +86,11 @@ ul.operate-list li {
     font-size: 20px;
     color: #47BED9;
     background-color: white;
+}
+input[type=submit] {
+    padding: 10px 30px;
+    border: 0 none;
+    background-color: #05a1e7;
+    font-size: 30px;
+    color: #ffffff;
 }

@@ -27,9 +27,10 @@
     <span class="success">${message}</span>
 </div>
 <div>
+    <h3>添加答案</h3>
     <h4>【${test.testcase}】</h4>
-    <a href="<%=path%>/test/${test.id}">返回详情</a>
-    &nbsp;<a href="<%=path%>/test/list">列表</a> &nbsp; <a href="<%=path%>/">首页</a>
+    <a href="<%=path%>/test/add">添加测试</a>&nbsp; <a href="<%=path%>/test/${test.id}">返回详情</a>
+    &nbsp;<a href="<%=path%>/test/list">列表</a> &nbsp; <a href="<%=path%>/search">首页</a>
     <div id="add_convention">
         <form action="<%=path%>/test/save_answer" method="post">
             <input type="hidden" name="testBoyId" value="${test.id}">
@@ -37,7 +38,7 @@
             <table>
                 <tr>
                     <td>
-                        <textarea name="answer" id="" cols="40" rows="5"></textarea>
+                        <textarea name="answer" id="" cols="40" rows="5"  placeholder="请填写答案" ></textarea>
                     </td>
                 </tr>
                 <tr>

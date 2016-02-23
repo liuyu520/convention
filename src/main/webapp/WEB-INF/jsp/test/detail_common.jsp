@@ -34,12 +34,22 @@
                     <div id="answer-detail_${convention.id}">${convention.answer}</div>
                     <hr style="margin-right: 10px;width: inherit">
                     <ul class="operate-list">
+                    <c:if test="${sessionScope.user!=null &&sessionScope.user.level==2}">
                         <li><a href="javascript:deleteConvention(${convention.id})">删除</a></li>
                         <li>
-                            <a href="<%=path%>/convention/edit?testBoyId=${test.id}&conventionId=${convention.id}&testcase=${test.testcase }">编辑</a>
+                            <a href="javascript:editConvention(${convention.id})">编辑</a>
                         </li>
+                        </c:if>
                         <li><a href="javascript:enedit4copy(${convention.id})">复制</a></li>
                         <li><a href="javascript:deedit4copy(${convention.id})">取消</a></li>
+                        <li>
+
+                            <c:choose>
+                                <c:when test="${convention.hasStar }">已赞(${convention.stars})</c:when>
+                                <c:otherwise><a onclick="voteConvention(this,${convention.id})" href="javascript:void(0)">赞(${convention.stars})</a></c:otherwise>
+                            </c:choose>
+
+                        </li>
                     </ul>
                 </div>
             </li>

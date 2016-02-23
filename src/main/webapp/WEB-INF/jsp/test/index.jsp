@@ -20,16 +20,35 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <script type="text/javascript" src="http://hbjltv.com/static/js/jquery-1.11.1.js"></script>
+    <script type="text/javascript" >
+        var expandAnswer= function (self) {
+            var $a=$(self);
+            var $div=$a.prev();
+            $div.html($div.attr('title'));
+        }
+    </script>
     <title>首页</title>
 </head>
 <body>
+<jsp:include page="../public/top_admin.jsp"/>
 <c:choose>
     <c:when test="${recordList!=null && fn:length(recordList)!=0 }">
         <div class="divider">
-            <h3>热门</h3>
+            <h3>热门问题</h3>
             <ul>
                 <c:forEach items="${recordList }" var="bbs" varStatus="status">
-                    <li><a title="${bbs.testcase}" href="<%=path%>/test/${bbs.id}">${bbs.testcase}</a></li>
+                    <li><a title="${bbs.testcase}" href="<%=path%>/test/${bbs.id}">【${bbs.testcase}】</a></li>
+                </c:forEach>
+            </ul>
+        </div>
+        <div class="divider">
+            <h3>热门答案</h3>
+            <ul>
+                <c:forEach items="${conventions }" var="bbs" varStatus="status">
+                    <li style="margin-bottom: 10px;"><div style="border-radius: 3px;border: 1px solid #f38399;" title="${bbs.answer}" >${fn:substring(bbs.answer,0,19)   }</div>
+                        <c:if test="${fn:length(bbs.answer)>19}">
+                        <a href="javascript:void(0)" style="cursor: hand" id="expand_${status.count}" onclick="expandAnswer(this)">加载更多</a> </li>
+                    </c:if>
                 </c:forEach>
             </ul>
         </div>
@@ -57,7 +76,7 @@
     </form>
 </div>
 <div>
-    <a href="http://localhost/export?name1=whuang">导出</a>
+    <!-- <a href="http://localhost/export?name1=whuang">导出</a> -->
 </div>
 <script type="text/javascript">
     $(function () {

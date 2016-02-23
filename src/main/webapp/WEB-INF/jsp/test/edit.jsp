@@ -23,7 +23,7 @@
     <title>添加测试</title>
 </head>
 <body>
-<h3>添加测试&nbsp;<a href="<%=path%>/test/list">列表</a>&nbsp; <a href="/">首页</a></h3>
+<h3>添加测试&nbsp;<a href="<%=path%>/test/list">列表</a>&nbsp; <a href="<%=path%>/search">首页</a></h3>
 <div>
     <div>
         <form action="<%=path%>/test/${test.id}/update2" onsubmit="return test.checkAddTestForm(this)" method="post">

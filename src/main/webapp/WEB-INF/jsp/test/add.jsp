@@ -23,14 +23,14 @@
     <title>添加测试</title>
 </head>
 <body>
-<h3>添加测试&nbsp;<a href="<%=path%>/test/list">列表</a>&nbsp; <a href="/">首页</a></h3>
+<h3>添加测试&nbsp;<a href="<%=path%>/test/list">列表</a>&nbsp; <a href="<%=path%>/search">首页</a></h3>
 <div>
     <div id="add_test">
-        <form action="<%=path%>/test/add" onsubmit="return test.checkAddTestForm(this)" method="post">
+        <form action="<%=path%>/test/add?targetView=/convention/add" onsubmit="return test.checkAddTestForm(this)" method="post">
             <table>
                 <tr>
                     <td>
-                        <textarea name="testcase" id="" cols="40" rows="5"></textarea>
+                        <textarea name="testcase" id="" cols="40" rows="5" placeholder="请填写问题(测试)"></textarea>
                     </td>
                 </tr>
                 <tr>

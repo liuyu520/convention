@@ -121,12 +121,12 @@
 
 
             /**
-             若登录失败,则情况密码输入框
+             若登录失败,则情况密码输入框<br> 还是不要清空
              */
             var errorMesg = "${info }";
-            if (com.whuang.hsj.isHasValue(errorMesg)) {
+            /*if (com.whuang.hsj.isHasValue(errorMesg)) {
                 com.whuang.hsj.$$one("password").value = '';
-            }
+            }*/
 
         }//onload
         var usernamePress = function (event) {
@@ -187,7 +187,7 @@
 
                 <li><span id="li_info" class='errormessage'>${info } </span></li>
 
-                <li><input class="submit" type="submit" value="登录"/> <input type="reset" value="重置"/></li>
+                <li><input class="submit" type="submit" value="登录"/> &nbsp; &nbsp; <input type="reset" value="重置"/></li>
 
 
             </ul>

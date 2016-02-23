@@ -20,18 +20,22 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <script type="text/javascript" src="http://hbjltv.com/static/js/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="http://hbjltv.com/static/js/jquery.form.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/common_util.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/page.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
     <title>【${test.testcase}】-答案</title>
 </head>
 <body>
-<a href="<%=path%>/test/list">列表</a> &nbsp; <a href="<%=path%>/">首页</a>
+<jsp:include page="../public/top_admin.jsp"/>
+<a href="<%=path%>/test/add">添加测试</a>&nbsp; <a href="<%=path%>/test/list">列表</a> &nbsp; <a href="<%=path%>/search">首页</a>
 <h4 class="test-detail">
     <img src="<%=path%>/static/img/minus.png" alt="隐藏" style="background-color: #fd05ae;padding: 1px;">
     <span>【${test.testcase}】</span></h4>
+    <c:if test="${sessionScope.user!=null &&sessionScope.user.level==2}">
 <a href="<%=path%>/test/${test.id}/delete" onclick="return confirm('确认删除吗')">删除问题</a>
 &nbsp; <a href="<%=path%>/test/${test.id}/edit?targetView=test/edit">编辑问题</a>
+</c:if>
 <div>
     <jsp:include page="./detail_common.jsp"></jsp:include>
 </div>
