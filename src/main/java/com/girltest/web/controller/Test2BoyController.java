@@ -3,8 +3,11 @@ package com.girltest.web.controller;
 import com.common.dict.Constant2;
 import com.girltest.dao.ConventionDao;
 import com.girltest.dao.Test2BoyDao;
+import com.girltest.dao.VoteLogDao;
 import com.girltest.entity.Convention;
 import com.girltest.entity.Test2Boy;
+import com.girltest.entity.User;
+import com.girltest.entity.VoteLog;
 import com.girltest.util.ConventionUtil;
 import com.io.hw.json.HWJacksonUtils;
 import com.string.widget.util.ValueWidget;
@@ -29,6 +32,7 @@ import java.util.List;
 @RequestMapping("/test")
 public class Test2BoyController extends BaseController<Test2Boy> {
     private ConventionDao conventionDao;
+    private VoteLogDao voteLogDao;
 
     @Override
     protected void beforeAddInput(Model model) {
@@ -123,6 +127,11 @@ public class Test2BoyController extends BaseController<Test2Boy> {
             for (Convention convention : conventions) {
                 //因为在html中\n不会换行,所以要把\n转化为br
                 convention.setAnswer(ConventionUtil.convertBr(convention.getAnswer()));
+                User user2 = (User) request.getSession().getAttribute(Constant2.SESSION_KEY_LOGINED_USER);
+                VoteLog voteLogTmp=this.voteLogDao.get( "user.id", user2.getId(),"convention.id",convention.getId());
+                if(null!=voteLogTmp){
+                    convention.setHasStar(true);
+                }
             }
         } else {//无conventions的时候
             test2Boy = test2BoyDao.get(id);
@@ -167,5 +176,12 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         logSave(accessLog, request);
     }
 
+    public VoteLogDao getVoteLogDao() {
+        return voteLogDao;
+    }
 
+    @Resource
+    public void setVoteLogDao(VoteLogDao voteLogDao) {
+        this.voteLogDao = voteLogDao;
+    }
 }

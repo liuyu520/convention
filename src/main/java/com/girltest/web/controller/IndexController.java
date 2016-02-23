@@ -1,7 +1,10 @@
 package com.girltest.web.controller;
 
+import com.girltest.dao.ConventionDao;
 import com.girltest.dao.Test2BoyDao;
+import com.girltest.entity.Convention;
 import com.girltest.entity.Test2Boy;
+import com.girltest.util.ConventionUtil;
 import org.apache.commons.collections.map.ListOrderedMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,11 +16,18 @@ import java.util.List;
 @Controller
 public class IndexController {
     private Test2BoyDao test2BoyDao;
+    private ConventionDao conventionDao;
 
     @RequestMapping(value = "/search")
     public String index(Model model) {
         List<Test2Boy> test2Boys = test2BoyDao.getFrontList(3, "testcase", getListOrderBy());
         model.addAttribute("recordList", test2Boys);
+        List<Convention> conventions=conventionDao.getFrontList(3,"answer",getListOrderBy());
+        for (Convention convention : conventions) {
+            //因为在html中\n不会换行,所以要把\n转化为br
+            convention.setAnswer(ConventionUtil.convertBr(convention.getAnswer()));
+        }
+        model.addAttribute("conventions", conventions);
         return "test/index";
     }
 
@@ -35,5 +45,14 @@ public class IndexController {
         orderColumnModeMap.put("stars", "desc");
         orderColumnModeMap.put("updateTime", "desc");
         return orderColumnModeMap;
+    }
+
+    public ConventionDao getConventionDao() {
+        return conventionDao;
+    }
+
+    @Resource
+    public void setConventionDao(ConventionDao conventionDao) {
+        this.conventionDao = conventionDao;
     }
 }

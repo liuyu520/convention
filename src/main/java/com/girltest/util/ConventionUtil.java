@@ -5,6 +5,6 @@ package com.girltest.util;
  */
 public class ConventionUtil {
     public static String convertBr(String input) {
-        return input.replaceAll("\r\n", "<br>");
+        return input.replaceAll("\r\n", "<br>").replaceAll("\n", "<br>");
     }
 }

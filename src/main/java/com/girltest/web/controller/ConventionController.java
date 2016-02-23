@@ -55,6 +55,7 @@ public class ConventionController extends BaseController<Convention> {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
     public String update(int id, Convention roleLevel, int testBoyId, Model model, HttpServletRequest request) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         ConventionDao conventionDao = (ConventionDao) this.getDao();
         Convention convention = conventionDao.get(id);
@@ -73,7 +74,7 @@ public class ConventionController extends BaseController<Convention> {
         roleLevel.setAnswer(ConventionUtil.convertBr(roleLevel.getAnswer()));
         Test2Boy test2Boy = test2BoyDao.get(testBoyId);
         model.addAttribute("test", test2Boy);
-        return getJspFolder() + "/detail";
+        return roleLevel.getAnswer(); //getJspFolder() + "/detail";
     }
 
     @RequestMapping(value = "/add_answer")
@@ -84,12 +85,12 @@ public class ConventionController extends BaseController<Convention> {
     }
 
     @RequestMapping("/edit")
-    public String editAnswer(Model model, HttpServletRequest request, Test2Boy test2Boy, int testBoyId, int conventionId) {
+    public String editAnswer(Model model, HttpServletRequest request, /*Test2Boy test2Boy, int testBoyId, */int conventionId) {
         init(request);
-        test2Boy.setId(testBoyId);
+//        test2Boy.setId(testBoyId);
         ConventionDao conventionDao = (ConventionDao) this.getDao();
         Convention convention = conventionDao.get(conventionId);
-        model.addAttribute("test", test2Boy);
+//        model.addAttribute("test", test2Boy);
         model.addAttribute("convention", convention);
         return "convention/edit";
     }

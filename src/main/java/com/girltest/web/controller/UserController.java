@@ -1,14 +1,19 @@
 package com.girltest.web.controller;
 
+import com.common.dict.Constant2;
 import com.common.entity.user.interf.GenericUser;
 import com.girltest.entity.User;
+import com.girltest.filter.chain.LoginResultFilterChain;
+
 import oa.bean.LoginResultBean;
 import oa.entity.common.AccessLog;
 import oa.web.controller.common.UserBaseController;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +22,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/user")
 public class UserController extends UserBaseController<User> {
-
+    private LoginResultFilterChain loginResultFilterChain;
 
     @RequestMapping(value = "/login")
     public String login(Model model, User user, HttpServletRequest request
@@ -30,16 +35,15 @@ public class UserController extends UserBaseController<User> {
         if (loginResultBean.isFailed()) {
             logDesc = "failed";
         } else {
-            Cookie c = new Cookie("JSESSIONID", request.getSession().getId());
-            c.setPath("/");
-            //先设置cookie有效期为2天
-            c.setMaxAge(48 * 60 * 60);
-            response.addCookie(c);
+            
             logDesc = "success,session id:" + request.getSession().getId();
         }
         accessLog.setOperateResult(logDesc);
-        logSave(accessLog, request);
+        logSave(accessLog, request);	
 
+        if(null!=loginResultFilterChain){
+        	loginResultFilterChain.loginSuccess(user,request,response,session,issaveUserName,issavePasswd,loginResultBean);
+        }
         if (!loginResultBean.isFailed()) {
 
         }
@@ -47,9 +51,9 @@ public class UserController extends UserBaseController<User> {
             model.addAttribute("info", loginResultBean.getMessage());
             return "user/login";
         } else {
-            if (user.getUsername().equals("whuang")) {
-                session.setAttribute("isAdmin", true);//TODO 作为配置放到字典中
-            }
+            /*if (user.getUsername().equals("whuang")) {
+                session.setAttribute("isAdmin", true);//
+            }*/
 
             return "redirect:/search";
         }
@@ -72,5 +76,12 @@ public class UserController extends UserBaseController<User> {
         logSave(accessLog, request);
     }
 
+    public LoginResultFilterChain getLoginResultFilterChain() {
+        return loginResultFilterChain;
+    }
 
+    @Resource
+    public void setLoginResultFilterChain(LoginResultFilterChain loginResultFilterChain) {
+        this.loginResultFilterChain = loginResultFilterChain;
+    }
 }

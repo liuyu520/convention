@@ -1,10 +1,22 @@
 package com.girltest.entity;
 
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.*;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 /***
  * @author huangweii
@@ -12,6 +24,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "t_test_to_boy")
+@JsonAutoDetect
+@JsonInclude(JsonInclude.Include.NON_NULL)//没有起作用
 public class Test2Boy {
     /***
      * 更新时间

@@ -2,12 +2,17 @@ package com.girltest.entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /***
  * 惯例
  * 2015年12月27日
  */
 @Entity
 @Table(name = "t_convention")
+@JsonAutoDetect
+@JsonInclude(JsonInclude.Include.NON_NULL)//没有起作用
 public class Convention {
     /***
      * 更新时间
@@ -35,7 +40,20 @@ public class Convention {
      * 1:有效;2:被删除
      */
     private int status;
+    /**
+     * 是否已经点赞
+     */
 
+    private boolean hasStar;
+
+    @Transient
+    public boolean isHasStar() {
+        return hasStar;
+    }
+
+    public void setHasStar(boolean hasStar) {
+        this.hasStar = hasStar;
+    }
     @Column(name = "update_time")
     public String getUpdateTime() {
         return updateTime;
