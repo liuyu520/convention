@@ -1,6 +1,7 @@
 package com.girltest.web.controller;
 
 import com.common.dict.Constant2;
+import com.common.web.view.PageView;
 import com.girltest.dao.ConventionDao;
 import com.girltest.dao.Test2BoyDao;
 import com.girltest.dao.VoteLogDao;
@@ -34,6 +35,10 @@ public class Test2BoyController extends BaseController<Test2Boy> {
     private ConventionDao conventionDao;
     private VoteLogDao voteLogDao;
 
+    private static boolean canNotSee(User user2, Test2Boy test2Boy) {
+        return "private".equals(test2Boy.getOnlyIcanSee()) && test2Boy.getUser().getId() != user2.getId();
+    }
+
     @Override
     protected void beforeAddInput(Model model) {
 
@@ -61,13 +66,12 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         accessLog.setOperateResult("add convention id:" + convention.getId());
         accessLog.setReserved("test id:" + testBoyId);
         logSave(accessLog, request);
-        
+
         model.addAttribute("test", test2Boy);
         convention.setAnswer(ConventionUtil.convertBr(convention.getAnswer()));
         model.addAttribute("convention", convention);
         return "convention/detail";
     }
-
 
     @RequestMapping(value = "/{id}/update2", method = RequestMethod.POST)
     public String update(@PathVariable int id, Test2Boy roleLevel, Model model, HttpServletRequest request, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
@@ -120,14 +124,20 @@ public class Test2BoyController extends BaseController<Test2Boy> {
     protected Test2Boy detailTODO(int id, Model model,
                                   HttpServletRequest request) {
         init(request);
+        User user2 = getUser4Session(request);
+
         Test2BoyDao test2BoyDao = (Test2BoyDao) getDao();
         Test2Boy test2Boy = test2BoyDao.getConventions(id);
+        if (canNotSee(user2, test2Boy)) {//当前用户没权访问该test
+            test2Boy.setConventions(null);
+            model.addAttribute(Constant2.RESPONSE_KEY_ERROR_MESSAGE, "您没有权限");
+            return test2Boy;
+        }
         if (null != test2Boy) {
             List<Convention> conventions = test2Boy.getConventions();
             for (Convention convention : conventions) {
                 //因为在html中\n不会换行,所以要把\n转化为br
                 convention.setAnswer(ConventionUtil.convertBr(convention.getAnswer()));
-                User user2 = (User) request.getSession().getAttribute(Constant2.SESSION_KEY_LOGINED_USER);
                 VoteLog voteLogTmp=this.voteLogDao.get( "user.id", user2.getId(),"convention.id",convention.getId());
                 if(null!=voteLogTmp){
                     convention.setHasStar(true);
@@ -140,11 +150,15 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         return test2Boy;
     }
 
+    private User getUser4Session(HttpServletRequest request) {
+        return (User) request.getSession().getAttribute(Constant2.SESSION_KEY_LOGINED_USER);
+    }
+
     @Override
     protected void beforeSave(Test2Boy roleLevel, Model model) {
         super.beforeSave(roleLevel, model);
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        User user2 = (User) request.getSession().getAttribute(Constant2.SESSION_KEY_LOGINED_USER);
+        User user2 = getUser4Session(request);
         roleLevel.setUser(user2);
         roleLevel.setUpdateTime(TimeHWUtil.getCurrentDateTime());
         roleLevel.setStars(0);
@@ -154,7 +168,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         accessLog.setDescription("add test");
         accessLog.setOperateResult("add test:" + roleLevel.getTestcase());
         logSave(accessLog, request);
-        
+
     }
 
     @Override
@@ -186,4 +200,24 @@ public class Test2BoyController extends BaseController<Test2Boy> {
     public void setVoteLogDao(VoteLogDao voteLogDao) {
         this.voteLogDao = voteLogDao;
     }
+
+    @Override
+    protected void listTODO(Model model, PageView view,
+                            HttpServletRequest request) {
+        long count = view.getTotalRecords();
+        List recordList = view.getRecordList();
+        int size = recordList.size();
+        User user2 = getUser4Session(request);
+        for (int i = 0; i < size; i++) {
+            Test2Boy test2Boy = (Test2Boy) recordList.get(i);
+            if (canNotSee(user2, test2Boy)) {
+                recordList.remove(test2Boy);
+                size = size - 1;
+                i = i - 1;
+                count--;
+            }
+        }
+        view.setTotalRecords(count);
+    }
+
 }
