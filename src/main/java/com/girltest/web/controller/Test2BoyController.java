@@ -14,8 +14,10 @@ import com.io.hw.json.HWJacksonUtils;
 import com.string.widget.util.ValueWidget;
 import com.time.util.TimeHWUtil;
 import oa.entity.common.AccessLog;
+import oa.service.DictionaryParam;
 import oa.web.controller.base.BaseController;
 import org.apache.commons.collections.map.ListOrderedMap;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,11 +34,17 @@ import java.util.List;
 @Controller
 @RequestMapping("/test")
 public class Test2BoyController extends BaseController<Test2Boy> {
+    protected static Logger logger = Logger.getLogger(Test2BoyController.class);
     private ConventionDao conventionDao;
     private VoteLogDao voteLogDao;
 
     private static boolean canNotSee(User user2, Test2Boy test2Boy) {
-        return "private".equals(test2Boy.getOnlyIcanSee()) && test2Boy.getUser().getId() != user2.getId();
+        if (ValueWidget.isNullOrEmpty(test2Boy)) {
+            return true;
+        }
+        return "private".equals(test2Boy.getOnlyIcanSee())
+                && (!ValueWidget.isNullOrEmpty(test2Boy.getUser()))
+                && test2Boy.getUser().getId() != user2.getId();
     }
 
     @Override
@@ -208,10 +216,26 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         List recordList = view.getRecordList();
         int size = recordList.size();
         User user2 = getUser4Session(request);
+        String superUserName = "whuang";//超级管理员的默认名称
+        String superUserNameTmp = DictionaryParam.get("authority", "super");
+        if (!ValueWidget.isNullOrEmpty(superUserNameTmp)) {
+            superUserName = superUserNameTmp;
+        }
+        if (superUserName.equals(user2.getUsername())) {//如果是超级管理员,则不过滤
+            return;
+        } else {
+            filterPrivate(view, count, recordList, size, user2);
+        }
+    }
+
+    private void filterPrivate(PageView view, long count, List recordList, int size, User user2) {
         for (int i = 0; i < size; i++) {
             Test2Boy test2Boy = (Test2Boy) recordList.get(i);
             if (canNotSee(user2, test2Boy)) {
                 recordList.remove(test2Boy);
+                String errorMessage = "hide test id:" + test2Boy.getId() + ", content:" + test2Boy.getTestcase();
+                System.out.println(errorMessage);
+                logger.warn(errorMessage);
                 size = size - 1;
                 i = i - 1;
                 count--;

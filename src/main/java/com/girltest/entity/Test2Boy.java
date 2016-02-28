@@ -60,6 +60,10 @@ public class Test2Boy {
      * "private" :只有作者能看见
      */
     private String onlyIcanSee;
+    /***
+     * 类型,预留
+     */
+    private int type;
     @Column(name = "update_time")
     public String getUpdateTime() {
         return updateTime;
@@ -158,5 +162,13 @@ public class Test2Boy {
 
     public void setOnlyIcanSee(String onlyIcanSee) {
         this.onlyIcanSee = onlyIcanSee;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

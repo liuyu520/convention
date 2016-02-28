@@ -10,6 +10,7 @@ import com.girltest.util.ConventionUtil;
 import com.time.util.TimeHWUtil;
 import oa.entity.common.AccessLog;
 import oa.web.controller.base.BaseController;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/convention")
 public class ConventionController extends BaseController<Convention> {
+    protected static Logger logger = Logger.getLogger(ConventionController.class);
     private Test2BoyDao test2BoyDao;
 
     @Override

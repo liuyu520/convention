@@ -1,32 +1,33 @@
 package com.girltest.web.controller;
 
-import com.common.dict.Constant2;
 import com.common.entity.user.interf.GenericUser;
+import com.common.util.LoginUtil;
 import com.girltest.entity.User;
 import com.girltest.filter.chain.LoginResultFilterChain;
-
+import com.string.widget.util.ValueWidget;
 import oa.bean.LoginResultBean;
 import oa.entity.common.AccessLog;
 import oa.web.controller.common.UserBaseController;
-
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/user")
 public class UserController extends UserBaseController<User> {
+    protected static Logger logger = Logger.getLogger(UserController.class);
     private LoginResultFilterChain loginResultFilterChain;
 
     @RequestMapping(value = "/login")
     public String login(Model model, User user, HttpServletRequest request
-            , HttpServletResponse response, HttpSession session, String issaveUserName, String issavePasswd) {
+            , HttpServletResponse response, HttpSession session, String issaveUserName, String issavePasswd) throws IOException {
         LoginResultBean loginResultBean = loginCommon(model, user, request, response, session, issaveUserName, issavePasswd);
 
         AccessLog accessLog = logLogin(request);
@@ -54,7 +55,11 @@ public class UserController extends UserBaseController<User> {
             /*if (user.getUsername().equals("whuang")) {
                 session.setAttribute("isAdmin", true);//
             }*/
-
+            String returnUrl = (String) session.getAttribute(LoginUtil.SESSION_KEY_LOGIN_RETURN_URL);
+            if (!ValueWidget.isNullOrEmpty(returnUrl)) {
+                response.sendRedirect(returnUrl);
+                return null;
+            }
             return "redirect:/search";
         }
     }

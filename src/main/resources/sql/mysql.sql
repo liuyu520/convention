@@ -28,8 +28,9 @@
    alias              LONGTEXT,
    alias2             LONGTEXT,
    update_time        VARCHAR(30),
-   stars              int DEFAULT 0,
+   stars              int              DEFAULT 0,
    status             TINYINT COMMENT '1:有效;2:被删除',
+   type               TINYINT          DEFAULT 0,
    best_convention_id integer, primary key (id)
  );
  alter table t_test_convention add index FK_91bx427t6kip2wibhjwqe9cdn (convention_id), 
@@ -68,3 +69,4 @@
  ALTER TABLE t_test_to_boy ADD INDEX FK_a96knyonpt06sh6negxcf400h (userId), ADD CONSTRAINT FK_a96knyonpt06sh6negxcf400h FOREIGN KEY (userId) REFERENCES t_user (id);
  ALTER TABLE t_vote_log ADD INDEX FK_8kad70wdy4b591d5g2ool1n1q (conventionId), ADD CONSTRAINT FK_8kad70wdy4b591d5g2ool1n1q FOREIGN KEY (conventionId) REFERENCES t_convention (id);
  ALTER TABLE t_vote_log ADD INDEX FK_j2d15o1md3j2a73mdn3b6gcep (userId), ADD CONSTRAINT FK_j2d15o1md3j2a73mdn3b6gcep FOREIGN KEY (userId) REFERENCES t_user (id);
+ INSERT INTO t_dictionary (groupid, key2, value, description) VALUES ('authority', 'super', 'whuang', '超级管理员的用户名');
