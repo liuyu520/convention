@@ -36,6 +36,7 @@
     <c:if test="${sessionScope.user!=null &&sessionScope.user.level==2}">
 <a href="<%=path%>/test/${test.id}/delete" onclick="return confirm('确认删除吗')">删除问题</a>
 &nbsp; <a href="<%=path%>/test/${test.id}/edit?targetView=test/edit">编辑问题</a>
+        &nbsp; <a target="_blank" href="<%=path%>/share/test/${test.id}">分享问题</a>
 </c:if>
 <div>
     <jsp:include page="./detail_common.jsp"></jsp:include>

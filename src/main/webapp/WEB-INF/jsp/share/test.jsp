@@ -24,26 +24,29 @@
     <script type="text/javascript" src="<%=path%>/static/js/common_util.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/page.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
-<title>分享-${fn:substring(test.testcase,0,8)   }</title>
+<title>分享-${fn:substring(test.testcase,0,18)   }</title>
 </head>
 <body>
 <div>
     <h4>【${test.testcase}】</h4>
-
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_m"></div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_m.js" charset="utf-8"></script>
+<br>
+<!-- JiaThis Button END -->
     <div>
-        <span class="gray">全部答案</span>
         <ul>
             <c:forEach items="${test.conventions }" var="convention" varStatus="status">
-                <li class="answer-list" data-id="${convention.id}">
+                <li class="" data-id="${convention.id}">
                     <div>
                         <div id="answer-detail_${convention.id}">${convention.answer}</div>
-                        <hr style="margin-right: 10px;width: inherit">
+                        <%--<hr style="margin-right: 10px;width: inherit">
                         <ul class="operate-list">
 
                             <li><a href="javascript:enedit4copy(${convention.id})">复制</a></li>
                             <li><a href="javascript:deedit4copy(${convention.id})">取消</a></li>
 
-                        </ul>
+                        </ul>--%>
                     </div>
                 </li>
             </c:forEach>
@@ -51,9 +54,6 @@
         </ul>
     </div>
 </div>
-<!-- JiaThis Button BEGIN -->
-<div class="jiathis_style_m"></div>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_m.js" charset="utf-8"></script>
-<!-- JiaThis Button END -->
+
 </body>
 </html>
