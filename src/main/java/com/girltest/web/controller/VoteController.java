@@ -43,12 +43,10 @@ public class VoteController extends BaseController<VoteLog> {
 
     @Override
     protected void beforeAddInput(Model model) {
-
     }
 
     @Override
     protected void errorDeal(Model model) {
-
     }
 
     @Override
@@ -58,8 +56,8 @@ public class VoteController extends BaseController<VoteLog> {
 
     /***
      * @param model
-     * @param type
-     * @param houseBuildingId
+     * @param conventionId
+     * @param testBoyId
      * @param session
      * @param request
      * @param callback

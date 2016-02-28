@@ -150,4 +150,13 @@ public class Test2Boy {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Column(name = "only_i_see")
+    public String getOnlyIcanSee() {
+        return onlyIcanSee;
+    }
+
+    public void setOnlyIcanSee(String onlyIcanSee) {
+        this.onlyIcanSee = onlyIcanSee;
+    }
 }

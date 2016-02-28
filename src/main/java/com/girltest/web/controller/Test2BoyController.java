@@ -143,11 +143,13 @@ public class Test2BoyController extends BaseController<Test2Boy> {
     @Override
     protected void beforeSave(Test2Boy roleLevel, Model model) {
         super.beforeSave(roleLevel, model);
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        User user2 = (User) request.getSession().getAttribute(Constant2.SESSION_KEY_LOGINED_USER);
+        roleLevel.setUser(user2);
         roleLevel.setUpdateTime(TimeHWUtil.getCurrentDateTime());
         roleLevel.setStars(0);
         roleLevel.setStatus(Constant2.NEWS_STATUS_ON);
 
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         AccessLog accessLog = logAdd(request);
         accessLog.setDescription("add test");
         accessLog.setOperateResult("add test:" + roleLevel.getTestcase());

@@ -1,11 +1,6 @@
 package com.girltest.entity;
 
-import java.util.List;
-
 import javax.persistence.*;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 /**
  * Created by huangweii on 2016/2/21.
@@ -20,7 +15,10 @@ public class VoteLog {
      */
     private String voteTime;
     private int status;
-    private Convention convention;
+	/**
+	 * 帖子
+	 */
+	private Convention convention;
     
     @Id
     @GeneratedValue
