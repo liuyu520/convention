@@ -58,6 +58,11 @@
                 </jsp:include>
             </c:when>
             <c:otherwise>
+            <script type="text/javascript" >
+                setTimeout(function () {
+                    history.back();
+                },2000);
+                </script>
                 <div style="text-align:center;padding-top:20px;">
                     没有查询到符合条件的测试.
                 </div>

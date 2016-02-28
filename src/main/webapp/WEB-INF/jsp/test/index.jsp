@@ -32,6 +32,23 @@
 </head>
 <body>
 <jsp:include page="../public/top_admin.jsp"/>
+<div>
+    <h3>搜索 <a href="<%=path%>/test/add">添加测试</a> &nbsp; <a href="<%=path%>/test/list">列表</a></h3>
+    <form action="<%=path%>/test/list" method="post">
+        <table>
+            <tr>
+                <td>
+                    <input type="text" name="testcase" placeholder="请输入您要搜索的关键字" style="font-size: 18px;width: 320px;">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="搜索">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
 <c:choose>
     <c:when test="${recordList!=null && fn:length(recordList)!=0 }">
         <div class="divider">
@@ -59,23 +76,7 @@
     </c:otherwise>
 </c:choose>
 
-<div>
-    <h3>搜索 <a href="<%=path%>/test/add">添加测试</a> &nbsp; <a href="<%=path%>/test/list">列表</a></h3>
-    <form action="<%=path%>/test/list" method="post">
-        <table>
-            <tr>
-                <td>
-                    <input type="text" name="testcase" placeholder="请输入您要搜索的关键字" style="font-size: 18px;width: 320px;">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="submit" value="搜索">
-                </td>
-            </tr>
-        </table>
-    </form>
-</div>
+
 <div>
     <!-- <a href="http://localhost/export?name1=whuang">导出</a> -->
 </div>
