@@ -55,8 +55,10 @@ public class UserController extends UserBaseController<User> {
             /*if (user.getUsername().equals("whuang")) {
                 session.setAttribute("isAdmin", true);//
             }*/
+            //登录之前访问的地址,所以在登录成功之后,应该回调
             String returnUrl = (String) session.getAttribute(LoginUtil.SESSION_KEY_LOGIN_RETURN_URL);
             if (!ValueWidget.isNullOrEmpty(returnUrl)) {
+                session.removeAttribute(LoginUtil.SESSION_KEY_LOGIN_RETURN_URL);
                 response.sendRedirect(returnUrl);
                 return null;
             }
@@ -72,6 +74,7 @@ public class UserController extends UserBaseController<User> {
     @Override
     public void afterLogout(HttpServletRequest request, HttpSession session, GenericUser user) {
         session.removeAttribute("isAdmin");
+        session.removeAttribute(LoginUtil.SESSION_KEY_LOGIN_RETURN_URL);
         //注销日志
         AccessLog accessLog = logLogout(request);
         accessLog.setDescription("logout");

@@ -136,12 +136,13 @@ public class Test2BoyController extends BaseController<Test2Boy> {
 
         Test2BoyDao test2BoyDao = (Test2BoyDao) getDao();
         Test2Boy test2Boy = test2BoyDao.getConventions(id);
-        if (canNotSee(user2, test2Boy)) {//当前用户没权访问该test
-            test2Boy.setConventions(null);
-            model.addAttribute(Constant2.RESPONSE_KEY_ERROR_MESSAGE, "您没有权限");
-            return test2Boy;
-        }
+
         if (null != test2Boy) {
+            if (canNotSee(user2, test2Boy)) {//当前用户没权访问该test
+                test2Boy.setConventions(null);
+                model.addAttribute(Constant2.RESPONSE_KEY_ERROR_MESSAGE, "您没有权限");
+                return test2Boy;
+            }
             List<Convention> conventions = test2Boy.getConventions();
             for (Convention convention : conventions) {
                 //因为在html中\n不会换行,所以要把\n转化为br

@@ -3,6 +3,7 @@ package com.girltest.dao;
 import com.common.dao.generic.GenericDao;
 import com.common.dict.Constant2;
 import com.girltest.entity.Convention;
+import com.time.util.TimeHWUtil;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -24,7 +25,7 @@ public class ConventionDao extends GenericDao<Convention> {
 
         super.getCurrentSession().createSQLQuery("update " + MID_TABLE_NAME + " set status=" + Constant2.NEWS_STATUS_OFF + " where convention_id=" + conventionId).executeUpdate();
 //        super.getCurrentSession().createSQLQuery("update t_convention set status=" + Constant2.NEWS_STATUS_OFF + " where id=" + conventionId).executeUpdate();
-        updateSpecail(conventionId, "status", Constant2.NEWS_STATUS_OFF);
+        updateSpecail(conventionId, "updateTime", TimeHWUtil.getCurrentDateTime(), "status", Constant2.NEWS_STATUS_OFF);
 //        convention.setStatus(Constant2.NEWS_STATUS_OFF);
 //        update(convention);
     }
