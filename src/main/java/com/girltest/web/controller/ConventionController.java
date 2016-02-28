@@ -1,6 +1,7 @@
 package com.girltest.web.controller;
 
 import com.common.dict.Constant2;
+import com.common.util.SystemHWUtil;
 import com.girltest.dao.ConventionDao;
 import com.girltest.dao.Test2BoyDao;
 import com.girltest.entity.Convention;
@@ -54,7 +55,7 @@ public class ConventionController extends BaseController<Convention> {
         return Constant2.RESPONSE_RIGHT_RESULT;
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST, produces = SystemHWUtil.RESPONSE_CONTENTTYPE_PLAIN_UTF)
     @ResponseBody
     public String update(int id, Convention roleLevel, int testBoyId, Model model, HttpServletRequest request) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         ConventionDao conventionDao = (ConventionDao) this.getDao();

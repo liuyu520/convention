@@ -1,22 +1,12 @@
 package com.girltest.entity;
 
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import javax.persistence.*;
+import java.util.List;
 
 /***
  * @author huangweii
@@ -61,7 +51,15 @@ public class Test2Boy {
      * 1:有效;2:被删除
      */
     private int status;
-
+    /***
+     * 创建者
+     */
+    private User user;
+    /***
+     * null或"everyone":都有权限<br >
+     * "private" :只有作者能看见
+     */
+    private String onlyIcanSee;
     @Column(name = "update_time")
     public String getUpdateTime() {
         return updateTime;
@@ -143,4 +141,13 @@ public class Test2Boy {
         this.status = status;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

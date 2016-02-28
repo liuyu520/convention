@@ -51,3 +51,20 @@
    create_time DATETIME
  );
  INSERT INTO t_user (username, password) VALUES ('whuang', '0192023a7bbd73250516f069df18b500');
+ CREATE TABLE t_vote_log (
+   id           INTEGER NOT NULL AUTO_INCREMENT,
+   status       INTEGER NOT NULL,
+   vote_time    VARCHAR(255),
+   conventionId INTEGER,
+   userId       INTEGER,
+   PRIMARY KEY (id)
+ );
+ ALTER TABLE t_vote_log ADD INDEX FK_8kad70wdy4b591d5g2ool1n1q (conventionId), ADD CONSTRAINT FK_8kad70wdy4b591d5g2ool1n1q FOREIGN KEY (conventionId) REFERENCES t_convention (id);
+
+
+ ALTER TABLE t_vote_log ADD INDEX FK_j2d15o1md3j2a73mdn3b6gcep (userId), ADD CONSTRAINT FK_j2d15o1md3j2a73mdn3b6gcep FOREIGN KEY (userId) REFERENCES t_user (id)
+ ALTER TABLE t_test_to_boy ADD COLUMN userId INTEGER;
+ ALTER TABLE t_mid_test_convention ADD INDEX FK_dokxqj4c86atykj617tk3dtv5 (test_id), ADD CONSTRAINT FK_dokxqj4c86atykj617tk3dtv5 FOREIGN KEY (test_id) REFERENCES t_test_to_boy (id);
+ ALTER TABLE t_test_to_boy ADD INDEX FK_a96knyonpt06sh6negxcf400h (userId), ADD CONSTRAINT FK_a96knyonpt06sh6negxcf400h FOREIGN KEY (userId) REFERENCES t_user (id);
+ ALTER TABLE t_vote_log ADD INDEX FK_8kad70wdy4b591d5g2ool1n1q (conventionId), ADD CONSTRAINT FK_8kad70wdy4b591d5g2ool1n1q FOREIGN KEY (conventionId) REFERENCES t_convention (id);
+ ALTER TABLE t_vote_log ADD INDEX FK_j2d15o1md3j2a73mdn3b6gcep (userId), ADD CONSTRAINT FK_j2d15o1md3j2a73mdn3b6gcep FOREIGN KEY (userId) REFERENCES t_user (id);
