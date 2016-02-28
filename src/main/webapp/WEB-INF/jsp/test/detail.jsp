@@ -28,6 +28,7 @@
 </head>
 <body>
 <jsp:include page="../public/top_admin.jsp"/>
+<div class="errormessage" >${errorMessage}</div>
 <a href="<%=path%>/test/add">添加测试</a>&nbsp; <a href="<%=path%>/test/list">列表</a> &nbsp; <a href="<%=path%>/search">首页</a>
 <h4 class="test-detail">
     <img src="<%=path%>/static/img/minus.png" alt="隐藏" style="background-color: #fd05ae;padding: 1px;">
