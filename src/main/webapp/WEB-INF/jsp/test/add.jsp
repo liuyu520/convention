@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://"
@@ -33,11 +35,13 @@
                         <textarea name="testcase" id="" cols="40" rows="5" placeholder="请填写问题(测试)"></textarea>
                     </td>
                 </tr>
+                <c:if test="${sessionScope.user!=null &&sessionScope.user.level==2}">
                 <tr>
                     <td >
                         <label style="float: right;" for="onlyIcanSee"><input type="checkbox" id="onlyIcanSee" value="private" name="onlyIcanSee"  >私有</label>
                     </td>
                 </tr>
+                </c:if>
                 <tr>
                     <td>
                         <input type="submit" value="添加">
