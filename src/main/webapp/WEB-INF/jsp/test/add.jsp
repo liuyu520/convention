@@ -34,6 +34,11 @@
                     </td>
                 </tr>
                 <tr>
+                    <td >
+                        <label style="float: right;" for="onlyIcanSee"><input type="checkbox" id="onlyIcanSee" value="private" name="onlyIcanSee"  >私有</label>
+                    </td>
+                </tr>
+                <tr>
                     <td>
                         <input type="submit" value="添加">
                         &nbsp;&nbsp;<a href="javascript:history.back();">返回</a>

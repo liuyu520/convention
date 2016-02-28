@@ -25,6 +25,7 @@
             var $a=$(self);
             var $div=$a.prev();
             $div.html($div.attr('title'));
+            $a.hide();
         }
     </script>
     <title>首页</title>
