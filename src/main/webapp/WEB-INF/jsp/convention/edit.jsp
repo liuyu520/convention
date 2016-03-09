@@ -27,6 +27,7 @@
                         <%--&nbsp;&nbsp;<a href="javascript:history.back();">返回</a>--%>
                         &nbsp;&nbsp;<a href="javascript:selectAllTxt($('#add_convention_${convention.id} textarea'));">全选</a>
                         &nbsp;&nbsp;<a href="javascript:enlargeTxt($('#add_convention_${convention.id} textarea'));">放大</a>
+                        &nbsp;&nbsp;<a href="javascript:$('#add_convention_${convention.id} textarea').val('').focus();">清空</a>
                     </td>
                 </tr>
             </table>
