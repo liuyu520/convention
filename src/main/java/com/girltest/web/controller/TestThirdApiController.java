@@ -47,6 +47,10 @@ public class TestThirdApiController {
             logger.error("apiPath is null");
             return null;
         }
+        if (!apiPath.startsWith("http")) {//例如:apiPath的值为:i.chanjet.com%2Fuser%2FuserAndAppInfo
+            //自动在前面补充http://
+            apiPath = "http://" + apiPath;
+        }
         URL url = new URL(apiPath);
         URLConnection urlConnection = url.openConnection();
         HttpURLConnection httpUrlConnection = (HttpURLConnection) urlConnection;
