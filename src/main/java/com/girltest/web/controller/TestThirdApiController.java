@@ -1,12 +1,16 @@
 package com.girltest.web.controller;
 
+import com.common.bean.RequestInfoBean;
+import com.common.bean.ResponseResult;
 import com.common.util.SystemHWUtil;
 import com.io.hw.json.HWJacksonUtils;
 import com.string.widget.util.ValueWidget;
 import com.string.widget.util.XSSUtil;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
@@ -41,7 +45,7 @@ public class TestThirdApiController {
      */
     @RequestMapping(value = "/testapi", produces = SystemHWUtil.RESPONSE_CONTENTTYPE_JSON_UTF)
     @ResponseBody
-    public String test(String apiPath, String requestMethod) throws IOException {
+    public String test(@RequestParam(required = true) String apiPath, String requestMethod) throws IOException {
         apiPath = XSSUtil.deleteXSS(apiPath);
         if (ValueWidget.isNullOrEmpty(apiPath)) {
             logger.error("apiPath is null");
@@ -73,6 +77,25 @@ public class TestThirdApiController {
         map.put("responseCode", responseStatusCode);
         map.put("apiPath", apiPath);
         map.put("apiPath url encoded", URLEncoder.encode(apiPath, SystemHWUtil.CHARSET_UTF));
+        return HWJacksonUtils.getJsonP(map);
+    }
+
+    /***
+     * @param requestInfoBean
+     * @return
+     */
+    @RequestMapping(value = "/ajax", produces = SystemHWUtil.RESPONSE_CONTENTTYPE_JSON_UTF)
+    @ResponseBody
+    public String ajax(@RequestBody(required = true) RequestInfoBean requestInfoBean) {
+        logger.info(HWJacksonUtils.getJsonP(requestInfoBean));
+        ResponseResult responseResult = new ResponseResult(requestInfoBean/*, respTextArea_9, autoTestPanel, resultTextPane*/).invoke();
+        Object[] resultArr = responseResult.getResultArr();
+        int resCode = responseResult.getResCode();
+        String jsonResult = responseResult.getResponseJsonResult();
+        Map map = new HashMap();
+        map.put("responseCode", resCode);
+        map.put("responseText", jsonResult);
+
         return HWJacksonUtils.getJsonP(map);
     }
 }
