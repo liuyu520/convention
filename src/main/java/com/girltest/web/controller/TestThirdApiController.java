@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -86,9 +87,15 @@ public class TestThirdApiController {
      */
     @RequestMapping(value = "/ajax", produces = SystemHWUtil.RESPONSE_CONTENTTYPE_JSON_UTF)
     @ResponseBody
-    public String ajax(@RequestBody(required = true) RequestInfoBean requestInfoBean) {
+    public String ajax(@RequestBody/*(required = true)*/ RequestInfoBean requestInfoBean, HttpServletRequest request) {
+        logger.debug(requestInfoBean);
+        logger.info(request.getHeader("Content-Type"));
+        if (ValueWidget.isNullOrEmpty(requestInfoBean.getActionPath())) {
+            logger.error("action path is null");
+            return null;
+        }
         logger.info(HWJacksonUtils.getJsonP(requestInfoBean));
-        ResponseResult responseResult = new ResponseResult(requestInfoBean/*, respTextArea_9, autoTestPanel, resultTextPane*/).invoke();
+        ResponseResult responseResult = new ResponseResult(requestInfoBean).invoke();
         Object[] resultArr = responseResult.getResultArr();
         int resCode = responseResult.getResCode();
         String jsonResult = responseResult.getResponseJsonResult();

@@ -1,11 +1,10 @@
 package com.girltest.web.controller;
 
-import com.common.dict.Constant2;
 import com.girltest.dao.Test2BoyDao;
 import com.girltest.entity.Convention;
 import com.girltest.entity.Test2Boy;
-import com.girltest.entity.VoteLog;
 import com.girltest.util.ConventionUtil;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +20,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/share")
 public class ShareController {
+    protected static Logger logger = Logger.getLogger(ShareController.class);
     private Test2BoyDao test2BoyDao;
     @RequestMapping(value = "/test/{id}")
     public String shareTest(@PathVariable int id, Model model, HttpServletRequest request){
