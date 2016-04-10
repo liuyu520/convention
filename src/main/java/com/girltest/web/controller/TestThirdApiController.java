@@ -6,6 +6,7 @@ import com.common.util.SystemHWUtil;
 import com.io.hw.json.HWJacksonUtils;
 import com.string.widget.util.ValueWidget;
 import com.string.widget.util.XSSUtil;
+import oa.util.SpringMVCUtil;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -82,14 +83,20 @@ public class TestThirdApiController {
     }
 
     /***
+     * Content-Type should not be "application/x-www-form-urlencoded;charset=UTF-8"
      * @param requestInfoBean
      * @return
      */
     @RequestMapping(value = "/ajax", produces = SystemHWUtil.RESPONSE_CONTENTTYPE_JSON_UTF)
     @ResponseBody
-    public String ajax(@RequestBody/*(required = true)*/ RequestInfoBean requestInfoBean, HttpServletRequest request) {
+    public String ajax(@RequestBody(required = true) RequestInfoBean requestInfoBean, HttpServletRequest request) {
         logger.debug(requestInfoBean);
-        logger.info(request.getHeader("Content-Type"));
+        String contentType = SpringMVCUtil.getRequestContentType();
+        logger.info("Content-Type:" + contentType);
+        if (null != contentType && contentType.startsWith("application/x-www-form-urlencoded")) {
+            logger.error("Content-Type is wrong !!!");
+            return null;
+        }
         if (ValueWidget.isNullOrEmpty(requestInfoBean.getActionPath())) {
             logger.error("action path is null");
             return null;
