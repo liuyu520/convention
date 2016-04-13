@@ -23,6 +23,7 @@
     <title>添加答案</title>
 </head>
 <body>
+<jsp:include page="../public/top_admin.jsp"/>
 <div class="tips">
     <span class="success">${message}</span>
 </div>
