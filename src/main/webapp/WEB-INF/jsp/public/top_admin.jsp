@@ -27,5 +27,7 @@
     </c:choose>
     &nbsp;<%--当前页面:${requestScope["javax.servlet.forward.servlet_path"]}--%>
     <a href="<%=path%>/image/convention">上传图片</a>
+    &nbsp;
+    <a href="http://hbjltv.com/html/blog.html">blog set</a>
     <%-- &nbsp;<a target="_blank" href="<%=path%>">首页</a> --%>
 </div>
