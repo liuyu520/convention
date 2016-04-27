@@ -1,12 +1,14 @@
 package com.girltest.entity;
 
 import com.common.entity.user.interf.GenericUser;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "t_user")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User extends GenericUser implements Serializable {
     private static final long serialVersionUID = 2752201242171710474L;
     private int id;
