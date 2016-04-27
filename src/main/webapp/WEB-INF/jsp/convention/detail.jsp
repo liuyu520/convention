@@ -23,6 +23,7 @@
     <title>添加成功</title>
 </head>
 <body>
+<jsp:include page="../public/top_admin.jsp"/>
 <div>
     <h4>${test.testcase}</h4>
     <a href="<%=path%>/test/${test.id}">返回详情</a>&nbsp;<a href="<%=path%>/test/list">列表</a> &nbsp;<a href="<%=path%>/search">首页</a>

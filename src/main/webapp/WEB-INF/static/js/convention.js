@@ -103,7 +103,7 @@ test.list_menu = function (imgSelf, testId) {
         var $self = $(imgSelf);
         var offset2 = $self.offset();
         var left = Number(offset2.left) + 20;
-        var delta = left + 50 - getInner().width;
+        var delta = left + 90 - getInner().width;//90 表示下拉列表的最小宽度
         if (delta > 0) {
             left = left - delta;
         }

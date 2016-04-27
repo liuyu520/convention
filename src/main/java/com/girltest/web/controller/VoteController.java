@@ -12,6 +12,7 @@ import com.io.hw.json.HWJacksonUtils;
 import com.time.util.TimeHWUtil;
 import oa.util.AuthenticateUtil;
 import oa.web.controller.base.BaseController;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/vote")
 public class VoteController extends BaseController<VoteLog> {
+    protected static Logger logger = Logger.getLogger(VoteController.class);
     private VoteLogDao voteLogDao;
     private ConventionDao conventionDao;
     private Test2BoyDao test2BoyDao;

@@ -18,11 +18,12 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <script type="text/javascript" src="http://hbjltv.com/static/js/jquery-1.11.1.js"></script>
-    <script type="text/javascript" src="<%=path%>/static/js/common_util.js"></script>
+    <script type="text/javascript" src="http://hbjltv.com/static/js/common_util.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
     <title>添加答案</title>
 </head>
 <body>
+<jsp:include page="../public/top_admin.jsp"/>
 <div class="tips">
     <span class="success">${message}</span>
 </div>
