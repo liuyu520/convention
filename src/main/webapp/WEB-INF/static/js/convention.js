@@ -108,10 +108,15 @@ test.list_menu = function (imgSelf, testId) {
             left = left - delta;
         }
         var html = '<ul id="list-menu_' + testId + '" class="list-menu" style="top: ' + (Number(offset2.top))
-            + 'px;left: ' + left + 'px;">' +
-            '<li> <a href="' + server_url + '/test/' + testId + '/edit?targetView=test/edit">修改</a> </li>' +
-            '<li> <a href="' + server_url + '/test/' + testId + '/delete" onclick="return confirm(\'确认删除吗\')">删除</a> </li>' +
-            '<li> <a href="' + server_url + '/convention/add_answer?testBoyId=' + testId + '">添加答案</a> </li>' +
+            + 'px;left: ' + left + 'px;">';
+        if (window.isAdmin) {
+            html = html + '<li> <a href="' + server_url + '/test/' + testId + '/edit?targetView=test/edit">修改</a> </li>' +
+                '<li> <a href="' + server_url + '/test/' + testId + '/delete" onclick="return confirm(\'确认删除吗\')">删除</a> </li>';
+        }
+
+        html = html + '<li> <a href="' + server_url + '/convention/add_answer?testBoyId=' + testId + '">添加答案</a> </li>';
+        html = html + '<li> <a target="_blank" href="' + server_url + '/share/test/' + testId + '">分享</a> </li>';
+        html = html +
             '</ul>';
 
         $('body div.draft').append(html);
@@ -141,3 +146,29 @@ var deedit4copy = function (conventionId) {
         $conventionDiv.html($conventionDiv.data("content"));
     }
 };
+var voteConvention = function (self, conventionId, testBoyId) {
+    var options = {
+        url: server_url + "/vote/vote?conventionId=" + conventionId + '&testBoyId=' + testBoyId,
+        type: "POST",
+        dataType: 'json',
+        success: function (json2) {
+            if (json2.result == 1) {
+                $(self).parent().text("已赞");
+                //alert("点赞成功");
+            } else if (json2.result == 3) {
+                alert("您已经点过赞")
+            }
+        },
+        error: function (er) {
+            console.log(er)
+        }
+    };
+    $.ajax(options);
+};
+var editConvention = function (conventionId) {
+    ajaxHtml(server_url + "/convention/edit?testBoyId=3&conventionId=" + conventionId, $('#answer-detail_' + conventionId), null, null);
+};
+var updateConvention = function (self, conventionId) {
+    var $form = com.whuang.hsj.getForm(self);
+    formAjaxHtml(server_url + "//convention/update", $('#answer-detail_' + conventionId), $form);
+}
