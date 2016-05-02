@@ -95,7 +95,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         accessLog.setReserved(oldTest);
         logSave(accessLog, request);
 
-        String resultUrl = getRedirectViewAll() + "?fsdf=" + new Date().getTime();
+        String resultUrl =Constant2.SPRINGMVC_REDIRECT_PREFIX+"test/"+id;// getRedirectViewAll() + "?fsdf=" + new Date().getTime();
         if (!ValueWidget.isNullOrEmpty(targetView)) {
             resultUrl = resultUrl + "&targetView=" + targetView;//先调用list刷新数据,在导向targetView
         }
