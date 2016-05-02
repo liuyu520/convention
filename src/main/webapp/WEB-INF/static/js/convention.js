@@ -119,11 +119,16 @@ test.list_menu = function (imgSelf, testId) {
             '<li> <a href="' + server_url + '/test/' + testId + '/edit?targetView=test/edit">修改</a> </li>' +
             '<li> <a href="' + server_url + '/test/' + testId + '/delete" onclick="return confirm(\'确认删除吗\')">删除</a> </li>' +
             '<li> <a href="' + server_url + '/convention/add_answer?testBoyId=' + testId + '">添加答案</a> </li>' +
+            '<li> <a onclick="hideTest(' + testId + ')">匿了</a> </li>' +
             '</ul>';
 
         $('body div.draft').append(html);
     }
 
+};
+var hideTest=function (testId) {
+    $('#test_li_'+testId).hide();//隐藏整个问题
+    $('#list-menu_'+testId).hide();//隐藏下拉菜单
 };
 var crlf = '\r\n';
 var enedit4copy = function (conventionId) {
