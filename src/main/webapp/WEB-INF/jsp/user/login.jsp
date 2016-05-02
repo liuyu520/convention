@@ -11,7 +11,8 @@
         path = "";
     }
 %>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=100"> <!-- IE8 mode -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
