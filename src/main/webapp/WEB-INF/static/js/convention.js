@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2015/12/27.
  */
-var server_url = "http://" + location.host//+"/convention";
+var server_url = "http://" + location.host+""//+"/convention";
 $(function () {
     $('.test-list li img[data-id]').click(function () {
         var $progress = $('img.progress');
@@ -18,6 +18,13 @@ $(function () {
             $progress.css('left', offset.left + 'px');
             $progress.show();
             $next.after('<div id="answer_' + id + '"  ></div>');
+            if (typeof(ajaxHtml)=== "undefined"){
+                console.log(false);//没有声明
+                alert('没有引入page.js');
+                return;
+            }else{
+                console.log(true);
+            }
             ajaxHtml(server_url + "/test/" + id + "?targetView=test/detail_common&random22=" + Math.random()/*+"&sort="+newsSort*/,
                 $('#answer_' + id), null, function () {
                     $progress.hide('normal');
