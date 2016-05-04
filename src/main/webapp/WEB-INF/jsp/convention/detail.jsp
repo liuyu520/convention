@@ -11,7 +11,7 @@
         path = "";
     }
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -26,7 +26,8 @@
 <jsp:include page="../public/top_admin.jsp"/>
 <div>
     <h4>${test.testcase}</h4>
-    <a href="<%=path%>/test/${test.id}">返回详情</a>&nbsp;<a href="<%=path%>/test/list">列表</a> &nbsp;<a href="<%=path%>/search">首页</a>
+    <a href="<%=path%>/test/${test.id}">返回详情</a>&nbsp;<a href="<%=path%>/test/list">列表</a> &nbsp;
+    <a href="<%=path%>/test/add">添加测试</a>&nbsp;<a href="<%=path%>/search">首页</a>
     &nbsp;<a href="<%=path%>/convention/add_answer?testBoyId=${test.id}">继续添加</a>
    <c:if test="${sessionScope.user!=null &&sessionScope.user.level==2}">
     &nbsp;<a

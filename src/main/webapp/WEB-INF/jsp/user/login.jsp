@@ -11,7 +11,8 @@
         path = "";
     }
 %>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=100"> <!-- IE8 mode -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -194,9 +195,6 @@
 
         </form>
     </c:if>
-    <div style="text-align:center;margin-top:300px;display:none;">
-        <%--技术支持：<a target="_blank" href="http://www.yunmasoft.com" >武汉云玛科技有限公司</a> <br />--%>
-    </div>
 </div>
 
 </body>
