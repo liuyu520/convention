@@ -1,5 +1,7 @@
 package com.girltest.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
 
 /**
@@ -7,6 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_vote_log")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class VoteLog {
     private int id;
     private User user;
