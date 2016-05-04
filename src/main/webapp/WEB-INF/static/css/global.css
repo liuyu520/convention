@@ -94,3 +94,6 @@ input[type=submit] {
     font-size: 30px;
     color: #ffffff;
 }
+.list-menu li:hover{
+    color:#333; background:#eff4f7;
+}

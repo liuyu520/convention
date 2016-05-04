@@ -123,12 +123,17 @@ test.list_menu = function (imgSelf, testId) {
 
         html = html + '<li> <a href="' + server_url + '/convention/add_answer?testBoyId=' + testId + '">添加答案</a> </li>';
         html = html + '<li> <a target="_blank" href="' + server_url + '/share/test/' + testId + '">分享</a> </li>';
+        html = html + '<li> <a onclick="hideTest(' + testId + ')">匿了</a> </li>' ;
         html = html +
             '</ul>';
 
         $('body div.draft').append(html);
     }
 
+};
+var hideTest=function (testId) {
+    $('#test_li_'+testId).hide();//隐藏整个问题
+    $('#list-menu_'+testId).hide();//隐藏下拉菜单
 };
 var crlf = '\r\n';
 var enedit4copy = function (conventionId) {
