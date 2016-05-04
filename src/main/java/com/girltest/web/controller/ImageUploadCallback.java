@@ -1,28 +1,24 @@
 package com.girltest.web.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.html.HTML;
-
+import com.common.util.SystemHWUtil;
+import com.io.hw.file.util.FileUtils;
+import com.io.hw.json.HWJacksonUtils;
+import com.string.widget.util.RegexUtil;
+import com.string.widget.util.ValueWidget;
 import oa.bean.UploadResult;
 import oa.util.HWUtils;
 import oa.web.upload.UploadCallback;
-
 import org.apache.log4j.Logger;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.common.util.SystemHWUtil;
-import com.io.hw.file.util.FileUtils;
-import com.io.hw.json.HWJacksonUtils;
-import com.string.widget.util.ValueWidget;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ImageUploadCallback implements UploadCallback {
@@ -32,11 +28,9 @@ public class ImageUploadCallback implements UploadCallback {
         return "<img style=\"max-width: 99%\" src=\"" + fullUrl + "\" alt=\"\">";
     }
 
-    @Override
-    public String callback(Model model, MultipartFile file, HttpServletRequest request, HttpServletResponse response)
-            throws ParseException, IOException {
+    private static Map getUploadResultMap(MultipartFile file, HttpServletRequest request) {
         String fileName = file.getOriginalFilename();// 上传的文件名
-        fileName = fileName.replaceAll("[\\s]+", SystemHWUtil.EMPTY);//IE中识别不了有空格的json
+        fileName = RegexUtil.filterBlank(fileName);//IE中识别不了有空格的json
 
         UploadResult uploadResult = HWUtils.getSavedToFile(request, fileName, null);
         File savedFile = uploadResult.getSavedFile();
@@ -67,6 +61,13 @@ public class ImageUploadCallback implements UploadCallback {
         map.put("fullUrl", fullUrl);
         map.put("relativePath", uploadResult.getRelativePath());
         map.put("imgTab", ValueWidget.escapeHTML(getHtmlImgTag(fullUrl)));
+        return map;
+    }
+
+    @Override
+    public String callback(Model model, MultipartFile file, HttpServletRequest request, HttpServletResponse response)
+            throws ParseException, IOException {
+        Map map = getUploadResultMap(file, request);
         model.addAllAttributes(map);
         String content = HWJacksonUtils.getJsonP(map);
         logger.info(content);
