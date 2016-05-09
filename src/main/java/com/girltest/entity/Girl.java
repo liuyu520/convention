@@ -75,6 +75,26 @@ public class Girl {
      * 1:有效;2:被删除
      */
     private int status;
+    /***
+     * 单位:厘米 cm
+     */
+    private int height;
+    /***
+     * 体重<br> 单位:KG
+     */
+    private int weight;
+    /***
+     * 工作地点
+     */
+    private String workPlace;
+    /***
+     * 生肖,例如"蛇","龙"
+     */
+    private String animalSign;
+    /***
+     * 民族,例如"汉族"
+     */
+    private String nation;
 
     @Id
     @GeneratedValue
@@ -213,5 +233,47 @@ public class Girl {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    @Column(name = "work_place")
+    public String getWorkPlace() {
+        return workPlace;
+    }
+
+    public void setWorkPlace(String workPlace) {
+        this.workPlace = workPlace;
+    }
+
+    @Column(name = "animal_sign")
+    public String getAnimalSign() {
+        return animalSign;
+    }
+
+    public void setAnimalSign(String animalSign) {
+        this.animalSign = animalSign;
+    }
+
+    public String getNation() {
+        return nation;
+    }
+
+    public void setNation(String nation) {
+        this.nation = nation;
     }
 }
