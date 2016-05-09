@@ -13,8 +13,10 @@ function toPageFirst($form, action) {
         if ($form.find("#view\\.totalPages").val() >= 1) {
             $currentPage.val(1);
         }
+        if (action && typeof action === 'function') {
+            action();
+        }
 
-        action();
     }
 }
 // 符策鹏 修改view.currentPage为view.thisPage 2013/7/25
@@ -29,8 +31,10 @@ function toPagePre($form, action) {
         if (pageNumber >= 0) {
             $form.find("#view\\.currentPage").val(pageNumber);
         }
+        if (action && typeof action === 'function') {
         action();
     }
+}
 }
 // 符策鹏 修改view.currentPage为view.thisPage 2013/7/25
 function toPageNext($form, action) {
@@ -48,8 +52,10 @@ function toPageLast($form, action) {
     if ($currentPage.val() != $totalPages.val()) {
         //$("#form")[0].reset();
         $currentPage.val($totalPages.val());
+        if (action && typeof action === 'function') {
         action();
     }
+}
 }
 resetCurrentPage = function () {
     $("#view\\.currentPage").val(1);
@@ -79,10 +85,24 @@ function toPageGo(action) {
     } else {
         $("#view\\.currentPage").val(currentPage);
     }
+    if (action && typeof action === 'function') {
     action();
 }
+}
+/***
+ * 获取节点的标签名称,比如INPUT,SPAN,DIV,IMG
+ * @param domNode
+ * @returns {string|*}
+ */
+var getTagName = function (domNode) {
+    var tagNameTmp = domNode.tagName || domNode.localName;
+    if (!tagNameTmp) {
+        tagNameTmp = domNode.nodeName;//兼容IE8
+    }
+    return tagNameTmp;
+};
 function checkedAll(event) {
-    var obj = event.srcElement ? event.srcElement : event.target;
+    var obj = com.whuang.hsj.getSrcElement(event);
     var nodeList = document.getElementsByName("checked");
     if (nodeList.length == 0) {
         jAlert("没有可选择的数据！");
@@ -96,8 +116,8 @@ function checkedAll(event) {
 }
 
 function dataListOnMouseOver(event) {
-    var obj = event.srcElement ? event.srcElement : event.target;
-    if (obj.tagName == "INPUT") {
+    var obj = com.whuang.hsj.getSrcElement(event);
+    if (getTagName(obj) == "INPUT") {
         obj = obj.parentNode;
     }
     obj.parentNode.style.cursor = "pointer";
@@ -105,8 +125,8 @@ function dataListOnMouseOver(event) {
 }
 
 function dataListOnMouseOut(event) {
-    var obj = event.srcElement ? event.srcElement : event.target;
-    if (obj.tagName == "INPUT") {
+    var obj = com.whuang.hsj.getSrcElement(event);
+    if (getTagName(obj) == "INPUT") {
         obj = obj.parentNode;
     }
     obj.parentNode.style.backgroundColor = '#e5f1f4';
@@ -114,34 +134,35 @@ function dataListOnMouseOut(event) {
 }
 
 function clickCheckedData(event) {
-    var obj = event.srcElement ? event.srcElement : event.target;
+    var obj = com.whuang.hsj.getSrcElement(event);
 
-    if (obj.tagName == "INPUT") {
+    var tagName = getTagName(obj);
+    if (tagName == "INPUT") {
         return false;
     }
     obj = obj.parentNode.firstChild;
-    while (!obj.tagName) {
+    while (!tagName) {
         obj = obj.nextSibling;
     }
     obj = obj.firstChild;
-    while (!obj.tagName) {
+    while (!tagName) {
         obj = obj.nextSibling;
     }
     obj.checked = !obj.checked;
 }
 
 function dbClickCheckedData(event) {
-    var obj = event.srcElement ? event.srcElement : event.target;
-
-    if (obj.tagName == "INPUT") {
+    var obj = com.whuang.hsj.getSrcElement(event);
+    var tagName = getTagName(obj);
+    if (tagName == "INPUT") {
         return false;
     }
     obj = obj.parentNode.firstChild;
-    while (!obj.tagName) {
+    while (!tagName) {
         obj = obj.nextSibling;
     }
     obj = obj.firstChild;
-    while (!obj.tagName) {
+    while (!tagName) {
         obj = obj.nextSibling;
     }
     obj.checked = true;
@@ -185,11 +206,12 @@ function getSelectionsAndNames(checkedName, idName, nameList, ids) {
 var highlightcolor = '#eafcd5';
 var clickcolor = '#51b2f6';
 function changeto(event) {
-    var source = event.srcElement ? event.srcElement : event.target;
-    if (source.tagName == "TR" || source.tagName == "TABLE")
+    var source = com.whuang.hsj.getSrcElement(event);
+    var tagName = getTagName(source);
+    if (tagName == "TR" || tagName == "TABLE")
         return;
 
-    while (source.parentNode != undefined && source.tagName != "TD")
+    while (source.parentNode != undefined && tagName != "TD")
         source = source.parentNode;
     if (source.parentNode != undefined) {
         source = source.parentNode;
@@ -205,13 +227,13 @@ function changeto(event) {
 }
 
 function changeback(event) {
-    var source = event.srcElement ? event.srcElement : event.target;
+    var source = com.whuang.hsj.getSrcElement(event);
 
     var fromElement = event.fromElement ? event.fromElement : event.target;
     var toElement = event.toElement ? event.toElement : event.relatedTarget;
     if (fromElement == toElement || source == toElement || source.id == "nc")
         return
-    while (source.parentNode != undefined && source.tagName != "TD")
+    while (source.parentNode != undefined && getTagName(source) != "TD")
         source = source.parentNode;
 
     if (source.parentNode != undefined) {
@@ -227,10 +249,11 @@ function changeback(event) {
 }
 
 function clickto() {
-    var source = event.srcElement ? event.srcElement : event.target;
-    if (source.tagName == "TR" || source.tagName == "TABLE")
+    var source = com.whuang.hsj.getSrcElement(event);
+    var tagName = getTagName(source);
+    if (tagName == "TR" || tagName == "TABLE")
         return;
-    while (source.tagName != "TD")
+    while (tagName != "TD")
         source = source.parentElement;
     source = source.parentElement;
     cs = source.children;
@@ -300,7 +323,7 @@ onlyNumberKeyUp = function (event) {
     if (event === undefined) {
         event = window.event;
     }
-    var obj = event.srcElement ? event.srcElement : event.target;
+    var obj = com.whuang.hsj.getSrcElement(event);
     var pattern = /[^\d\.]/ig;
     if (pattern.test(obj.value)) {
         var i = getCursortPosition(event);
@@ -317,7 +340,7 @@ onlyIntegerKeyUp = function (e) {
     if (e === undefined) {
         e = window.event;
     }
-    var obj = e.srcElement ? e.srcElement : e.target;
+    var obj = com.whuang.hsj.getSrcElement(e);
     var pattern = /[^\d]/ig;
     var val = obj.value;
     if (pattern.test(val)) {
@@ -334,7 +357,7 @@ onlyCharKeyUp = function (event) {
     if (event === undefined) {
         event = window.event;
     }
-    var obj = event.srcElement ? event.srcElement : event.target;
+    var obj = com.whuang.hsj.getSrcElement(event);
     var pattern = /^[a-zA-Z]*$/g;
     var val = obj.value;
     if (!pattern.test(val)) {
@@ -352,7 +375,7 @@ onlyNumAndAlphKeyUp = function (event) {
     if (event === undefined) {
         event = window.event;
     }
-    var obj = event.srcElement ? event.srcElement : event.target;
+    var obj = com.whuang.hsj.getSrcElement(event);
     var pattern = /[^\w]/ig;
     if (pattern.test(obj.value)) {
         var i = getCursortPosition(event);
@@ -368,7 +391,7 @@ onlyDotKeyUp = function (event) {
     if (event === undefined) {
         event = window.event;
     }
-    var obj = event.srcElement ? event.srcElement : event.target;
+    var obj = com.whuang.hsj.getSrcElement(event);
     var pattern = /[^\.]/ig;
     if (pattern.test(obj.value)) {
         var i = getCursortPosition(event);
@@ -384,7 +407,7 @@ accountNoRule = function (event) {
     if (event === undefined) {
         event = window.event;
     }
-    var obj = event.srcElement ? event.srcElement : event.target;
+    var obj = com.whuang.hsj.getSrcElement(event);
     var pattern = /[^\a-zA-Z0-9\@\_\-\.]/g;
     if (pattern.test(obj.value)) {
         var i = getCursortPosition(event);
@@ -411,7 +434,7 @@ phoneRule = function (event) {
     if (event === undefined) {
         event = window.event;
     }
-    var obj = event.srcElement ? event.srcElement : event.target;
+    var obj = com.whuang.hsj.getSrcElement(event);
     var pattern = /[^\d\,\-]/g;
     if (pattern.test(obj.value)) {
         var i = getCursortPosition(event);
@@ -438,7 +461,7 @@ telRule = function (event) {
     if (event === undefined) {
         event = window.event;
     }
-    var obj = event.srcElement ? event.srcElement : event.target;
+    var obj = com.whuang.hsj.getSrcElement(event);
     var pattern = /[^\d\,]/g;
     if (pattern.test(obj.value)) {
         var i = getCursortPosition(event);
@@ -478,7 +501,7 @@ gpsRule = function (event) {
     if (event === undefined) {
         event = window.event;
     }
-    var obj = event.srcElement ? event.srcElement : event.target;
+    var obj = com.whuang.hsj.getSrcElement(event);
     var pattern = /[^\d\.]/g;
     if (pattern.test(obj.value)) {
         var i = getCursortPosition(event);
@@ -504,9 +527,12 @@ gpsRuleCheck = function (string) {
 imgCheck = function (Sting) {
     var index = Sting.lastIndexOf(".");
     var ext = Sting.substring(index + 1, Sting.length);
+    if (ext) {
+        ext = ext.toLowerCase();
+    }
     if (index < 0) {
         return false;
-    } else if (ext != "png" && ext != "PNG" && ext != "jpg" && ext != "JPG") {
+    } else if (ext != "png" && ext != "jpg") {
         return false;
     }
     return true;
@@ -518,9 +544,12 @@ imgCheck = function (Sting) {
 excelCheck = function (Sting) {
     var index = Sting.lastIndexOf(".");
     var ext = Sting.substring(index + 1, Sting.length);
+    if (ext) {
+        ext = ext.toLowerCase();
+    }
     if (index < 0) {
         return false;
-    } else if (ext != "xls" && ext != "XLS") {
+    } else if (ext != "xls") {
         return false;
     }
     return true;
@@ -554,7 +583,7 @@ latitudeCheck = function (String) {
  * 
  */
 isMaxLen = function (event) {
-    var obj = event.srcElement ? event.srcElement : event.target;
+    var obj = com.whuang.hsj.getSrcElement(event);
     var target = $("#" + obj.getAttribute("id").replace(".", "\\."));
     var maxLength = target.attr("maxlength");
     if (target.val().length > maxLength) {
@@ -580,7 +609,7 @@ newline = function (event) {
             }
         }
         else {
-            var obj = event.srcElement ? event.srcElement : event.target;
+            var obj = com.whuang.hsj.getSrcElement(event);
             obj.value += "\r\n";
         }
     }
@@ -634,7 +663,7 @@ getCursortPosition = function (event) {// 获取光标位置函数
     if (event === undefined || event === null) {
         event = arguments.callee.caller.arguments[0] || window.event;
     }
-    var obj = event.srcElement ? event.srcElement : event.target;
+    var obj = com.whuang.hsj.getSrcElement(event);
     var CaretPos = 0;	// IE Support
     if (document.selection) {
         obj.focus();
@@ -659,7 +688,7 @@ setCaretPosition = function (event, pos) {// 设置光标位置函数
     if (event === undefined || event === null) {
         event = arguments.callee.caller.arguments[0] || window.event;
     }
-    var obj = event.srcElement ? event.srcElement : event.target;
+    var obj = com.whuang.hsj.getSrcElement(event);
     if (pos > 0) {
         pos = pos - 1;//因为把不匹配的字符删除之后,光标会往后移动一个位置
     }
@@ -805,7 +834,7 @@ function loadJs(url, callback) {
 };
 function loadJS2(url, callback) {
     var script = document.createElement('script');
-    script.type = 'text/javascript';
+    script.type = 'text/javascript';//do not use 'application/javascript',because Low version of the browser is not compatible
     script.charset = "utf-8";
     if (script.readyState) {  // 兼容IE的旧版本
         script.onreadystatechange = function () {
@@ -831,7 +860,7 @@ function xhrLoadJS(url, callback) {
         if (xhr.readyState == 4) {
             if (xhr.status >= 200 && xhr.status < 300 || xhr.status == 304/*页面未修改*/) {
                 var script = document.createElement('script');
-                script.type = 'text/script';
+                script.type = 'text/script';//do not use 'application/javascript',because Low version of the browser is not compatible
                 script.charset = "utf-8";
                 script.text = xhr.responseText;
                 eval(xhr.responseText);  // 执行代码
@@ -1027,7 +1056,7 @@ formAjaxHtml = function (url, jqueryObj, form) {
     if (form) {
         form.ajaxSubmit(options);
     }
-}
+};
 function updateHtml(jqueryObj, html2) {
     jqueryObj.html(html2);
     hideLoadPanel();
