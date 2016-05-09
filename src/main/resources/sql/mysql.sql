@@ -70,3 +70,24 @@
  ALTER TABLE t_vote_log ADD INDEX FK_8kad70wdy4b591d5g2ool1n1q (conventionId), ADD CONSTRAINT FK_8kad70wdy4b591d5g2ool1n1q FOREIGN KEY (conventionId) REFERENCES t_convention (id);
  ALTER TABLE t_vote_log ADD INDEX FK_j2d15o1md3j2a73mdn3b6gcep (userId), ADD CONSTRAINT FK_j2d15o1md3j2a73mdn3b6gcep FOREIGN KEY (userId) REFERENCES t_user (id);
  INSERT INTO t_dictionary (groupid, key2, value, description) VALUES ('authority', 'super', 'whuang', '超级管理员的用户名');
+
+ CREATE TABLE t_girl (
+   id            INTEGER NOT NULL AUTO_INCREMENT,
+   age           INTEGER NOT NULL,
+   birthday      VARCHAR(255),
+   college       VARCHAR(255),
+   constellation VARCHAR(255) COMMENT '星座',
+   createTime    VARCHAR(255),
+   description   VARCHAR(255),
+   hate          VARCHAR(255) COMMENT '忌讳,或讨厌的东西',
+   hobby         VARCHAR(255),
+   hometown      VARCHAR(255) COMMENT '籍贯',
+   job           VARCHAR(255),
+   name          VARCHAR(255),
+   nickName      VARCHAR(255) COMMENT '昵称',
+   pics          VARCHAR(255),
+   portrait      VARCHAR(255) COMMENT '头像',
+   status        INTEGER NOT NULL,
+   updateTime    VARCHAR(255),
+   PRIMARY KEY (id)
+ )
