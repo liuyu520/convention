@@ -18,9 +18,39 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <script type="text/javascript" src="http://hbjltv.com/static/js/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="http://hbjltv.com/static/js/ajaxfileupload.js" ></script>
     <script type="text/javascript" src="http://hbjltv.com/static/js/common_util.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
     <title>添加答案</title>
+    <script type="text/javascript">
+        var ajaxUploadFile = function (self) {
+            var $thisForm = com.whuang.hsj.getForm(self);
+            var $uploadFile = $thisForm.find('input[type=file]');
+            if (!com.whuang.hsj.isHasValue($uploadFile.val())) {
+                alert("请选择要上传的文件.");
+                return false;
+            }
+            var param = {};
+            param.formatTypeInvalid = "您上传的格式不正确，仅支持jpg、jpeg、png、gif、bmp,请重新选择！";
+            param.url =  '<%=path%>/ajax_image/upload';
+            param.success = function (data, status) {
+                console.log(data);
+                if (data && data.fullUrl) {
+                    var $answer=$('textarea[name=answer]');
+                    var oldVal=$answer.val();
+                    $answer.val(oldVal+'<img style="width: 100%" src="'+data.relativePath+'" />');
+                    alert("上传成功");
+                } else {
+                    alert("服务器故障，稍后再试！");
+                }
+            };
+            param.error = function (data, status, e) {
+                console.log(e);
+                alert(e);
+            };
+            com.whuang.hsj.ajaxUploadFile($uploadFile.get(0).id/*'fileToUpload'*/, param);
+        };
+    </script>
 </head>
 <body>
 <jsp:include page="../public/top_admin.jsp"/>
@@ -40,6 +70,14 @@
                 <tr>
                     <td>
                         <textarea name="answer" id="" cols="40" rows="5"  placeholder="请填写答案" ></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="/image/upload"  method="post" enctype="multipart/form-data" >
+                            <input type="file" id="pic-file" name="image223" > <br>
+                            <input type="button" onclick="ajaxUploadFile(this)" value="ajax上传图片" >
+                        </form>
                     </td>
                 </tr>
                 <tr>
