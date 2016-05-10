@@ -87,7 +87,12 @@
    nickName      VARCHAR(255) COMMENT '昵称',
    pics          VARCHAR(255),
    portrait      VARCHAR(255) COMMENT '头像',
-   status        INTEGER NOT NULL,
+   status        TINYINT NOT NULL COMMENT '1:有效;2:被删除',
    updateTime    VARCHAR(255),
+   height        TINYINT,
+   weight        TINYINT,
+   work_place    VARCHAR(255),
+   animal_sign    VARCHAR(255) COMMENT '生肖',
+   nation    VARCHAR(255) COMMENT '民族',
    PRIMARY KEY (id)
  )
