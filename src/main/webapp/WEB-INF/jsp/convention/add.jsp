@@ -53,6 +53,9 @@
             };
             com.whuang.hsj.ajaxUploadFile($uploadFile.get(0).id/*'fileToUpload'*/, param);
         };
+        $(function () {
+            com.whuang.hsj.previewLocalDiskImage($('#pic-file'), $("#previewImage"));
+        })
     </script>
 </head>
 <body>
@@ -81,6 +84,9 @@
                             <input type="file" id="pic-file" name="image223" > <br>
                             <input type="button" onclick="ajaxUploadFile(this)" value="ajax上传图片" >
                         </form>
+                        <div style="width: 100%;" >
+                            <img style="max-width: 100%;" alt="暂无预览图片" id="previewImage" >
+                        </div>
                     </td>
                 </tr>
                 <tr>
