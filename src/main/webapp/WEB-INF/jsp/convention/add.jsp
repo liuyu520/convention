@@ -38,6 +38,9 @@
                 if (data && data.fullUrl) {
                     var $answer=$('textarea[name=answer]');
                     var oldVal=$answer.val();
+                    if(oldVal){
+                        oldVal+='\r\n';
+                    }
                     $answer.val(oldVal+'<img style="width: 100%" src="'+data.relativePath+'" />');
                     alert("上传成功");
                 } else {

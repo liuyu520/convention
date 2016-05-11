@@ -97,3 +97,7 @@ input[type=submit] {
 .list-menu li:hover{
     color:#333; background:#eff4f7;
 }
+.upload-pic{
+    border: 2px solid #F1B5FD;
+    border-radius: 4px;
+}
