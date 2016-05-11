@@ -41,7 +41,7 @@
                     if(oldVal){
                         oldVal+='\r\n';
                     }
-                    $answer.val(oldVal+'<img style="width: 100%" src="'+data.relativePath+'" />');
+                    $answer.val(oldVal+'<img style="max-width: 100%" src="'+data.relativePath+'" />');
                     alert("上传成功");
                 } else {
                     alert("服务器故障，稍后再试！");
