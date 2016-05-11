@@ -27,7 +27,7 @@
             var $thisForm = com.whuang.hsj.getForm(self);
             var $uploadFile = $thisForm.find('input[type=file]');
             if (!com.whuang.hsj.isHasValue($uploadFile.val())) {
-                alert("请选择要上传的文件.");
+                alert("请选择要上传的文件(仅支持jpg、jpeg、png、gif、bmp).");
                 return false;
             }
             var param = {};
@@ -42,9 +42,11 @@
                         oldVal+='\r\n';
                     }
                     $answer.val(oldVal+'<img style="max-width: 100%" src="'+data.relativePath+'" />');
+                    $("#previewImage").attr("src", data.relativePath);
                     alert("上传成功");
                 } else {
                     alert("服务器故障，稍后再试！");
+                    console.log(data);
                 }
             };
             param.error = function (data, status, e) {
@@ -54,6 +56,7 @@
             com.whuang.hsj.ajaxUploadFile($uploadFile.get(0).id/*'fileToUpload'*/, param);
         };
         $(function () {
+            //预览图片,没有真正上传
             com.whuang.hsj.previewLocalDiskImage($('#pic-file'), $("#previewImage"));
         })
     </script>
@@ -72,16 +75,16 @@
         <form action="<%=path%>/test/save_answer" method="post">
             <input type="hidden" name="testBoyId" value="${test.id}">
             <input type="hidden" name="testcase" value="${test.testcase}">
-            <table>
+            <table style="width: 100%;" >
                 <tr>
                     <td>
-                        <textarea name="answer" id="" cols="40" rows="5"  placeholder="请填写答案" ></textarea>
+                        <textarea name="answer" id="" style="width:100%"  rows="5"  placeholder="请填写答案" ></textarea>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="padding-bottom:20px">
                         <form action="/image/upload"  method="post" enctype="multipart/form-data" >
-                            <input type="file" id="pic-file" name="image223" > <br>
+                            <input type="file" id="pic-file" name="image223" > <br><br>
                             <input type="button" onclick="ajaxUploadFile(this)" value="ajax上传图片" >
                         </form>
                         <div style="width: 100%;" >
