@@ -58,6 +58,7 @@
         $(function () {
             //预览图片,没有真正上传
             com.whuang.hsj.previewLocalDiskImage($('#pic-file'), $("#previewImage"));
+            $('textarea[name=answer]').focus();
         })
     </script>
 </head>
@@ -83,11 +84,11 @@
                 </tr>
                 <tr>
                     <td style="padding-bottom:20px">
-                        <form action="/image/upload"  method="post" enctype="multipart/form-data" >
+                        <form action="/image/upload" id="pic-form"  method="post" enctype="multipart/form-data" >
                             <input type="file" id="pic-file" name="image223" > <br><br>
                             <input type="button" onclick="ajaxUploadFile(this)" value="ajax上传图片" >
                         </form>
-                        <div style="width: 100%;" >
+                            <div style="width: 100%;" >
                             <img style="max-width: 100%;" alt="暂无预览图片" id="previewImage" >
                         </div>
                     </td>

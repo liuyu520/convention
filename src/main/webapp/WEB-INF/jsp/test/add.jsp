@@ -22,6 +22,12 @@
     <script type="text/javascript" src="http://hbjltv.com/static/js/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="http://hbjltv.com/static/js/common_util.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
+    <script type="text/javascript" >
+        $(function () {
+            $('textarea[name=testcase]').focus();
+        })
+    </script>
+
     <title>添加测试</title>
 </head>
 <body>
@@ -29,10 +35,10 @@
 <div>
     <div id="add_test">
         <form action="<%=path%>/test/add?targetView=/convention/add" onsubmit="return test.checkAddTestForm(this)" method="post">
-            <table>
+            <table style="width: 100%;" >
                 <tr>
                     <td>
-                        <textarea name="testcase" id="" cols="40" rows="5" placeholder="请填写问题(测试)"></textarea>
+                        <textarea name="testcase" id="" style="width: 100%" rows="5" placeholder="请填写问题(测试)"></textarea>
                     </td>
                 </tr>
                 <c:if test="${sessionScope.user!=null &&sessionScope.user.level==2}">
@@ -45,6 +51,7 @@
                 <tr>
                     <td>
                         <input type="submit" value="添加">
+                        &nbsp;&nbsp;<a href="javascript:checkExist($('#add_test textarea').val());">检查是否存在</a>
                         &nbsp;&nbsp;<a href="javascript:history.back();">返回</a>
                         &nbsp;&nbsp;<a href="javascript:selectAllTxt($('#add_test textarea'));">全选</a>
                         &nbsp;&nbsp;<a href="javascript:enlargeTxt($('#add_test textarea'));">放大</a>
