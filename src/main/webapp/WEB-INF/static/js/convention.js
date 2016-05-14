@@ -37,11 +37,14 @@ $(function () {
     //add answer
     var $add_convention = $('#add_convention');
     $add_convention.find('.btn').click(function () {
-        var answer = $add_convention.find('textarea').val();
+        var $conventionTA=$add_convention.find('textarea');
+        var answer = com.whuang.hsj.trim($conventionTA.val());
         if (answer) {
+            document.forms[0].submit();
             return true;
         } else {
             alert("请输入内容");
+            $conventionTA.focus();
             return false;
         }
     });
@@ -84,7 +87,7 @@ test.query = function () {
 };
 test.checkAddTestForm = function (form) {
     var $ta = $(form).find('textarea[name=testcase]');
-    if ($ta.val()) {
+    if (com.whuang.hsj.trim($ta.val())) {
         return true;
     } else {
         alert("请输入");
@@ -100,6 +103,13 @@ var enlargeTxt = function ($txt) {
     $txt.attr('cols', (Number(cols) + 8));
     $txt.attr('rows', (Number(rows) + 3));
 };
+var checkExist=function (val) {
+    if(val){
+        //ajax 调用接口判断是否存在该问题
+        
+    }
+
+}
 test.list_menu = function (imgSelf, testId) {
     //alert(getInner().width)
     console.log(testId);
