@@ -100,7 +100,7 @@ var selectAllTxt = function ($txt) {
 var enlargeTxt = function ($txt) {
     var cols = $txt.attr('cols');
     var rows = $txt.attr('rows');
-    $txt.attr('cols', (Number(cols) + 8));
+    // $txt.attr('cols', (Number(cols) + 8));
     $txt.attr('rows', (Number(rows) + 3));
 };
 var checkExist=function (val) {
@@ -192,5 +192,11 @@ var editConvention = function (conventionId) {
 };
 var updateConvention = function (self, conventionId) {
     var $form = com.whuang.hsj.getForm(self);
-    formAjaxHtml(server_url + "//convention/update", $('#answer-detail_' + conventionId), $form);
+    var $answer_detail=$('#answer-detail_' + conventionId);
+    var action=server_url + "/convention/update?targetView=/convention/detail";
+    if($answer_detail.length==0){
+        $form.attr('action',action);
+        $form.submit();
+    }
+    formAjaxHtml(action, $answer_detail, $form);
 }

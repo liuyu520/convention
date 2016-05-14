@@ -58,7 +58,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
     }
 
     @RequestMapping("/save_answer")
-    public String addAnswer(Model model, HttpServletRequest request, Test2Boy test2Boy, int testBoyId, Convention convention) {
+    public String addAnswer(Model model, HttpServletRequest request, Test2Boy test2Boy, int testBoyId, Convention convention,String targetView) {
         init(request);
         test2Boy.setId(testBoyId);
         /*List<Convention> conventions=test2Boy.getConventions();
@@ -78,6 +78,9 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         model.addAttribute("test", test2Boy);
         convention.setAnswer(ConventionUtil.convertBr(convention.getAnswer()));
         model.addAttribute("convention", convention);
+        if(!ValueWidget.isNullOrEmpty(targetView)){
+            return targetView;
+        }
         return "convention/detail";
     }
 

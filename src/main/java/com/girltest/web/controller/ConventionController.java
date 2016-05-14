@@ -7,6 +7,7 @@ import com.girltest.dao.Test2BoyDao;
 import com.girltest.entity.Convention;
 import com.girltest.entity.Test2Boy;
 import com.girltest.util.ConventionUtil;
+import com.string.widget.util.ValueWidget;
 import com.time.util.TimeHWUtil;
 import oa.entity.common.AccessLog;
 import oa.web.controller.base.BaseController;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /***
  *
@@ -58,8 +61,8 @@ public class ConventionController extends BaseController<Convention> {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, produces = SystemHWUtil.RESPONSE_CONTENTTYPE_PLAIN_UTF)
-    @ResponseBody
-    public String update(int id, Convention roleLevel, int testBoyId, Model model, HttpServletRequest request) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+//    @ResponseBody
+    public String update(int id, Convention roleLevel, int testBoyId, Model model, HttpServletRequest request, HttpServletResponse response, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, IOException {
         ConventionDao conventionDao = (ConventionDao) this.getDao();
         Convention convention = conventionDao.get(id);
         String oldAnswer = convention.getAnswer();
@@ -77,24 +80,37 @@ public class ConventionController extends BaseController<Convention> {
         roleLevel.setAnswer(ConventionUtil.convertBr(roleLevel.getAnswer()));
         Test2Boy test2Boy = test2BoyDao.get(testBoyId);
         model.addAttribute("test", test2Boy);
-        return roleLevel.getAnswer(); //getJspFolder() + "/detail";
+        if(ValueWidget.isNullOrEmpty(targetView)){
+            response.getWriter().write(roleLevel.getAnswer());
+            return null;
+        }else{
+            return targetView;
+        }
+        //getJspFolder() + "/detail";
     }
 
     @RequestMapping(value = "/add_answer")
-    public String addAnswer(int testBoyId, Model model, HttpServletRequest request) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+    public String addAnswer(int testBoyId, Model model, HttpServletRequest request,String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         Test2Boy test2Boy = test2BoyDao.get(testBoyId);
         model.addAttribute("test", test2Boy);
+        if(!ValueWidget.isNullOrEmpty(targetView)){
+            return targetView;
+        }
         return getJspFolder() + "/add";
     }
 
     @RequestMapping("/edit")
-    public String editAnswer(Model model, HttpServletRequest request, /*Test2Boy test2Boy, int testBoyId, */int conventionId) {
+    public String editAnswer(Model model, HttpServletRequest request, /*Test2Boy test2Boy,  */int testBoyId,int conventionId,String targetView) {
         init(request);
-//        test2Boy.setId(testBoyId);
+        Test2Boy test2Boy=new Test2Boy();
+        test2Boy.setId(testBoyId);
         ConventionDao conventionDao = (ConventionDao) this.getDao();
         Convention convention = conventionDao.get(conventionId);
-//        model.addAttribute("test", test2Boy);
+        model.addAttribute("test", test2Boy);
         model.addAttribute("convention", convention);
+        if(!ValueWidget.isNullOrEmpty(targetView)){
+            return targetView;
+        }
         return "convention/edit";
     }
 
