@@ -73,13 +73,15 @@
     <a href="<%=path%>/test/add">添加测试</a>&nbsp; <a href="<%=path%>/test/${test.id}">返回详情</a>
     &nbsp;<a href="<%=path%>/test/list">列表</a> &nbsp; <a href="<%=path%>/search">首页</a>
     <div id="add_convention">
-        <form action="<%=path%>/test/save_answer" method="post">
-            <input type="hidden" name="testBoyId" value="${test.id}">
-            <input type="hidden" name="testcase" value="${test.testcase}">
+
             <table style="width: 100%;" >
                 <tr>
                     <td>
-                        <textarea name="answer" id="" style="width:100%"  rows="5"  placeholder="请填写答案" ></textarea>
+                        <form action="<%=path%>/test/save_answer" method="post">
+                            <input type="hidden" name="testBoyId" value="${test.id}">
+                            <input type="hidden" name="testcase" value="${test.testcase}">
+                            <textarea name="answer" id="" style="width:100%"  rows="5"  placeholder="请填写答案" ></textarea>
+                        </form>
                     </td>
                 </tr>
                 <tr>
@@ -95,14 +97,14 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="submit" class="btn" value="添加">
+                        <input type="button" class="btn" value="添加">
                         &nbsp;&nbsp;<a href="javascript:history.back();">返回</a>
                         &nbsp;&nbsp;<a href="javascript:selectAllTxt($('#add_convention textarea'));">全选</a>
                         &nbsp;&nbsp;<a href="javascript:enlargeTxt($('#add_convention textarea'));">放大</a>
                     </td>
                 </tr>
             </table>
-        </form>
+
     </div>
 </div>
 </body>
