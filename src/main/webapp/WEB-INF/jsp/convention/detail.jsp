@@ -31,7 +31,7 @@
     &nbsp;<a href="<%=path%>/convention/add_answer?testBoyId=${test.id}">继续添加</a>
    <c:if test="${sessionScope.user!=null &&sessionScope.user.level==2}">
     &nbsp;<a
-        href="<%=path%>/convention/edit?testBoyId=${test.id}&conventionId=${convention.id}&testcase=${test.testcase }">编辑</a>
+        href="<%=path%>/convention/edit?testBoyId=${test.id}&conventionId=${convention.id}&testcase=${test.testcase }">编辑答案</a>
         </c:if>
     <div>
         ${convention.answer}

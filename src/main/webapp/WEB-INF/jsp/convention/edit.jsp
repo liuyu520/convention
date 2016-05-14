@@ -9,16 +9,16 @@
         path = "";
     }
 %>
-
+<script type="text/javascript" src="http://hbjltv.com/static/js/jquery-1.11.1.js"></script>
 
     <div id="add_convention_${convention.id}">
         <form  method="post">
             <input type="hidden" name="testBoyId" value="${test.id}">
             <input type="hidden" name="id" value="${convention.id}">
-            <table>
+            <table  style="width: 100%;">
                 <tr>
                     <td>
-                        <textarea name="answer" cols="39" rows="5">${convention.answer}</textarea>
+                        <textarea name="answer" style="width:100%" rows="5">${convention.answer}</textarea>
                     </td>
                 </tr>
                 <tr>

@@ -28,15 +28,15 @@
     <div>
         <form action="<%=path%>/test/${test.id}/update2" onsubmit="return test.checkAddTestForm(this)" method="post">
             <input type="hidden" name="id" value="${test.id}">
-            <table>
+            <table style="width: 100%;" >
                 <tr>
                     <td>
-                        <textarea name="testcase" id="" cols="40" rows="5">${test.testcase}</textarea>
+                        <textarea name="testcase" id="" style="width: 100%" rows="5">${test.testcase}</textarea>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="submit" value="修改">
+                        <input type="submit" value="修改">&nbsp;&nbsp; <a href="javascript:history.back();">返回</a>
                     </td>
                 </tr>
             </table>
