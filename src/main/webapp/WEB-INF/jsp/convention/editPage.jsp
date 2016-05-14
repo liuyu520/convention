@@ -28,7 +28,10 @@
     <title>添加成功</title>
 </head>
 <body>
-<jsp:include page="../convention/edit.jsp"/>
+<jsp:include page="../convention/edit.jsp">
+    <jsp:param name="embedded" value="yes"/>
+</jsp:include>
+<!-- embedded用于js方法updateConvention()的第三个参数 -->
 
 </body>
 </html>

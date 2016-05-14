@@ -190,10 +190,13 @@ var voteConvention = function (self, conventionId, testBoyId) {
 var editConvention = function (conventionId) {
     ajaxHtml(server_url + "/convention/edit?testBoyId=3&conventionId=" + conventionId, $('#answer-detail_' + conventionId), null, null);
 };
-var updateConvention = function (self, conventionId) {
+var updateConvention = function (self, conventionId,embedded) {
     var $form = com.whuang.hsj.getForm(self);
     var $answer_detail=$('#answer-detail_' + conventionId);
-    var action=server_url + "/convention/update?targetView=/convention/detail";
+    var action=server_url + "/convention/update";
+    if(embedded&&embedded=='yes'){
+        action=action+"?targetView=/convention/detail";
+    }
     if($answer_detail.length==0){
         $form.attr('action',action);
         $form.submit();
