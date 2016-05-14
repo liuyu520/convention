@@ -25,9 +25,13 @@
     <script type="text/javascript" src="http://hbjltv.com/static/js/common_util.js"></script>
     <script type="text/javascript" src="http://hbjltv.com/static/js/page.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
-    <title>添加成功</title>
+    <title>编辑答案</title>
 </head>
 <body>
+<h3>编辑答案</h3>
+<h4>【${test.testcase}】</h4>
+<a href="<%=path%>/test/add">添加测试</a>&nbsp; <a href="<%=path%>/test/${test.id}">返回详情</a>
+&nbsp;<a href="<%=path%>/test/list">列表</a> &nbsp; <a href="<%=path%>/search">首页</a>
 <jsp:include page="../convention/edit.jsp">
     <jsp:param name="embedded" value="yes"/>
 </jsp:include>

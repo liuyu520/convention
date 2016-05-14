@@ -101,6 +101,13 @@
                         &nbsp;&nbsp;<a href="javascript:history.back();">返回</a>
                         &nbsp;&nbsp;<a href="javascript:selectAllTxt($('#add_convention textarea'));">全选</a>
                         &nbsp;&nbsp;<a href="javascript:enlargeTxt($('#add_convention textarea'));">放大</a>
+                        &nbsp;&nbsp; <select  id="font_select">
+                        <options>
+                            <option value="red">红色</option>
+                            <option value="bold">加粗</option>
+                            <option value="red_bold">红色并加粗</option>
+                        </options>
+                    </select>
                     </td>
                 </tr>
             </table>
