@@ -84,7 +84,7 @@
 
     <session-config>
         <!-- 单位是分钟 -->
-        <session-timeout>100</session-timeout>
+        <session-timeout>1200</session-timeout>
     </session-config>
 
 </web-app>
