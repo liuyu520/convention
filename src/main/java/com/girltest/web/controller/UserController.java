@@ -2,8 +2,10 @@ package com.girltest.web.controller;
 
 import com.common.entity.user.interf.GenericUser;
 import com.common.util.LoginUtil;
+import com.common.util.SystemHWUtil;
 import com.girltest.entity.User;
 import com.girltest.filter.chain.LoginResultFilterChain;
+import com.io.hw.json.HWJacksonUtils;
 import com.string.widget.util.ValueWidget;
 import oa.bean.LoginResultBean;
 import oa.entity.common.AccessLog;
@@ -12,12 +14,15 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+
+//import com.girltest.filter.chain.LoginResultFilterChain;
 
 @Controller
 @RequestMapping("/user")
@@ -64,6 +69,30 @@ public class UserController extends UserBaseController<User> {
             }
             return "redirect:/search";
         }
+    }
+
+    /***
+     * {"failed":false} <br>
+     * {"message":"您输入的密码有误.","failed":true}
+     *
+     * @param model
+     * @param status
+     * @param issavePasswd
+     * @param user
+     * @param session
+     * @param request
+     * @param response
+     * @param callback
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @RequestMapping(value = "/json/login", produces = SystemHWUtil.RESPONSE_CONTENTTYPE_JSON_UTF)
+    public String login(Model model, Integer status, Integer issavePasswd, User user,
+                        HttpSession session, HttpServletRequest request, HttpServletResponse response, String callback)
+            throws IOException {
+        LoginResultBean loginResultBean = loginCommon(model, user, request, response, session, null, null);
+        return HWJacksonUtils.getJsonP(loginResultBean);
     }
 
     @Override

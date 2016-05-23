@@ -24,7 +24,8 @@
  );
  create table t_test_to_boy (
    id                 integer not null auto_increment,
-   testcase           LONGTEXT,
+   testcase           LONGTEXT UNIQUE
+   COMMENT '问题',
    alias              LONGTEXT,
    alias2             LONGTEXT,
    update_time        VARCHAR(30),
