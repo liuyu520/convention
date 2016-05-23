@@ -50,6 +50,14 @@
             </init-param> -->
     </filter>
 
+    <filter>
+        <filter-name>cors</filter-name>
+        <filter-class>oa.web.filter.SimpleCORSFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>cors</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <servlet>
         <servlet-name>spring2</servlet-name>
