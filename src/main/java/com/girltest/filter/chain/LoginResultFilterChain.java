@@ -3,13 +3,14 @@ package com.girltest.filter.chain;
 import com.girltest.entity.User;
 import com.girltest.filter.infac.LoginResultFilter;
 import oa.bean.LoginResultBean;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class LoginResultFilterChain implements LoginResultFilter {
     private List<LoginResultFilter> loginResultFilters = new ArrayList<LoginResultFilter>();
 

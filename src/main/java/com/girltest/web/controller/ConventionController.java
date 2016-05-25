@@ -81,6 +81,9 @@ public class ConventionController extends BaseController<Convention> {
         Test2Boy test2Boy = test2BoyDao.get(testBoyId);
         model.addAttribute("test", test2Boy);
         if(ValueWidget.isNullOrEmpty(targetView)){
+            //解决中文乱码问题
+            response.setCharacterEncoding(SystemHWUtil.CHARSET_UTF);
+            response.setContentType(SystemHWUtil.RESPONSE_CONTENTTYPE_PLAIN_UTF);
             response.getWriter().write(roleLevel.getAnswer());
             return null;
         }else{
