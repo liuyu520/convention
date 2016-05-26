@@ -1,5 +1,6 @@
 package com.girltest.web.controller;
 
+import com.common.util.SystemHWUtil;
 import com.io.hw.json.HWJacksonUtils;
 import oa.util.HWUtils;
 import oa.web.upload.UploadCallback;
@@ -25,6 +26,8 @@ public class AjaxImageUploadCallback implements UploadCallback {
         Map map = HWUtils.getUploadResultMap(file, request);
         model.addAllAttributes(map);
         String content = HWJacksonUtils.getJsonP(map);
+        response.setCharacterEncoding(SystemHWUtil.CHARSET_UTF);
+        response.setContentType(SystemHWUtil.RESPONSE_CONTENTTYPE_JSON_UTF);
         PrintWriter out = response.getWriter();
         out.print(content);
         out.flush();

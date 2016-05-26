@@ -23,6 +23,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /***
  *
@@ -84,7 +85,9 @@ public class ConventionController extends BaseController<Convention> {
             //解决中文乱码问题
             response.setCharacterEncoding(SystemHWUtil.CHARSET_UTF);
             response.setContentType(SystemHWUtil.RESPONSE_CONTENTTYPE_PLAIN_UTF);
-            response.getWriter().write(roleLevel.getAnswer());
+            PrintWriter out = response.getWriter();
+            out.write(roleLevel.getAnswer());
+            out.flush();
             return null;
         }else{
             return targetView;
