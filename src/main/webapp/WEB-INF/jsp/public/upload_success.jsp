@@ -29,8 +29,8 @@
 <div>
     <ul>
         <li><a href="${fullUrl}">${fullUrl}</a> </li>
-        <li>${imgTab}</li>
-        <li><textarea name="" id="" style="width: 100%;" rows="10">${imgTab}</textarea> </li>
+        <li>${imgTag}</li>
+        <li><textarea name="" id="" style="width: 100%;" rows="10">${imgTag}</textarea> </li>
         <li><img style="max-width: 100%" src="${fullUrl}" alt=""></li>
     </ul>
 
