@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://"
@@ -30,7 +32,7 @@
     <ul>
         <li><a href="${fullUrl}">${fullUrl}</a> </li>
         <li>${imgTag}</li>
-        <li><textarea name="" id="" style="width: 100%;" rows="10">${imgTag}</textarea> </li>
+        <li><textarea name="" id="" style="width: 100%;" rows="10"><c:choose><c:when test="${imgTag==null||fn:length(imgTag)==0 ||fn:length(fn:trim(imgTag))==0 }">${imgTab}</c:when><c:otherwise>${imgTag}</c:otherwise></c:choose></textarea> </li>
         <li><img style="max-width: 100%" src="${fullUrl}" alt=""></li>
     </ul>
 
