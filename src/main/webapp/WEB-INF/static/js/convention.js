@@ -131,6 +131,7 @@ test.list_menu = function (imgSelf, testId) {
                 '<li> <a href="' + server_url + '/test/' + testId + '/delete" onclick="return confirm(\'确认删除吗\')">删除</a> </li>';
         }
         html = html + '<li> <a onclick="expandTest2(' + testId + ')">展开问题</a> </li>';
+        html = html + '<li> <a onclick="collapseTest(' + testId + ')">收起问题</a> </li>';
         html = html + '<li> <a href="' + server_url + '/convention/add_answer?testBoyId=' + testId + '">添加答案</a> </li>';
         html = html + '<li> <a target="_blank" href="' + server_url + '/share/test/' + testId + '">分享</a> </li>';
         html = html + '<li> <a onclick="hideTest(' + testId + ')">匿了</a> </li>' ;
@@ -140,6 +141,14 @@ test.list_menu = function (imgSelf, testId) {
         $('body div.draft').append(html);
     }
 
+};
+var collapseTest=function (testId) {
+    var $a=$('#test_li_'+testId+'>a');
+    var content2=$a.html().trim();
+    if(content2&&content2.length>50){
+        $a.html(content2.substr(0,50));
+        $('#list-menu_'+testId).hide();//隐藏下拉菜单
+    }
 };
 var expandTest2=function (testId) {
     var $a=$('#test_li_'+testId+'>a');

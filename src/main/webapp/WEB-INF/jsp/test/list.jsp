@@ -56,7 +56,12 @@
                 <c:forEach items="${view.recordList }" var="bbs" varStatus="status">
                     <li id="test_li_${bbs.id}" ><span class="gray">(${bbs.id})</span>【<a title="${bbs.testcase}" data-content="${bbs.testcase}"
                                                                  href="<%=path%>/test/${bbs.id}"><c:choose>
-                        <c:when test="${bbs.testcase!=null && fn:length(bbs.testcase)!=0 }">${fn:substring(bbs.testcase,0,50)}</c:when>
+                        <c:when test="${bbs.testcase!=null && fn:length(bbs.testcase)!=0 }">
+                            <c:choose>
+                                <c:when test="${fn:length(bbs.testcase)>50 }">
+                                    ${fn:substring(bbs.testcase,0,50)}</c:when>
+                                <c:otherwise>${bbs.testcase}</c:otherwise>
+                            </c:choose></c:when>
                         <c:otherwise>未命名</c:otherwise>
                     </c:choose> </a>】 &nbsp;
                         <img data-id="${bbs.id}" style="padding-right: 20px;padding-top: 5px;cursor: pointer"
