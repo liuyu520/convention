@@ -20,6 +20,7 @@
     <script type="text/javascript" src="http://hbjltv.com/static/js/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="http://hbjltv.com/static/js/ajaxfileupload.js" ></script>
     <script type="text/javascript" src="http://hbjltv.com/static/js/common_util.js"></script>
+    <script type="text/javascript" src="http://hbjltv.com/static/js/page.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
     <title>添加答案</title>
     <script type="text/javascript">
@@ -43,7 +44,7 @@
                     }
                     $answer.val(oldVal+'<img style="max-width: 100%" src="'+data.relativePath+'" />');
                     $("#previewImage").attr("src", data.relativePath);
-                    alert("上传成功");
+                    com.whuang.hsj.setMessage(null,'upload_result_tip',"上传成功","correct");
                 } else {
                     alert("服务器故障，稍后再试！");
                     console.log(data);
@@ -88,7 +89,7 @@
                     <td style="padding-bottom:20px">
                         <form action="/image/upload" id="pic-form"  method="post" enctype="multipart/form-data" >
                             <input type="file" id="pic-file" name="image223" > <br><br>
-                            <input type="button" onclick="ajaxUploadFile(this)" value="ajax上传图片" >
+                            <input type="button" onclick="ajaxUploadFile(this)" value="ajax上传图片" > <span  id="upload_result_tip" ></span>
                         </form>
                             <div style="width: 100%;" >
                             <img style="max-width: 100%;" alt="暂无预览图片" id="previewImage" >
