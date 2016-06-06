@@ -130,7 +130,7 @@ test.list_menu = function (imgSelf, testId) {
             html = html + '<li> <a href="' + server_url + '/test/' + testId + '/edit?targetView=test/edit">修改</a> </li>' +
                 '<li> <a href="' + server_url + '/test/' + testId + '/delete" onclick="return confirm(\'确认删除吗\')">删除</a> </li>';
         }
-
+        html = html + '<li> <a onclick="expandTest2(' + testId + ')">展开问题</a> </li>';
         html = html + '<li> <a href="' + server_url + '/convention/add_answer?testBoyId=' + testId + '">添加答案</a> </li>';
         html = html + '<li> <a target="_blank" href="' + server_url + '/share/test/' + testId + '">分享</a> </li>';
         html = html + '<li> <a onclick="hideTest(' + testId + ')">匿了</a> </li>' ;
@@ -140,6 +140,11 @@ test.list_menu = function (imgSelf, testId) {
         $('body div.draft').append(html);
     }
 
+};
+var expandTest2=function (testId) {
+    var $a=$('#test_li_'+testId+'>a');
+    $a.html($a.data('content'));
+    $('#list-menu_'+testId).hide();//隐藏下拉菜单
 };
 var hideTest=function (testId) {
     $('#test_li_'+testId).hide();//隐藏整个问题
@@ -200,6 +205,7 @@ var updateConvention = function (self, conventionId,embedded) {
     if($answer_detail.length==0){
         $form.attr('action',action);
         $form.submit();
+        return;
     }
     formAjaxHtml(action, $answer_detail, $form);
 }
