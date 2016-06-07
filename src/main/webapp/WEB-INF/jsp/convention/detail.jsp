@@ -28,7 +28,7 @@
     <h4>${test.testcase}</h4>
     <a href="<%=path%>/test/${test.id}">返回详情</a>&nbsp;<a href="<%=path%>/test/list">列表</a> &nbsp;
     <a href="<%=path%>/test/add">添加测试</a>&nbsp;<a href="<%=path%>/search">首页</a>
-    &nbsp;<a href="<%=path%>/convention/add_answer?testBoyId=${test.id}">继续添加</a>
+    &nbsp;<a href="<%=path%>/convention/add_answer?testBoyId=${test.id}">继续添加答案</a>
    <c:if test="${sessionScope.user!=null &&sessionScope.user.level==2}">
     &nbsp;<a
         href="<%=path%>/convention/edit?targetView=/convention/editPage&&testBoyId=${test.id}&conventionId=${convention.id}&testcase=${test.testcase }">编辑答案</a>
