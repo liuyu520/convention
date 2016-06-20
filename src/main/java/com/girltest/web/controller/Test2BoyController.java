@@ -11,6 +11,7 @@ import com.girltest.entity.User;
 import com.girltest.entity.VoteLog;
 import com.girltest.util.ConventionUtil;
 import com.io.hw.json.HWJacksonUtils;
+import com.string.widget.util.RegexUtil;
 import com.string.widget.util.ValueWidget;
 import com.time.util.TimeHWUtil;
 import oa.entity.common.AccessLog;
@@ -28,7 +29,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -66,7 +66,14 @@ public class Test2BoyController extends BaseController<Test2Boy> {
 			conventions=new ArrayList<Convention>();
 		}*/
         convention.setUpdateTime(TimeHWUtil.getCurrentDateTime());
+
         convention.setStatus(Constant2.NEWS_STATUS_ON);
+        String anser = convention.getAnswer();
+
+        if (!ValueWidget.isNullOrEmpty(anser)) {
+            anser = RegexUtil.filterExpression(anser);
+            convention.setAnswer(anser);
+        }
         conventionDao.addAnswer(convention, testBoyId);
 
         AccessLog accessLog = logAdd(request);
