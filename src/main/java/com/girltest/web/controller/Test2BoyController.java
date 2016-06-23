@@ -154,14 +154,29 @@ public class Test2BoyController extends BaseController<Test2Boy> {
                 return test2Boy;
             }
             List<Convention> conventions = test2Boy.getConventions();
-            for (Convention convention : conventions) {
+            int size = conventions.size();
+            Object[] objects = new Object[size];
+            for (int i = 0; i < size; i++) {
+                Convention convention = conventions.get(i);
+                objects[i] = convention.getId();
+            }
+            List voteLogTmps = this.voteLogDao.getList("user.id", user2.getId(), "convention.id", objects);
+            int voteLogSize = voteLogTmps.size();
+            for (int j = 0; j < voteLogSize; j++) {
+                VoteLog voteLogTmp = (VoteLog) voteLogTmps.get(j);
+                Convention convention = voteLogTmp.getConvention();
+                if (null != convention) {
+                    convention.setHasStar(true);
+                }
+            }
+            /*for (Convention convention : conventions) {
                 //因为在html中\n不会换行,所以要把\n转化为br
                 convention.setAnswer(ConventionUtil.convertBr(convention.getAnswer()));
                 VoteLog voteLogTmp=this.voteLogDao.get( "user.id", user2.getId(),"convention.id",convention.getId());
                 if(null!=voteLogTmp){
                     convention.setHasStar(true);
                 }
-            }
+            }*/
         } else {//无conventions的时候
             test2Boy = test2BoyDao.get(id);
             test2Boy.setConventions(null);
