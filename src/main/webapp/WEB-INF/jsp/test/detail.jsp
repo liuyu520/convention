@@ -38,8 +38,13 @@
 &nbsp; <a href="<%=path%>/test/${test.id}/edit?targetView=test/edit">编辑问题</a>
         &nbsp; <a target="_blank" href="<%=path%>/share/test/${test.id}">分享问题</a>
 </c:if>
+&nbsp;&nbsp;<a href="javascript:anchorGoIndexTop('bottomHref')">回到底部</a>
 <div>
+    <a href="" name="topHref" ></a>
     <jsp:include page="./detail_common.jsp"></jsp:include>
+    <div style="text-align: right;margin-top: 12px;">
+        <a  name="bottomHref" href="javascript:anchorGoIndexTop('topHref')">回到顶部</a>
+    </div>
 </div>
 
 </div>
