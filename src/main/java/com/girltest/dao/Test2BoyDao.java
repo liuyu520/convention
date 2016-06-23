@@ -27,6 +27,7 @@ public class Test2BoyDao extends GenericDao<Test2Boy> {
 //        		.setFetchMode("convention32", FetchMode.SELECT)
                 .add(Restrictions.eq("convention32.status", Constant2.NEWS_STATUS_ON))
                 .addOrder(Order.desc("convention32.stars"))
+                .addOrder(Order.asc("convention32.updateTime"))
                 .uniqueResult();
 //    	System.out.println(test2Boy.getConventions().size());
         return test2Boy;
