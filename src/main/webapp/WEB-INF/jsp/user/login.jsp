@@ -19,12 +19,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>欢迎登录 后管系统</title>
     <link rel="stylesheet" type="text/css" href="<%=path%>/static/css/global.css">
-    <link rel="stylesheet" type="text/css" href="http://hbjltv.com/static/css/cannot_select.css">
+    <%--<link rel="stylesheet" type="text/css" href="http://hbjltv.com/static/css/cannot_select.css">--%>
 
     <script type="text/javascript" src="http://hbjltv.com/static/js/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="http://hbjltv.com/static/js/common_util.js"></script>
     <script type="text/javascript" src="http://hbjltv.com/static/js/md5.js"></script>
-    <script type="text/javascript" src="http://hbjltv.com/static/js/prohibition_back.js"></script>
+    <%--<script type="text/javascript" src="http://hbjltv.com/static/js/prohibition_back.js"></script>--%>
     <script type="text/javascript">
         var loginFlag = "${sessionScope.logined}";
         // alert(loginFlag);
