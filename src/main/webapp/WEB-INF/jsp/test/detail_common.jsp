@@ -35,7 +35,7 @@
                     <hr style="margin-right: 10px;width: inherit">
                     <ul class="operate-list">
                     <c:if test="${sessionScope.user!=null &&sessionScope.user.level==2}">
-                        <li><a href="javascript:deleteConvention(${convention.id})">删除</a></li>
+                        <li><a href="javascript:deleteConventionInList(${convention.id})">删除</a></li>
                         <li>
                             <a href="javascript:editConvention(${convention.id})">编辑</a>
                         </li>

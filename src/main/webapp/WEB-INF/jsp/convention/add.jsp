@@ -58,7 +58,7 @@
         };
         $(function () {
             //预览图片,没有真正上传
-            com.whuang.hsj.previewLocalDiskImage($('#pic-file'), $("#previewImage"));
+            com.whuang.hsj.previewLocalDiskImage($('#pic-file'), $("#previewImage"),undefined,5/*单位是M*/);
             $('textarea[name=answer]').focus();
         })
     </script>

@@ -57,7 +57,7 @@ $(function () {
         $titleSpan.hide('normal');
     })
 });//onload
-var deleteConvention = function (conventionId) {
+var deleteConvention = function (conventionId,callback) {
     var isDel = confirm("确定要删除么");
     //alert(conventionId+":"+isDel)
     if (isDel) {
@@ -67,7 +67,10 @@ var deleteConvention = function (conventionId) {
             dataType: 'json',
             success: function (json2) {
                 if (json2.result) {
-                    $('li.answer-list[data-id=' + conventionId + ']').html('');
+                    console.log('delete successfully,conventionId:'+conventionId);
+                    if( typeof callback === 'function'){
+                        callback();
+                    }
                 } else {
                     alert("失败")
                 }
@@ -78,6 +81,16 @@ var deleteConvention = function (conventionId) {
         };
         $.ajax(options);
     }
+};
+var deleteConventionInList=function (conventionId) {
+    deleteConvention(conventionId,function (json) {
+        $('li.answer-list[data-id=' + conventionId + ']').html('');
+    });
+};
+var deleteConventionAfterAdd = function (conventionId) {
+    deleteConvention(conventionId,function (json) {
+        history.back();//返回到add 页面
+    });
 };
 var test = {};
 test.query = function () {
