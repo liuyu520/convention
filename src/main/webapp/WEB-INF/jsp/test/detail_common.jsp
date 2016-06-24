@@ -31,7 +31,7 @@
         <c:forEach items="${test.conventions }" var="convention" varStatus="status">
             <li class="answer-list" data-id="${convention.id}">
                 <div>
-                    <div id="answer-detail_${convention.id}">${convention.answer}</div>
+                    <div style="overflow-x: auto;word-wrap: break-word;" id="answer-detail_${convention.id}">${convention.answer}</div>
                     <hr style="margin-right: 10px;width: inherit">
                     <ul class="operate-list">
                     <c:if test="${sessionScope.user!=null &&sessionScope.user.level==2}">
