@@ -30,9 +30,22 @@ public class UserController extends UserBaseController<User> {
     protected static Logger logger = Logger.getLogger(UserController.class);
     private LoginResultFilterChain loginResultFilterChain;
 
+    /***
+     * @param model
+     * @param user
+     * @param request
+     * @param response
+     * @param session
+     * @param issaveUserName
+     * @param issavePasswd
+     * @param addPrefix      : 登录成功跳转时,是否增加http://hbjltv.com
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/login")
     public String login(Model model, User user, HttpServletRequest request
-            , HttpServletResponse response, HttpSession session, String issaveUserName, String issavePasswd) throws IOException {
+            , HttpServletResponse response, HttpSession session, String issaveUserName, String issavePasswd
+            , boolean addPrefix) throws IOException {
         LoginResultBean loginResultBean = loginCommon(model, user, request, response, session, issaveUserName, issavePasswd);
 
         AccessLog accessLog = logLogin(request);
@@ -63,7 +76,7 @@ public class UserController extends UserBaseController<User> {
             //登录之前访问的地址,所以在登录成功之后,应该回调
             String returnUrl = (String) session.getAttribute(LoginUtil.SESSION_KEY_LOGIN_RETURN_URL);
             if (!ValueWidget.isNullOrEmpty(returnUrl)) {
-                if (returnUrl.endsWith("/test/list")) {
+                if (addPrefix && returnUrl.endsWith("/test/list")) {
                     returnUrl = "http://www.hbjltv.com" + returnUrl;//避免跳转到http://hbjltv.com:8084/convention/test/list
                 }
                 session.removeAttribute(LoginUtil.SESSION_KEY_LOGIN_RETURN_URL);// /convention/test/list
