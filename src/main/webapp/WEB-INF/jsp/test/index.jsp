@@ -20,6 +20,8 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <script type="text/javascript" src="http://hbjltv.com/static/js/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="<%=path%>/static/js/page.js"></script>
+    <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
     <script type="text/javascript" >
         var expandAnswer= function (self) {
             var $a=$(self);
@@ -63,10 +65,13 @@
             <h3>热门答案</h3>
             <ul>
                 <c:forEach items="${conventions }" var="bbs" varStatus="status">
-                    <li style="margin-bottom: 10px;"><div style="border-radius: 3px;border: 1px solid #f38399;" title="${bbs.answer}" >${fn:substring(bbs.answer,0,19)   }</div>
+                    <li style="margin-bottom: 10px;">
+                        <div style="border-radius: 3px;border: 1px solid #f38399;" title="${bbs.answer}" >${fn:substring(bbs.answer,0,19)   }</div>
                         <c:if test="${fn:length(bbs.answer)>19}">
-                        <a href="javascript:void(0)" style="cursor: hand" id="expand_${status.count}" onclick="expandAnswer(this)">加载更多</a> </li>
-                    </c:if>
+                        <a href="javascript:void(0)" style="cursor: hand" id="expand_${status.count}" onclick="expandAnswer(this)">加载更多</a> </c:if>
+                        <a href="javascript:deleteConventionSearchPge(${bbs.id})">删除</a>
+                    </li>
+
                 </c:forEach>
             </ul>
         </div>
