@@ -92,6 +92,11 @@ var deleteConventionAfterAdd = function (conventionId) {
         history.back();//返回到add 页面
     });
 };
+var deleteConventionSearchPge = function (conventionId) {
+    deleteConvention(conventionId, function (json) {
+        location.reload();
+    });
+};
 var test = {};
 test.query = function () {
     var $form = $('#form_page');

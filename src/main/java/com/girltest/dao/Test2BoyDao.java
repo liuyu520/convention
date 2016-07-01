@@ -6,10 +6,15 @@ import com.girltest.dict.Constant;
 import com.girltest.entity.Convention;
 import com.girltest.entity.Test2Boy;
 import com.time.util.TimeHWUtil;
+import org.apache.commons.collections.map.ListOrderedMap;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by huangweii on 2015/12/27.
@@ -33,6 +38,11 @@ public class Test2BoyDao extends GenericDao<Test2Boy> {
         return test2Boy;
     }
 
+    public List<Test2Boy> getFrontList(int maxRecordsNum, String notNullColumn, ListOrderedMap orderColumnModeMap) {
+        Map map = new HashMap();
+        map.put("status", Constant2.NEWS_STATUS_ON);
+        return getFrontList(map, maxRecordsNum, notNullColumn, orderColumnModeMap);
+    }
     /***
      * 更新问题
      *

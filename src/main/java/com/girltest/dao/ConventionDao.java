@@ -4,9 +4,13 @@ import com.common.dao.generic.GenericDao;
 import com.common.dict.Constant2;
 import com.girltest.entity.Convention;
 import com.time.util.TimeHWUtil;
+import org.apache.commons.collections.map.ListOrderedMap;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class ConventionDao extends GenericDao<Convention> {
@@ -30,6 +34,11 @@ public class ConventionDao extends GenericDao<Convention> {
 //        update(convention);
     }
 
+    public List<Convention> getFrontList(int maxRecordsNum, String notNullColumn, ListOrderedMap orderColumnModeMap) {
+        Map map = new HashMap();
+        map.put("status", Constant2.NEWS_STATUS_ON);
+        return getFrontList(map, maxRecordsNum, notNullColumn, orderColumnModeMap);
+    }
     /***
      * 仅仅插入中间表
      *
