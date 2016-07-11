@@ -158,11 +158,13 @@ public class Test2BoyController extends BaseController<Test2Boy> {
             Object[] objects = new Object[size];
             for (int i = 0; i < size; i++) {
                 Convention convention = conventions.get(i);
+                convention.setAnswer(ConventionUtil.convertBr(convention.getAnswer()));
                 objects[i] = convention.getId();
             }
             List voteLogTmps = this.voteLogDao.getList("user.id", user2.getId(), "convention.id", objects);
             int voteLogSize = voteLogTmps.size();
             for (int j = 0; j < voteLogSize; j++) {
+
                 VoteLog voteLogTmp = (VoteLog) voteLogTmps.get(j);
                 Convention convention = voteLogTmp.getConvention();
                 if (null != convention) {
