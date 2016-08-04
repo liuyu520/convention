@@ -66,7 +66,7 @@
             <ul>
                 <c:forEach items="${conventions }" var="bbs" varStatus="status">
                     <li style="margin-bottom: 10px;">
-                        <div style="border-radius: 3px;border: 1px solid #f38399;" title="<c:out value="${bbs.answer}" default="" escapeXml="true"/>" >${fn:substring(bbs.answer,0,19)   }</div>
+                        <div style="border-radius: 3px;border: 1px solid #f38399;" title="<c:out value="${bbs.answer}" default="" escapeXml="true"/>" ><c:out value="${fn:substring(bbs.answer,0,19)   }" default="" escapeXml="true"/></div>
                         <c:if test="${fn:length(bbs.answer)>19}">
                         <a href="javascript:void(0)" style="cursor: hand" id="expand_${status.count}" onclick="expandAnswer(this)">加载更多</a> </c:if>
                         <a href="javascript:deleteConventionSearchPge(${bbs.id})">删除</a>
