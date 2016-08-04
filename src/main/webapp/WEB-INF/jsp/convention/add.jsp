@@ -25,6 +25,7 @@
     <title>添加答案</title>
     <script type="text/javascript">
         var ajaxUploadFile = function (self) {
+            var $this=$(self);
             var $thisForm = com.whuang.hsj.getForm(self);
             var $uploadFile = $thisForm.find('input[type=file]');
             if (!com.whuang.hsj.isHasValue($uploadFile.val())) {
@@ -44,7 +45,9 @@
                     }
                     $answer.val(oldVal+'<img style="max-width: 100%" src="'+data.relativePath+'" />');
                     $("#previewImage").attr("src", data.relativePath);
+                    //提示语定时消失
                     com.whuang.hsj.setMessage(null,'upload_result_tip',"上传成功","correct");
+                    $this.removeAttr('disabled',null);
                 } else {
                     alert("服务器故障，稍后再试！");
                     console.log(data);
@@ -54,6 +57,8 @@
                 console.log(e);
                 alert(e);
             };
+            $('#upload_result_tip').text("上传中...").removeClass('correct');
+            $this.attr('disabled','disabled');
             com.whuang.hsj.ajaxUploadFile($uploadFile.get(0).id/*'fileToUpload'*/, param);
         };
         $(function () {
