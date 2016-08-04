@@ -40,6 +40,10 @@ $(function () {
         var $conventionTA=$add_convention.find('textarea');
         var answer = com.whuang.hsj.trim($conventionTA.val());
         if (answer) {
+            if(uploadStatus==1){//只要ajax上传成功一次,则不再校验.防止点击了选择图片,忘了ajax上传图片的情况
+                alert("请先点击[ajax上传图片] 完成图片上传");
+                return false;
+            }
             document.forms[0].submit();
             return true;
         } else {

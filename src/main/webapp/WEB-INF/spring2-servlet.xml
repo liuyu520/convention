@@ -63,6 +63,7 @@
     <!-- <bean name="/hello" class="com.mvc.jn.controller.HelloWorldController"/> -->
     <context:component-scan base-package="com.girltest.web,oa.web.controller">
     </context:component-scan>
+    <mvc:resources mapping="/favicon.ico" location="/WEB-INF/static/img/icon.png"/>
     <mvc:resources mapping="/html/static/**" location="/WEB-INF/static/"/>
     <mvc:resources mapping="/static/**" location="/WEB-INF/static/"/>
     <!-- 用于访问图片,比如"http://localhost:8080/springMVC_upload/upload/image/20140911/20140911222330_383.jpg" -->

@@ -24,6 +24,7 @@
     <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
     <title>添加答案</title>
     <script type="text/javascript">
+        var uploadStatus=0;//初始状态:0;  选择了图片但未上传:1;  上传成功:2
         var ajaxUploadFile = function (self) {
             var $this=$(self);
             var $thisForm = com.whuang.hsj.getForm(self);
@@ -59,11 +60,16 @@
             };
             $('#upload_result_tip').text("上传中...").removeClass('correct');
             $this.attr('disabled','disabled');
+            uploadStatus=2;
             com.whuang.hsj.ajaxUploadFile($uploadFile.get(0).id/*'fileToUpload'*/, param);
         };
         $(function () {
             //预览图片,没有真正上传
-            com.whuang.hsj.previewLocalDiskImage($('#pic-file'), $("#previewImage"),undefined,5/*单位是M*/);
+            com.whuang.hsj.previewLocalDiskImage($('#pic-file'), $("#previewImage"),function () {
+                if(uploadStatus==0) {//只要ajax上传成功一次,则不再校验.防止点击了选择图片,忘了ajax上传图片的情况
+                    uploadStatus=1;
+                }
+            },6/*单位是M*/);
             $('textarea[name=answer]').focus();
         })
     </script>
