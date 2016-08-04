@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -19,7 +21,8 @@ public class IndexController {
     private ConventionDao conventionDao;
 
     @RequestMapping(value = "/search")
-    public String index(Model model) {
+    public String index(Model model, HttpServletRequest request
+            , HttpServletResponse response) {
         List<Test2Boy> test2Boys = test2BoyDao.getFrontList(3, "testcase", getListOrderBy());
         model.addAttribute("recordList", test2Boys);
         List<Convention> conventions=conventionDao.getFrontList(3,"answer",getListOrderBy());

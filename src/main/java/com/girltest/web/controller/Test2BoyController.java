@@ -1,6 +1,7 @@
 package com.girltest.web.controller;
 
 import com.common.dict.Constant2;
+import com.common.util.SystemHWUtil;
 import com.common.web.view.PageView;
 import com.girltest.dao.ConventionDao;
 import com.girltest.dao.Test2BoyDao;
@@ -29,6 +30,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -142,9 +144,22 @@ public class Test2BoyController extends BaseController<Test2Boy> {
     protected Test2Boy detailTODO(int id, Model model,
                                   HttpServletRequest request) {
         init(request);
+        List recordList = (List) request.getSession(true).getAttribute("tests");
+        Test2BoyDao test2BoyDao = (Test2BoyDao) getDao();
+        if (!ValueWidget.isNullOrEmpty(recordList)) {
+            try {
+                if (SystemHWUtil.isContainObject(recordList, "id", String.valueOf(id))) {
+                    test2BoyDao.updateTime(id);
+                }
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
         User user2 = getUser4Session(request);
 
-        Test2BoyDao test2BoyDao = (Test2BoyDao) getDao();
         Test2Boy test2Boy = test2BoyDao.getConventions(id);
 
         if (null != test2Boy) {
@@ -242,6 +257,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
                             HttpServletRequest request) {
         long count = view.getTotalRecords();
         List recordList = view.getRecordList();
+        cacheSearchResult(request, recordList);
         int size = recordList.size();
         User user2 = getUser4Session(request);
         String superUserName = "whuang";//超级管理员的默认名称
@@ -253,6 +269,14 @@ public class Test2BoyController extends BaseController<Test2Boy> {
             return;
         } else {
             filterPrivate(view, count, recordList, size, user2);
+        }
+    }
+
+    private void cacheSearchResult(HttpServletRequest request, List recordList) {
+        String queryKeyword = request.getParameter("testcase");
+        if (!ValueWidget.isNullOrEmpty(queryKeyword) && !ValueWidget.isNullOrEmpty(recordList)) {
+            HttpSession session = request.getSession(true);
+            session.setAttribute("tests", recordList);
         }
     }
 
