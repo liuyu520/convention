@@ -17,6 +17,7 @@ import com.string.widget.util.ValueWidget;
 import com.time.util.TimeHWUtil;
 import oa.entity.common.AccessLog;
 import oa.service.DictionaryParam;
+import oa.util.SpringMVCUtil;
 import oa.web.controller.base.BaseController;
 import org.apache.commons.collections.map.ListOrderedMap;
 import org.apache.log4j.Logger;
@@ -93,7 +94,41 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         return "convention/detail";
     }
 
-    @RequestMapping(value = "/{id}/update2", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/alias")
+    public String editAlias(@PathVariable int id, Model model, HttpServletRequest request, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+        Test2Boy test2Boy= (Test2Boy)SpringMVCUtil.resumeObject("test2Boy");
+        SpringMVCUtil.resumeObject("test2Boy");
+        if(null==test2Boy){
+            init(request);
+            Test2BoyDao test2BoyDao = (Test2BoyDao) getDao();
+            test2Boy=test2BoyDao.get(id);
+        }
+        model.addAttribute("test", test2Boy);
+        if(!ValueWidget.isNullOrEmpty(targetView)){
+            return targetView;
+        }
+        return "test/edit_alias";
+    }
+
+    @RequestMapping(value = "/update_alias")
+    public String updateAlias(Test2Boy test2Boy, Model model, HttpServletRequest request, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+        init(request);
+        Test2BoyDao test2BoyDao = (Test2BoyDao) getDao();
+        String alias=test2Boy.getAlias();
+        int id=test2Boy.getId();
+        if(ValueWidget.isNullOrEmpty(alias)){
+            return "redirect:/"+id+"/alias";
+        }
+        test2BoyDao.updateAlias(alias, id);
+        model.addAttribute("test", test2Boy);
+        if(!ValueWidget.isNullOrEmpty(targetView)){
+            return targetView;
+        }
+        return "redirect:/test/"+id;
+    }
+
+
+        @RequestMapping(value = "/{id}/update2", method = RequestMethod.POST)
     public String update(@PathVariable int id, Test2Boy roleLevel, Model model, HttpServletRequest request, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         init(request);
         beforeUpdate(roleLevel);
@@ -148,7 +183,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         Test2BoyDao test2BoyDao = (Test2BoyDao) getDao();
         if (!ValueWidget.isNullOrEmpty(recordList)) {
             try {
-                if (SystemHWUtil.isContainObject(recordList, "id", String.valueOf(id))) {
+                if (SystemHWUtil.isContainObject(recordList, "id", String.valueOf(id),true)) {
                     test2BoyDao.updateTime(id);
                 }
             } catch (NoSuchFieldException e) {
@@ -198,6 +233,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
             test2Boy = test2BoyDao.get(id);
             test2Boy.setConventions(null);
         }
+        SpringMVCUtil.saveObject("test2Boy",test2Boy);
         return test2Boy;
     }
 
