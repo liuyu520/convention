@@ -37,6 +37,7 @@
 <a href="<%=path%>/test/${test.id}/delete" onclick="return confirm('确认删除吗')">删除问题</a>
 &nbsp; <a href="<%=path%>/test/${test.id}/edit?targetView=test/edit">编辑问题</a>
         &nbsp; <a target="_blank" href="<%=path%>/share/test/${test.id}">分享问题</a>
+        &nbsp; <a href="<%=path%>/test/${test.id}/alias">修改别名</a>
 </c:if>
 &nbsp;&nbsp;<a href="javascript:anchorGoIndexTop('bottomHref')">回到底部</a>
 <div>

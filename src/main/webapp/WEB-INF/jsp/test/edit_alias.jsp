@@ -84,6 +84,7 @@
     <h4>【${test.testcase}】</h4>
     <a href="<%=path%>/test/add">添加测试</a>&nbsp; <a href="<%=path%>/test/${test.id}">返回详情</a>
     &nbsp;<a href="<%=path%>/test/list">列表</a> &nbsp; <a href="<%=path%>/search">首页</a>
+    &nbsp;<a class="add-btn" href="<%=path%>/convention/add_answer?testBoyId=${test.id}">添加答案</a>
     <div id="add_convention">
 
                         <form action="<%=path%>/test/update_alias" method="post">

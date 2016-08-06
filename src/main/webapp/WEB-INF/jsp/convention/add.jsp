@@ -84,6 +84,7 @@
     <h4>【${test.testcase}】</h4>
     <a href="<%=path%>/test/add">添加测试</a>&nbsp; <a href="<%=path%>/test/${test.id}">返回详情</a>
     &nbsp;<a href="<%=path%>/test/list">列表</a> &nbsp; <a href="<%=path%>/search">首页</a>
+    &nbsp; <a href="<%=path%>/test/${test.id}/alias">修改别名</a>
     <div id="add_convention">
 
             <table style="width: 100%;" >
@@ -91,7 +92,7 @@
                     <td>
                         <form action="<%=path%>/test/save_answer" method="post">
                             <input type="hidden" name="testBoyId" value="${test.id}">
-                            <input type="hidden" name="testcase" value="${test.testcase}">
+                            <%--<input type="hidden" name="testcase" value="${test.testcase}">--%>
                             <textarea name="answer" id="" style="width:100%"  rows="5"  placeholder="请填写答案" ></textarea>
                         </form>
                     </td>
