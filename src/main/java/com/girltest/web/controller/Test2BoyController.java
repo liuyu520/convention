@@ -97,7 +97,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
     @RequestMapping(value = "/{id}/alias")
     public String editAlias(@PathVariable int id, Model model, HttpServletRequest request, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         Test2Boy test2Boy= (Test2Boy)SpringMVCUtil.resumeObject("test2Boy");
-        SpringMVCUtil.resumeObject("test2Boy");
+        SpringMVCUtil.removeObject("test2Boy");
         if(null==test2Boy){
             init(request);
             Test2BoyDao test2BoyDao = (Test2BoyDao) getDao();
