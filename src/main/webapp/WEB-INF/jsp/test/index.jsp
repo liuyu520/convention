@@ -40,7 +40,8 @@
         <table>
             <tr>
                 <td>
-                    <input type="text" name="testcase" placeholder="请输入您要搜索的关键字" style="font-size: 18px;width: 320px;">
+                    <input type="text" name="keyword" placeholder="请输入您要搜索的关键字" style="font-size: 18px;width: 320px;">
+                    <input type="hidden" name="columnsArr" value="testcase,alias,alias2"  >
                 </td>
             </tr>
             <tr>

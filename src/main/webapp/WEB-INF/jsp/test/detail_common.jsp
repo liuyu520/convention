@@ -27,6 +27,9 @@
 <div>
     <span class="gray">全部答案</span> <a class="add-btn"
                                       href="<%=path%>/convention/add_answer?testBoyId=${test.id}">添加答案</a>
+    &nbsp; <a href="<%=path%>/test/${test.id}/alias">修改别名</a>
+    <c:choose>
+    <c:when test="${test.conventions!=null && fn:length(test.conventions)!=0 }">
     <ul>
         <c:forEach items="${test.conventions }" var="convention" varStatus="status">
             <li class="answer-list" data-id="${convention.id}">
@@ -56,4 +59,11 @@
         </c:forEach>
 
     </ul>
+    </c:when>
+        <c:otherwise>
+            <div style="text-align:center;padding-top:20px;color: #f00;" >
+                暂时没有答案
+            </div>
+        </c:otherwise>
+    </c:choose>
 </div>

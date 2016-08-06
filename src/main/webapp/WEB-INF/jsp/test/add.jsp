@@ -41,6 +41,16 @@
                         <textarea name="testcase" id="" style="width: 100%" rows="5" placeholder="请填写问题(测试)"></textarea>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <input type="text" name="alias" style="width: 100%" placeholder="请填写别名">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" name="alias2" style="width: 100%" placeholder="请填写别名(2)">
+                    </td>
+                </tr>
                 <c:if test="${sessionScope.user!=null &&sessionScope.user.level==2}">
                 <tr>
                     <td >
