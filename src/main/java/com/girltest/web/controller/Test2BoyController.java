@@ -128,7 +128,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
     }
 
 
-        @RequestMapping(value = "/{id}/update2", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/update2", method = RequestMethod.POST)
     public String update(@PathVariable int id, Test2Boy roleLevel, Model model, HttpServletRequest request, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         init(request);
         beforeUpdate(roleLevel);

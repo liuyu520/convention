@@ -96,7 +96,10 @@ public class ConventionController extends BaseController<Convention> {
     }
 
     @RequestMapping(value = "/add_answer")
-    public String addAnswer(int testBoyId, Model model, HttpServletRequest request,String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+    public String addAnswer(Integer testBoyId, Model model, HttpServletRequest request, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+        if (null == testBoyId) {
+            return "redirect:/test/list";
+        }
         Test2Boy test2Boy = test2BoyDao.get(testBoyId);
         model.addAttribute("test", test2Boy);
         if(!ValueWidget.isNullOrEmpty(targetView)){

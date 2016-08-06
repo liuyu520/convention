@@ -157,6 +157,7 @@ test.list_menu = function (imgSelf, testId) {
         html = html + '<li> <a onclick="collapseTest(' + testId + ')">收起问题</a> </li>';
         html = html + '<li> <a href="' + server_url + '/convention/add_answer?testBoyId=' + testId + '">添加答案</a> </li>';
         html = html + '<li> <a target="_blank" href="' + server_url + '/share/test/' + testId + '">分享</a> </li>';
+        html = html + '<li> <a  href="' + server_url + '/test/' + testId + '/alias">修改别名</a> </li>';
         html = html + '<li> <a onclick="hideTest(' + testId + ')">匿了</a> </li>' ;
         html = html +
             '</ul>';
