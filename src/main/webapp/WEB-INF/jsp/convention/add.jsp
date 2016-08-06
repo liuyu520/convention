@@ -102,6 +102,7 @@
                             <input type="file" id="pic-file" name="image223" > <br><br>
                             <input type="button" onclick="ajaxUploadFile(this)" value="ajax上传图片" > <span  id="upload_result_tip" ></span>
                         </form>
+                        <input type="button" class="btn" value="添加">
                             <div style="width: 100%;" >
                             <img style="max-width: 100%;" alt="暂无预览图片" id="previewImage" >
                         </div>
@@ -109,7 +110,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="button" class="btn" value="添加">
+
                         &nbsp;&nbsp;<a href="javascript:history.back();">返回</a>
                         &nbsp;&nbsp;<a href="javascript:selectAllTxt($('#add_convention textarea'));">全选</a>
                         &nbsp;&nbsp;<a href="javascript:enlargeTxt($('#add_convention textarea'));">放大</a>
