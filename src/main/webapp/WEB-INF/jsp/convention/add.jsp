@@ -103,7 +103,8 @@
                             <input type="file" id="pic-file" name="image223" > <br><br>
                             <input type="button" onclick="ajaxUploadFile(this)" value="ajax上传图片" > <span  id="upload_result_tip" ></span>
                         </form>
-                        <input type="button" class="btn" value="添加">
+                        <br>
+                        <input type="button" class="submit" value="添加">
                             <div style="width: 100%;" >
                             <img style="max-width: 100%;" alt="暂无预览图片" id="previewImage" >
                         </div>

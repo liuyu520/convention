@@ -38,7 +38,7 @@ $(function () {
     });
     //add answer
     var $add_convention = $('#add_convention');
-    $add_convention.find('.btn').click(function () {
+    $add_convention.find('.submit').click(function () {
         var $conventionTA=$add_convention.find('textarea');
         var answer = com.whuang.hsj.trim($conventionTA.val());
         if (answer) {
