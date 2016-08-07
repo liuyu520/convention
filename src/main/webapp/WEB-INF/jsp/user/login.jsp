@@ -80,7 +80,8 @@
              com.whuang.hsj.$$id('li_info').innerHTML='密码过长';
              return false;
              }*/
-
+            //提交按钮置灰
+            $('input.submit').attr('disabled','disabled').css('background-color',"#ddd").css('color','white');
             return true;
         };
 

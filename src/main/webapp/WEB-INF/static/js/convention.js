@@ -25,9 +25,11 @@ $(function () {
             }else{
                 console.log(true);
             }
+            $imgDetail.css('background-color','red');
             ajaxHtml(server_url + "/test/" + id + "?targetView=test/detail_common&random22=" + Math.random()/*+"&sort="+newsSort*/,
                 $('#answer_' + id), null, function () {
                     $progress.hide('normal');
+                    $imgDetail.css('background-color','');
                 });//page.js
         } else {
             $('#answer_' + id).toggle('toggleClass');

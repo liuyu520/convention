@@ -63,8 +63,9 @@
                                 <c:otherwise>${bbs.testcase}</c:otherwise>
                             </c:choose></c:when>
                         <c:otherwise>未命名</c:otherwise>
-                    </c:choose> </a>】 &nbsp;
-                        <img data-id="${bbs.id}" style="padding-right: 20px;padding-top: 5px;cursor: pointer"
+                    </c:choose> </a>】
+                        <img data-id="${bbs.id}" style="padding-right: 20px;padding-top: 10px;padding-bottom: 5px;
+    padding-left: 10px;cursor: pointer"
                              src="<%=path%>/static/img/icon_3.png" alt="详情">
                         <img onclick="test.list_menu(this,${bbs.id})" style="cursor: pointer;" src="<%=path%>/static/img/col_list.gif" alt="菜单">
                     </li>
