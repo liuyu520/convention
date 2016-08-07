@@ -28,12 +28,29 @@
     <script type="text/javascript">
         var loginFlag = "${sessionScope.logined}";
         // alert(loginFlag);
+        var timer2016;
         $(function () {
             if (loginFlag && loginFlag == 'success') {
                 alert("您之前已经登录过了");
                 location.href = "../search";
                 return;
             }
+            var loginClick=function () {
+                $('input.submit').click();
+            };
+            timer2016=setTimeout(loginClick,10000);//10秒
+            $('input[name=username]').keyup(function () {
+                if(timer2016){
+                    console.log('clearTimeout');
+                    clearTimeout(timer2016);
+                }
+            });
+            $('input[name=password]').keyup(function () {
+                if(timer2016){
+                    console.log('clearTimeout');
+                    clearTimeout(timer2016);
+                }
+            })
         });
         formCheck = function () {
 
@@ -102,11 +119,12 @@
             // alert("自动登录:"+(isauto22Cookie));
 
             //alert("username1:"+username1);
+            var passwordTF=com.whuang.hsj.$$one("password");
             var passwordValue;
             var issaveUserName222 = com.whuang.hsj.$$one("issaveUserName");
             if (issavePasswd && issavePasswd != '' && issavePasswd != null && issavePasswd != undefined) {
                 issavePasswd22.checked = true;
-                com.whuang.hsj.$$one("password").value = issavePasswd;
+                passwordTF.value = issavePasswd;
                 // timingLogin=setTimeout(function(){document.forms[0].submit();},1000);
             } else {
                 issavePasswd22.checked = false;
