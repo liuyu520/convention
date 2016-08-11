@@ -35,7 +35,7 @@ public class ConventionController extends BaseController<Convention> {
     private Test2BoyDao test2BoyDao;
 
     @Override
-    protected void beforeAddInput(Model model) {
+    protected void beforeAddInput(Model model, HttpServletRequest request) {
     }
 
     @Override

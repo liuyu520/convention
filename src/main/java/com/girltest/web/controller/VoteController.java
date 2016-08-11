@@ -44,7 +44,7 @@ public class VoteController extends BaseController<VoteLog> {
     }
 
     @Override
-    protected void beforeAddInput(Model model) {
+    protected void beforeAddInput(Model model, HttpServletRequest request) {
     }
 
     @Override

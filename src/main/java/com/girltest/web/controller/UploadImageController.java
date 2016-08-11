@@ -1,16 +1,12 @@
 package com.girltest.web.controller;
 
-import com.girltest.entity.Convention;
-import com.girltest.entity.Test2Boy;
-import com.girltest.util.ConventionUtil;
+import oa.web.controller.common.UploadGenericController;
+import oa.web.upload.UploadCallback;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import oa.web.controller.common.UploadGenericController;
-import oa.web.upload.UploadCallback;
-
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/image")
@@ -22,7 +18,7 @@ public class UploadImageController extends UploadGenericController {
     }
 
     @Override
-    protected void beforeAddInput(Model model) {
+    protected void beforeAddInput(Model model, HttpServletRequest request) {
 
     }
 

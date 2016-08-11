@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/ajax_image")
 public class AjaxUploadImageController extends UploadGenericController {
@@ -16,7 +18,7 @@ public class AjaxUploadImageController extends UploadGenericController {
     }
 
     @Override
-    protected void beforeAddInput(Model model) {
+    protected void beforeAddInput(Model model, HttpServletRequest request) {
 
     }
 
