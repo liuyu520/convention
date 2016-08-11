@@ -51,8 +51,11 @@ public class Test2BoyController extends BaseController<Test2Boy> {
     }
 
     @Override
-    protected void beforeAddInput(Model model) {
-
+    protected void beforeAddInput(Model model, HttpServletRequest request) {
+        String testcase=request.getParameter("testcase");
+        if(!ValueWidget.isNullOrEmpty(testcase)){
+            model.addAttribute("testcase",testcase);
+        }
     }
 
     @Override
@@ -96,8 +99,8 @@ public class Test2BoyController extends BaseController<Test2Boy> {
 
     @RequestMapping(value = "/{id}/alias")
     public String editAlias(@PathVariable int id, Model model, HttpServletRequest request, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-        Test2Boy test2Boy= (Test2Boy)SpringMVCUtil.resumeObject("test2Boy");
-        SpringMVCUtil.removeObject("test2Boy");//从session中移除
+        Test2Boy test2Boy= (Test2Boy)SpringMVCUtil.resumeObject("test2Boy"+id);
+        SpringMVCUtil.removeObject("test2Boy"+id);//从session中移除
         if(null==test2Boy){
             init(request);
             Test2BoyDao test2BoyDao = (Test2BoyDao) getDao();
@@ -233,7 +236,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
             test2Boy = test2BoyDao.get(id);
             test2Boy.setConventions(null);
         }
-        SpringMVCUtil.saveObject("test2Boy",test2Boy);
+        SpringMVCUtil.saveObject("test2Boy"+id,test2Boy);
         return test2Boy;
     }
 

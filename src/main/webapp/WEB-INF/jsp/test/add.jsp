@@ -38,7 +38,7 @@
             <table style="width: 100%;" >
                 <tr>
                     <td>
-                        <textarea name="testcase" id="" style="width: 100%" rows="5" placeholder="请填写问题(测试)"></textarea>
+                        <textarea name="testcase" id="" style="width: 100%" rows="5" placeholder="请填写问题(测试)">${testcase}</textarea>
                     </td>
                 </tr>
                 <tr>
