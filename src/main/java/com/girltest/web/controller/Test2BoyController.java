@@ -295,6 +295,12 @@ public class Test2BoyController extends BaseController<Test2Boy> {
     protected void listTODO(Model model, PageView view,
                             HttpServletRequest request) {
         long count = view.getTotalRecords();
+        if(count==0){
+            String keyWord=request.getParameter("keyword");
+            if(!ValueWidget.isNullOrEmpty(keyWord)){
+                model.addAttribute("testcase",keyWord);
+            }
+        }
         List recordList = view.getRecordList();
         cacheSearchResult(request, recordList);
         int size = recordList.size();

@@ -83,11 +83,12 @@
             <script type="text/javascript" >
                 setTimeout(function () {
                     history.back();
-                },2000);
+                },3000);
                 </script>
                 <div style="text-align:center;padding-top:20px;">
                     没有查询到符合条件的测试.
                 </div>
+                <div><a href="<%=path%>/test/add?testcase=${testcase}">添加测试</a></div>
             </c:otherwise>
         </c:choose>
 
