@@ -38,14 +38,18 @@ $(function () {
     });
     //add answer
     var $add_convention = $('#add_convention');
-    $add_convention.find('.submit').click(function () {
+    var addBtn=$add_convention.find('.submit');
+    addBtn.click(function () {
         var $conventionTA=$add_convention.find('textarea');
         var answer = com.whuang.hsj.trim($conventionTA.val());
         if (answer) {
             if(uploadStatus==1){//只要ajax上传成功一次,则不再校验.防止点击了选择图片,忘了ajax上传图片的情况
                 // alert("请先点击[ajax上传图片] 完成图片上传");
                 // uploadStatus=0;//只拦截一次
-                $('#upload_pic').click();
+                // $('#upload_pic').click();
+                ajaxUploadFileCommon($('#upload_pic'),function () {
+                    addBtn.click();
+                });
                 return false;
             }
             document.forms[0].submit();
@@ -244,4 +248,45 @@ var updateConvention = function (self, conventionId,embedded) {
         return;
     }
     formAjaxHtml(action, $answer_detail, $form);
-}
+};
+var ajaxUploadFileCommon=function ($this,successCallback) {
+    console.log('ajaxUploadFileCommon222');
+    var $thisForm = com.whuang.hsj.getForm($this);
+    var $uploadFile = $thisForm.find('input[type=file]');
+    if (!com.whuang.hsj.isHasValue($uploadFile.val())) {
+        alert("请选择要上传的文件(仅支持jpg、jpeg、png、gif、bmp).");
+        return false;
+    }
+    var param = {};
+    param.formatTypeInvalid = "您上传的格式不正确，仅支持jpg、jpeg、png、gif、bmp,请重新选择！";
+    param.url =  server_url+'/ajax_image/upload';
+    param.success = function (data, status) {
+        console.log(data);
+        if (data && data.fullUrl) {
+            var $answer=$('textarea[name=answer]');
+            var oldVal=$answer.val();
+            if(oldVal){
+                oldVal+='\r\n';
+            }
+            $answer.val(oldVal+'<img style="max-width: 100%" src="'+data.relativePath+'" />');
+            $("#previewImage").attr("src", data.relativePath);
+            //提示语定时消失
+            com.whuang.hsj.setMessage(null,'upload_result_tip',"上传成功","correct");
+            $this.removeAttr('disabled',null);
+            if(successCallback){
+                successCallback(data);
+            }
+        } else {
+            alert("服务器故障，稍后再试！");
+            console.log(data);
+        }
+    };
+    param.error = function (data, status, e) {
+        console.log(e);
+        alert(e);
+    };
+    $('#upload_result_tip').text("上传中...").removeClass('correct');
+    $this.attr('disabled','disabled');
+    uploadStatus=2;
+    com.whuang.hsj.ajaxUploadFile($uploadFile.get(0).id/*'fileToUpload'*/, param);
+};
