@@ -23,7 +23,7 @@ public class AjaxImageUploadCallback implements UploadCallback {
     @Override
     public String callback(Model model, MultipartFile file, HttpServletRequest request, HttpServletResponse response)
             throws ParseException, IOException {
-        Map map = HWUtils.getUploadResultMap(file, request);
+        Map map = HWUtils.getUploadResultMap(file, request, false, false);
         model.addAllAttributes(map);
         String content = HWJacksonUtils.getJsonP(map);
         response.setCharacterEncoding(SystemHWUtil.CHARSET_UTF);

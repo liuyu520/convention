@@ -1,5 +1,6 @@
 package com.girltest.web.controller;
 
+import com.common.util.SystemHWUtil;
 import com.io.hw.json.HWJacksonUtils;
 import oa.util.HWUtils;
 import oa.web.upload.UploadCallback;
@@ -22,7 +23,15 @@ public class ImageUploadCallback implements UploadCallback {
     @Override
     public String callback(Model model, MultipartFile file, HttpServletRequest request, HttpServletResponse response)
             throws ParseException, IOException {
-        Map map = HWUtils.getUploadResultMap(file, request);
+        String deleteOldFileSt = request.getParameter("deleteOldFile");
+        String sameFileNameSt = request.getParameter("sameFileName");
+        boolean deleteOldFile = SystemHWUtil.parse33(deleteOldFileSt);
+        boolean sameFileName = SystemHWUtil.parse33(sameFileNameSt);
+        if (deleteOldFile) {
+            System.out.println("上传时删除原文件");
+        }
+
+        Map map = HWUtils.getUploadResultMap(file, request, sameFileName, deleteOldFile);
         model.addAllAttributes(map);
         String content = HWJacksonUtils.getJsonP(map);
         logger.info(content);
