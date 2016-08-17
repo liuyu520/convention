@@ -30,6 +30,13 @@
     <form action="<%=path%>/image/upload" method="post" enctype="multipart/form-data" >
         <table>
             <tr style="height: 40px"> <td  > <input type="file" name="image223" ></td></tr>
+            <tr>
+                <td>
+                    <label class="cannot_select">相同文件名<input checked style="width:10px;border:none;padding-left:0;" type="checkbox"
+                                                        name="sameFileName"
+                                                        value="1"></input></label>
+                </td>
+            </tr>
             <tr> <td><input type="submit" value="上传" ></td> </tr>
         </table>
 

@@ -24,9 +24,8 @@
     <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
     <title>添加答案</title>
     <script type="text/javascript">
-        var uploadStatus=0;//初始状态:0;  选择了图片但未上传:1;  上传成功:2
-        var ajaxUploadFile = function (self) {
-            var $this=$(self);
+        var ajaxUploadFileCommon=function ($this) {
+            console.log('ajaxUploadFileCommon');
             var $thisForm = com.whuang.hsj.getForm(self);
             var $uploadFile = $thisForm.find('input[type=file]');
             if (!com.whuang.hsj.isHasValue($uploadFile.val())) {
@@ -62,6 +61,11 @@
             $this.attr('disabled','disabled');
             uploadStatus=2;
             com.whuang.hsj.ajaxUploadFile($uploadFile.get(0).id/*'fileToUpload'*/, param);
+        }
+        var uploadStatus=0;//初始状态:0;  选择了图片但未上传:1;  上传成功:2
+        var ajaxUploadFile = function (self) {
+            var $this=$(self);
+            ajaxUploadFileCommon($this);
         };
         $(function () {
             //预览图片,没有真正上传
@@ -101,7 +105,7 @@
                     <td style="padding-bottom:20px">
                         <form action="/image/upload" id="pic-form"  method="post" enctype="multipart/form-data" >
                             <input type="file" id="pic-file" name="image223" > <br><br>
-                            <input type="button" onclick="ajaxUploadFile(this)" value="ajax上传图片" > <span  id="upload_result_tip" ></span>
+                            <input type="button" onclick="ajaxUploadFile(this)" id="upload_pic" value="ajax上传图片" > <span  id="upload_result_tip" ></span>
                         </form>
                         <br>
                         <input type="button" class="submit" value="添加">
