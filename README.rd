@@ -11,6 +11,9 @@ spring MVC,hibernate
 /Users/whuanghkl/work/project/io0007/target
 /Users/whuanghkl/work/project/common_ssh/target
 /Users/whuanghkl/work/project/oa_framework/target
+### **部署**###
+cp /Users/whuanghkl/work/project/convention/src/main/webapp/WEB-INF/classes/com/girltest/web/controller/Test2BoyController.class  /Users/whuanghkl/work/mysvn/project/convention2/convention/WEB-INF/classes/com/girltest/web/controller/
+
 
 
 
