@@ -37,7 +37,13 @@
                                                         value="1"></input></label>
                 </td>
             </tr>
-            <tr> <td><input type="submit" value="上传" ></td> </tr>
+            <tr>
+                <td>
+                    <label>文件名:</label>
+                    <input type="text" name="fileName" >(前缀始终是"upload_")
+                </td>
+            </tr>
+            <tr> <td><input style="margin-top: 10px;" type="submit" value="上传" ></td> </tr>
         </table>
 
     </form>

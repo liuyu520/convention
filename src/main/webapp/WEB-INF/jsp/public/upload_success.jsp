@@ -34,7 +34,7 @@
         <li>${imgTag}</li>
         <li><textarea name="" id="" style="width: 100%;" rows="10"><c:choose><c:when test="${imgTag==null||fn:length(imgTag)==0 ||fn:length(fn:trim(imgTag))==0 }">${imgTab}</c:when><c:otherwise>${imgTag}</c:otherwise></c:choose></textarea> </li>
         <li><a href="<%=path%>/image/convention">继续上传</a> </li>
-        <li><img style="max-width: 100%" src="${fullUrl}" alt=""></li>
+        <li><img style="max-width: 100%" src="${fullUrl}" alt="这不是图片,无法显示"></li>
     </ul>
 
 </div>

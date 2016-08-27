@@ -30,8 +30,8 @@ public class ImageUploadCallback implements UploadCallback {
         if (deleteOldFile) {
             System.out.println("上传时删除原文件");
         }
-
-        Map map = HWUtils.getUploadResultMap(file, request, sameFileName, deleteOldFile);
+        String fileName=request.getParameter("fileName");
+        Map map = HWUtils.getUploadResultMap(file, request, sameFileName, deleteOldFile,fileName);
         model.addAllAttributes(map);
         String content = HWJacksonUtils.getJsonP(map);
         logger.info(content);
