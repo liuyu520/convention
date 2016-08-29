@@ -20,6 +20,18 @@
     <script type="text/javascript" src="http://hbjltv.com/static/js/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="http://hbjltv.com/static/js/common_util.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
+    <script type="text/javascript" >
+        var checkSuffix=function (event) {
+            var $fileName=$('input[name=fileName]');
+            var fileNameVal=$fileName.val();
+            if(fileNameVal){
+                if(fileNameVal.indexOf('.')==-1){
+                    return confirm("没有包含后缀名,是否确认提交?");
+                }
+            }
+            return true;
+        }
+    </script>
     <title>上传图片</title>
 </head>
 <body>
@@ -27,7 +39,7 @@
     <span class="success">${message}</span>
 </div>
 <div>
-    <form action="<%=path%>/image/upload" method="post" enctype="multipart/form-data" >
+    <form action="<%=path%>/image/upload" method="post" enctype="multipart/form-data" onsubmit="return checkSuffix();" >
         <table>
             <tr style="height: 40px"> <td  > <input type="file" name="image223" ></td></tr>
             <tr>
