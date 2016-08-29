@@ -39,7 +39,7 @@
             </tr>
             <tr>
                 <td>
-                    <label>文件名:</label>
+                    <label>指定文件名:</label>
                     <input type="text" name="fileName" >(前缀始终是"upload_")
                 </td>
             </tr>
