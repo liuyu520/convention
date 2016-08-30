@@ -14,10 +14,7 @@ import oa.web.controller.base.BaseController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -63,7 +60,7 @@ public class ConventionController extends BaseController<Convention> {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, produces = SystemHWUtil.RESPONSE_CONTENTTYPE_PLAIN_UTF)
 //    @ResponseBody
-    public String update(int id, Convention roleLevel, int testBoyId, Model model, HttpServletRequest request, HttpServletResponse response, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, IOException {
+    public String update(int id, @RequestParam(required = true) Convention roleLevel, int testBoyId, Model model, HttpServletRequest request, HttpServletResponse response, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, IOException {
         ConventionDao conventionDao = (ConventionDao) this.getDao();
         Convention convention = conventionDao.get(id);
         String oldAnswer = convention.getAnswer();
@@ -96,7 +93,7 @@ public class ConventionController extends BaseController<Convention> {
     }
 
     @RequestMapping(value = "/add_answer")
-    public String addAnswer(Integer testBoyId, Model model, HttpServletRequest request, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+    public String addAnswer(@RequestParam(value = "testBoyId", required = true) Integer testBoyId, Model model, HttpServletRequest request, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         if (null == testBoyId) {
             return "redirect:/test/list";
         }
@@ -109,7 +106,7 @@ public class ConventionController extends BaseController<Convention> {
     }
 
     @RequestMapping("/edit")
-    public String editAnswer(Model model, HttpServletRequest request, /*Test2Boy test2Boy,  */int testBoyId,int conventionId,String targetView) {
+    public String editAnswer(Model model, HttpServletRequest request, /*Test2Boy test2Boy,  */int testBoyId, @RequestParam(value = "conventionId", required = true) Integer conventionId, String targetView) {
         init(request);
         Test2Boy test2Boy=new Test2Boy();
         test2Boy.setId(testBoyId);
