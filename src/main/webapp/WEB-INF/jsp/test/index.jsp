@@ -46,6 +46,12 @@
             </tr>
             <tr>
                 <td>
+                    <label for="isAccurate">精确搜索<input type="checkbox" id="isAccurate" value="1" name="isAccurate" alt="精确搜索" title="精确搜索">
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <input type="submit" value="搜索">
                 </td>
             </tr>

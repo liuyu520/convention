@@ -26,8 +26,26 @@
         </c:otherwise>
     </c:choose>
     &nbsp;<%--当前页面:${requestScope["javax.servlet.forward.servlet_path"]}--%>
-    <a href="<%=path%>/image/convention">上传图片</a>
+    <a href="<%=path%>/image/convention">上传</a>
     &nbsp;
     <a href="http://hbjltv.com/html/blog.html">blog set</a>
-    <%-- &nbsp;<a target="_blank" href="<%=path%>">首页</a> --%>
+     &nbsp;<a href="JavaScript:void(0)" onclick="$('#searchBox').toggle( )" >search<img data-id="${bbs.id}" style="cursor: pointer"
+                                                   src="<%=path%>/static/img/icon_3.png" alt="详情"></a>
+</div>
+<div id="searchBox" style="display: none;" ><%-- 下面的代码是从WEB-INF/jsp/test/index.jsp 中拷贝 ,并删除h3标签和"精确搜索"选项 --%>
+    <form action="<%=path%>/test/list" method="post">
+        <table>
+            <tr>
+                <td>
+                    <input type="text" name="keyword" placeholder="请输入您要搜索的关键字" style="font-size: 18px;width: 320px;">
+                    <input type="hidden" name="columnsArr" value="testcase,alias,alias2"  >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="搜索">
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>
