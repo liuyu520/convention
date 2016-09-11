@@ -23,15 +23,17 @@
             href="<%=path%>/user/loginInput">登录</a> </c:when>
         <c:otherwise>
             <a href="<%=path%>/user/logout">注销</a>
+            ${requestScope["javax.servlet.forward.servlet_path"]}
         </c:otherwise>
     </c:choose>
     &nbsp;<%--当前页面:${requestScope["javax.servlet.forward.servlet_path"]}--%>
     <a href="<%=path%>/image/convention">上传</a>
     &nbsp;
     <a href="http://hbjltv.com/html/blog.html">blog set</a>
-     &nbsp;<a href="JavaScript:void(0)" onclick="$('#searchBox').toggle(&quot;slow&quot;,function() {console.log(this.style.display);if(this.style.display===&quot;block&quot;||this.style.display===''){$(this).find('input[type=text]').focus();}})" >search<img data-id="${bbs.id}" style="cursor: pointer"
-                                                   src="<%=path%>/static/img/icon_3.png" alt="详情"></a>
+<c:if test="${requestScope[\"javax.servlet.forward.servlet_path\"]!='/search'}">&nbsp;<a href="JavaScript:void(0)" onclick="$('#searchBox').toggle(&quot;slow&quot;,function() {console.log(this.style.display);if(this.style.display===&quot;block&quot;||this.style.display===''){$(this).find('input[type=text]').focus();}})" >search<img data-id="${bbs.id}" style="cursor: pointer"
+                                                   src="<%=path%>/static/img/icon_3.png" alt="搜索"></a></c:if>
 </div>
+<c:if test="${requestScope[\"javax.servlet.forward.servlet_path\"]!='/search'}">
 <div id="searchBox" style="display: none;" ><%-- 下面的代码是从WEB-INF/jsp/test/index.jsp 中拷贝 ,并删除h3标签和"精确搜索"选项 --%>
     <form action="<%=path%>/test/list" method="post">
         <table>
@@ -49,3 +51,4 @@
         </table>
     </form>
 </div>
+</c:if>
