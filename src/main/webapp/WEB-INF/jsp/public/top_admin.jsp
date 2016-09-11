@@ -29,7 +29,7 @@
     <a href="<%=path%>/image/convention">上传</a>
     &nbsp;
     <a href="http://hbjltv.com/html/blog.html">blog set</a>
-     &nbsp;<a href="JavaScript:void(0)" onclick="$('#searchBox').toggle( )" >search<img data-id="${bbs.id}" style="cursor: pointer"
+     &nbsp;<a href="JavaScript:void(0)" onclick="$('#searchBox').toggle(&quot;slow&quot;,function() {console.log(this.style.display);if(this.style.display===&quot;block&quot;||this.style.display===''){$(this).find('input[type=text]').focus();}})" >search<img data-id="${bbs.id}" style="cursor: pointer"
                                                    src="<%=path%>/static/img/icon_3.png" alt="详情"></a>
 </div>
 <div id="searchBox" style="display: none;" ><%-- 下面的代码是从WEB-INF/jsp/test/index.jsp 中拷贝 ,并删除h3标签和"精确搜索"选项 --%>

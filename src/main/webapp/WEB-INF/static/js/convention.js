@@ -52,7 +52,7 @@ $(function () {
                 });
                 return false;
             }
-            document.forms[0].submit();
+            document.forms[1].submit();//因为现在增加了搜索框
             return true;
         } else {
             alert("请输入内容");
