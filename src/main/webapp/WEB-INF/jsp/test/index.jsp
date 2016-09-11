@@ -56,7 +56,7 @@
             </tr>
             <tr>
                 <td>
-                    <label style="padding-bottom: 20px;" for="isAccurate">精确搜索<input type="checkbox" onchange="selectSearchType(this)" id="isAccurate" value="1" name="isAccurate" alt="精确搜索" title="精确搜索">
+                    <label style="padding-bottom: 20px;cursor: pointer;" for="isAccurate">精确搜索<input type="checkbox" style="cursor: pointer;" onchange="selectSearchType(this)" id="isAccurate" value="1" name="isAccurate" alt="精确搜索" title="精确搜索">
                     </label>
                 </td>
             </tr>
