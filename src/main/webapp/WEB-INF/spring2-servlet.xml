@@ -25,6 +25,7 @@
     <!-- 配置mvc的拦截器 可以配置多个 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
+            <mvc:mapping path="/share/create/**"></mvc:mapping>
 			<mvc:mapping path="/test/**"></mvc:mapping>
 			<mvc:mapping path="/convention/**"></mvc:mapping>
 			<mvc:mapping path="/search/**"></mvc:mapping>

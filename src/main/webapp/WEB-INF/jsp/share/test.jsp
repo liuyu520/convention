@@ -28,7 +28,12 @@
 </head>
 <body>
 <div>
-    <h4>【${test.testcase}】</h4>
+    <h4> <c:choose><c:when test="${test==null ||test.testcase==null}">
+           <span style="color: #f00;">分享链接已失效</span> ,请联系邮箱 1287789687@qq.com </c:when>
+        <c:otherwise>
+            【${test.testcase}】
+        </c:otherwise>
+    </c:choose></h4>
 <!-- JiaThis Button BEGIN -->
 <div class="jiathis_style_m"></div>
 <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_m.js" charset="utf-8"></script>
