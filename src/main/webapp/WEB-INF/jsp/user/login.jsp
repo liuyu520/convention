@@ -53,7 +53,12 @@
             })
         });
         formCheck = function () {
-
+            var $submitBtn=$('input.submit');
+            if ($submitBtn.hasClass("disabled")) {
+                console.log("不可以点击,直接返回");
+                return;
+            }
+            console.log("真正发送请求");
             var loginName22 = com.whuang.hsj.$$one("username");
             if (!com.whuang.hsj.isHasValue(loginName22.value)) {
                 loginName22.focus();
@@ -98,7 +103,7 @@
              return false;
              }*/
             //提交按钮置灰
-            $('input.submit').attr('disabled','disabled').css('background-color',"#ddd").css('color','white');
+            $submitBtn.attr('disabled','disabled').css('background-color',"#ddd").css('color','white').addClass("disabled");
             return true;
         };
 
