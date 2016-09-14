@@ -61,6 +61,7 @@
                             <input type="hidden" name="testBoyId" value="${test.id}">
                             <%--<input type="hidden" name="testcase" value="${test.testcase}">--%>
                             <textarea name="answer" id="" style="width:100%"  rows="5"  placeholder="请填写答案" ></textarea>
+                            <input type="hidden" name="token" value="${sessionScope.token}" >
                         </form>
                     </td>
                 </tr>
