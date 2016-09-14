@@ -44,7 +44,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
     /***
      * 是否真的存储到数据库
      */
-    private boolean realSave;
+    private boolean realSave = true;
 
     private static boolean canNotSee(User user2, Test2Boy test2Boy) {
         if (ValueWidget.isNullOrEmpty(test2Boy)) {

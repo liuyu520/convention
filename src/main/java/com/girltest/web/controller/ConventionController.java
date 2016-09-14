@@ -34,7 +34,7 @@ public class ConventionController extends BaseController<Convention> {
     /***
      * 是否真的存储到数据库
      */
-    private boolean realSave;
+    private boolean realSave = true;
     
     @Override
     protected void beforeAddInput(Model model, HttpServletRequest request) {
