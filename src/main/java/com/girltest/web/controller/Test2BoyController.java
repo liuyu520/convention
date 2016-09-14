@@ -11,6 +11,7 @@ import com.girltest.entity.Test2Boy;
 import com.girltest.entity.User;
 import com.girltest.entity.VoteLog;
 import com.girltest.util.ConventionUtil;
+import com.girltest.web.controller.intercept.RepeatToken;
 import com.io.hw.json.HWJacksonUtils;
 import com.string.widget.util.RegexUtil;
 import com.string.widget.util.ValueWidget;
@@ -64,6 +65,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
     }
 
     @RequestMapping("/save_answer")
+    @RepeatToken(remove = true)
     public String addAnswer(Model model, HttpServletRequest request, Test2Boy test2Boy, int testBoyId, Convention convention,String targetView) {
         init(request);
         test2Boy.setId(testBoyId);

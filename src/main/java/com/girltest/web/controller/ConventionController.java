@@ -7,6 +7,7 @@ import com.girltest.dao.Test2BoyDao;
 import com.girltest.entity.Convention;
 import com.girltest.entity.Test2Boy;
 import com.girltest.util.ConventionUtil;
+import com.girltest.web.controller.intercept.RepeatToken;
 import com.string.widget.util.ValueWidget;
 import com.time.util.TimeHWUtil;
 import oa.entity.common.AccessLog;
@@ -93,6 +94,7 @@ public class ConventionController extends BaseController<Convention> {
     }
 
     @RequestMapping(value = "/add_answer")
+    @RepeatToken(save = true)
     public String addAnswer(@RequestParam(value = "testBoyId", required = true) Integer testBoyId, Model model, HttpServletRequest request, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         if (null == testBoyId) {
             return "redirect:/test/list";
