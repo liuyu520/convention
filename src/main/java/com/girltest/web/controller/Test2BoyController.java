@@ -41,6 +41,10 @@ public class Test2BoyController extends BaseController<Test2Boy> {
     protected static Logger logger = Logger.getLogger(Test2BoyController.class);
     private ConventionDao conventionDao;
     private VoteLogDao voteLogDao;
+    /***
+     * 是否真的存储到数据库
+     */
+    private boolean realSave;
 
     private static boolean canNotSee(User user2, Test2Boy test2Boy) {
         if (ValueWidget.isNullOrEmpty(test2Boy)) {
@@ -88,7 +92,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         accessLog.setDescription("add convention");
         accessLog.setOperateResult("add convention id:" + convention.getId());
         accessLog.setReserved("test id:" + testBoyId);
-        logSave(accessLog, request);
+        logSave(accessLog, request, realSave);
 
         model.addAttribute("test", test2Boy);
         convention.setAnswer(ConventionUtil.convertBr(convention.getAnswer()));
@@ -145,7 +149,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         accessLog.setDescription("update test");
         accessLog.setOperateResult("update test id:" + id);
         accessLog.setReserved(oldTest);
-        logSave(accessLog, request);
+        logSave(accessLog, request, realSave);
 
         String resultUrl =Constant2.SPRINGMVC_REDIRECT_PREFIX+"test/"+id;// getRedirectViewAll() + "?fsdf=" + new Date().getTime();
         if (!ValueWidget.isNullOrEmpty(targetView)) {
@@ -177,7 +181,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         AccessLog accessLog = logInto(request);
         accessLog.setDescription("list test");
         accessLog.setOperateResult("list test conditon:" + HWJacksonUtils.getJsonP(roleLevel));
-        logSave(accessLog, request);
+        logSave(accessLog, request, realSave);
     }
 
     @Override
@@ -259,7 +263,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         AccessLog accessLog = logAdd(request);
         accessLog.setDescription("add test");
         accessLog.setOperateResult("add test:" + roleLevel.getTestcase());
-        logSave(accessLog, request);
+        logSave(accessLog, request, realSave);
 
     }
 
@@ -281,7 +285,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         AccessLog accessLog = logDelete(request);
         accessLog.setDescription("delete test");
         accessLog.setOperateResult("delete test id:" + id);
-        logSave(accessLog, request);
+        logSave(accessLog, request, realSave);
     }
 
     public VoteLogDao getVoteLogDao() {

@@ -31,7 +31,11 @@ import java.io.PrintWriter;
 public class ConventionController extends BaseController<Convention> {
     protected static Logger logger = Logger.getLogger(ConventionController.class);
     private Test2BoyDao test2BoyDao;
-
+    /***
+     * 是否真的存储到数据库
+     */
+    private boolean realSave;
+    
     @Override
     protected void beforeAddInput(Model model, HttpServletRequest request) {
     }
@@ -55,7 +59,7 @@ public class ConventionController extends BaseController<Convention> {
         AccessLog accessLog = logDelete(request);
         accessLog.setDescription("delete convention");
         accessLog.setOperateResult("delete convention id:" + id);
-        logSave(accessLog, request);
+        logSave(accessLog, request, realSave);
         return Constant2.RESPONSE_RIGHT_RESULT;
     }
 
@@ -74,7 +78,7 @@ public class ConventionController extends BaseController<Convention> {
         accessLog.setDescription("update convention");
         accessLog.setOperateResult("update convention id:" + id);
         accessLog.setReserved(oldAnswer);
-        logSave(accessLog, request);
+        logSave(accessLog, request, realSave);
 
         roleLevel.setAnswer(ConventionUtil.convertBr(roleLevel.getAnswer()));
         Test2Boy test2Boy = test2BoyDao.get(testBoyId);

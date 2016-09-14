@@ -1,5 +1,6 @@
 package com.girltest.web.controller.intercept;
 
+import com.common.util.WebServletUtil;
 import org.apache.log4j.Logger;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -31,7 +32,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                     if (isRepeatSubmit(request)) {
                         LOG.warn("please don't repeat submit,url:" + request.getServletPath());
                         //如果重复提交,则重定向到列表页面
-                        response.sendRedirect("/test/list");
+                        response.sendRedirect(WebServletUtil.getBasePath(request) + "/test/list");
                         return false;
                     }
                     request.getSession(true).removeAttribute("token");
