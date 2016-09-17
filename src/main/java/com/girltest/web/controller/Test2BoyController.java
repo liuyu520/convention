@@ -358,8 +358,12 @@ public class Test2BoyController extends BaseController<Test2Boy> {
     }
 
     private void cacheSearchResult(HttpServletRequest request, List recordList) {
-        String queryKeyword = request.getParameter("testcase");
+        String queryKeyword = request.getParameter("keyword");
         if (!ValueWidget.isNullOrEmpty(queryKeyword) && !ValueWidget.isNullOrEmpty(recordList)) {
+            queryKeyword = queryKeyword.trim();
+            if ("恶心".equals(queryKeyword) || "变态".equals(queryKeyword) || "rr".equals(queryKeyword)) {
+                return;
+            }
             HttpSession session = request.getSession(true);
             session.setAttribute("tests", recordList);
         }

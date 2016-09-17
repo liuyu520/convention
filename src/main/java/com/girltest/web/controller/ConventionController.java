@@ -65,7 +65,7 @@ public class ConventionController extends BaseController<Convention> {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, produces = SystemHWUtil.RESPONSE_CONTENTTYPE_PLAIN_UTF)
 //    @ResponseBody
-    public String update(int id, @RequestParam(required = true) Convention roleLevel, int testBoyId, Model model, HttpServletRequest request, HttpServletResponse response, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, IOException {
+    public String update334(int id, @RequestParam(required = true) Convention roleLevel, int testBoyId, Model model, HttpServletRequest request, HttpServletResponse response, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, IOException {
         ConventionDao conventionDao = (ConventionDao) this.getDao();
         Convention convention = conventionDao.get(id);
         String oldAnswer = convention.getAnswer();
