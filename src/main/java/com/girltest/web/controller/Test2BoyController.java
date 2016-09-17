@@ -2,6 +2,7 @@ package com.girltest.web.controller;
 
 import com.common.dict.Constant2;
 import com.common.util.SystemHWUtil;
+import com.common.util.WebServletUtil;
 import com.common.web.view.PageView;
 import com.girltest.dao.ConventionDao;
 import com.girltest.dao.Test2BoyDao;
@@ -291,8 +292,9 @@ public class Test2BoyController extends BaseController<Test2Boy> {
     }
 
     public boolean checkDuplicate(HttpServletResponse response, String testcase) {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         try {
-            response.sendRedirect("/test/add?errorMessage=" + URLEncoder.encode("重复了:" + testcase, SystemHWUtil.CHARSET_UTF));
+            response.sendRedirect(WebServletUtil.getBasePath(request) + "test/add?errorMessage=" + URLEncoder.encode("重复了:" + testcase, SystemHWUtil.CHARSET_UTF));
         } catch (IOException e1) {
             e1.printStackTrace();
         }
