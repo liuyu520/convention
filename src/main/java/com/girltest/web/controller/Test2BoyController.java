@@ -32,7 +32,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -61,6 +63,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         if(!ValueWidget.isNullOrEmpty(testcase)){
             model.addAttribute("testcase",testcase);
         }
+        model.addAttribute("errorMessage", request.getParameter("errorMessage"));
     }
 
     @Override
@@ -251,9 +254,25 @@ public class Test2BoyController extends BaseController<Test2Boy> {
     }
 
     @Override
-    protected void beforeSave(Test2Boy roleLevel, Model model) {
-        super.beforeSave(roleLevel, model);
+    protected boolean beforeSave(Test2Boy roleLevel, Model model, HttpServletResponse response) {
+        super.beforeSave(roleLevel, model, response);
+        //判断重复
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        init(request);
+        String testcase = roleLevel.getTestcase();
+        Test2BoyDao test2BoyDao = (Test2BoyDao) getDao();
+        try {
+            Test2Boy test2Boy = test2BoyDao.get("testcase", testcase);
+            if (null != test2Boy) {
+//                System.out.println("重复了");
+                return checkDuplicate(response, testcase);
+            }
+        } catch (org.hibernate.NonUniqueResultException e) {
+            e.printStackTrace();
+//            System.out.println("重复了aaa");
+            return checkDuplicate(response, testcase);
+        }
+
         User user2 = getUser4Session(request);
         roleLevel.setUser(user2);
         roleLevel.setUpdateTime(TimeHWUtil.getCurrentDateTime());
@@ -262,9 +281,18 @@ public class Test2BoyController extends BaseController<Test2Boy> {
 
         AccessLog accessLog = logAdd(request);
         accessLog.setDescription("add test");
-        accessLog.setOperateResult("add test:" + roleLevel.getTestcase());
+        accessLog.setOperateResult("add test:" + testcase);
         logSave(accessLog, request, realSave);
+        return true;
+    }
 
+    public boolean checkDuplicate(HttpServletResponse response, String testcase) {
+        try {
+            response.sendRedirect("/test/add?errorMessage=" + "重复了:" + testcase);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        return false;
     }
 
     @Override
