@@ -35,7 +35,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/test")
@@ -262,8 +264,8 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         String testcase = roleLevel.getTestcase();
         Test2BoyDao test2BoyDao = (Test2BoyDao) getDao();
         try {
-            Test2Boy test2Boy = test2BoyDao.get("testcase", testcase);
-            if (null != test2Boy) {
+            List<Test2Boy> test2Boys = test2BoyDao.getList("testcase", testcase);
+            if (!ValueWidget.isNullOrEmpty(test2Boys)) {
 //                System.out.println("重复了");
                 return checkDuplicate(response, testcase);
             }
@@ -283,12 +285,14 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         accessLog.setDescription("add test");
         accessLog.setOperateResult("add test:" + testcase);
         logSave(accessLog, request, realSave);
+        //参考 com.girltest.web.controller.intercept.TokenInterceptor
+        request.getSession(true).setAttribute("token", UUID.randomUUID().toString());
         return true;
     }
 
     public boolean checkDuplicate(HttpServletResponse response, String testcase) {
         try {
-            response.sendRedirect("/test/add?errorMessage=" + "重复了:" + testcase);
+            response.sendRedirect("/test/add?errorMessage=" + URLEncoder.encode("重复了:" + testcase, SystemHWUtil.CHARSET_UTF));
         } catch (IOException e1) {
             e1.printStackTrace();
         }
