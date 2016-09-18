@@ -28,6 +28,9 @@ h2 a, h3 a, h4 a {
     font-weight: normal;
     font-size: 18px;
 }
+h3{
+    margin-bottom: 0;
+}
 
 .tips .success {
     color: #02ff98;

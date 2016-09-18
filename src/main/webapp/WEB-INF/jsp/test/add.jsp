@@ -32,6 +32,7 @@
 </head>
 <body>
 <h3>添加测试&nbsp;<a href="<%=path%>/test/list">列表</a>&nbsp; <a href="<%=path%>/search">首页</a></h3>
+<span class="errormessage">${errorMessage}</span>
 <div>
     <div id="add_test">
         <form action="<%=path%>/test/add?targetView=/convention/add" onsubmit="return test.checkAddTestForm(this)" method="post">

@@ -30,6 +30,7 @@
             var $this=$(self);
             ajaxUploadFileCommon($this);
         };
+        var adapterScrollTop=160;
         $(function () {
             //预览图片,没有真正上传
             com.whuang.hsj.previewLocalDiskImage($('#pic-file'), $("#previewImage"),function () {
@@ -37,7 +38,18 @@
                     uploadStatus=1;
                 }
             },6/*单位是M*/);
-            $('textarea[name=answer]').focus();
+            var footerIE8Throttle=throttle3(function () {
+                if(getInner().height==293) {
+                    $(window).scrollTop(adapterScrollTop);
+                }
+            },100);
+            $('textarea[name=answer]').focus().focus(footerIE8Throttle).click(footerIE8Throttle);
+            //加载完成之后,文本框聚焦,因为弹出软键盘有一定延迟,所以需要使用定时器
+            setTimeout(function () {
+                if(getInner().height==293) {
+                    $(window).scrollTop(adapterScrollTop);
+                }
+            },80);
         })
     </script>
 </head>
