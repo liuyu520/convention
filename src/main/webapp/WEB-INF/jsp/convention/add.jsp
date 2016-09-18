@@ -49,17 +49,18 @@ chrome自动就拥有这项功能:软键盘弹出时,自动上移
                 }
             },6/*单位是M*/);
             var footerIE8Throttle=throttle3(function () {
-                if(getInner().height<=293) {
+                if(getInner().height<=293) {//说明软键盘弹出来了
                     $(window).scrollTop(adapterScrollTop);
                 }
-            },100);
+
+            },200);//200
             $('textarea[name=answer]').focus().focus(footerIE8Throttle).click(footerIE8Throttle);
             //加载完成之后,文本框聚焦,因为弹出软键盘有一定延迟,所以需要使用定时器
             setTimeout(function () {
-                if(getInner().height<=293) {
+                if(getInner().height<=293) {//说明软键盘弹出来了
                     $(window).scrollTop(adapterScrollTop);
                 }
-            },80);
+            },180);
         })
     </script>
 </head>
