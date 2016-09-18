@@ -24,13 +24,23 @@
     <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
     <title>添加答案</title>
     <script type="text/javascript">
-
+/*
+各手机浏览器的状况:
+火狐:<br>
+聚焦时第一次计算的高度不对,再次点击时,高度才正确.
+chrome自动就拥有这项功能:软键盘弹出时,自动上移
+*/
         var uploadStatus=0;//初始状态:0;  选择了图片但未上传:1;  上传成功:2
         var ajaxUploadFile = function (self) {
             var $this=$(self);
             ajaxUploadFileCommon($this);
         };
         var adapterScrollTop=160;
+        /*if(navigator.userAgent.indexOf("OppoBrowser")==-1){
+            adapterScrollTop=170;
+        }else{
+            adapterScrollTop=160;
+        }*/
         $(function () {
             //预览图片,没有真正上传
             com.whuang.hsj.previewLocalDiskImage($('#pic-file'), $("#previewImage"),function () {
@@ -39,14 +49,14 @@
                 }
             },6/*单位是M*/);
             var footerIE8Throttle=throttle3(function () {
-                if(getInner().height==293) {
+                if(getInner().height<=293) {
                     $(window).scrollTop(adapterScrollTop);
                 }
             },100);
             $('textarea[name=answer]').focus().focus(footerIE8Throttle).click(footerIE8Throttle);
             //加载完成之后,文本框聚焦,因为弹出软键盘有一定延迟,所以需要使用定时器
             setTimeout(function () {
-                if(getInner().height==293) {
+                if(getInner().height<=293) {
                     $(window).scrollTop(adapterScrollTop);
                 }
             },80);
