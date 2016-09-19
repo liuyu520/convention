@@ -33,7 +33,9 @@ chrome自动就拥有这项功能:软键盘弹出时,自动上移
         var uploadStatus=0;//初始状态:0;  选择了图片但未上传:1;  上传成功:2
         var ajaxUploadFile = function (self) {
             var $this=$(self);
-            ajaxUploadFileCommon($this);
+            ajaxUploadFileCommon($this,function () {
+                $('textarea[name=answer]').focus();
+            });
         };
         var adapterScrollTop=160;
         /*if(navigator.userAgent.indexOf("OppoBrowser")==-1){
