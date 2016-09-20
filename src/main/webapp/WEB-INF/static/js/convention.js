@@ -268,7 +268,8 @@ var ajaxUploadFileCommon=function ($this,successCallback) {
             if(oldVal){
                 oldVal+='\r\n';
             }
-            $answer.val(oldVal+'<img style="max-width: 100%" src="'+data.relativePath+'" />');
+            // $answer.val(oldVal+'<img style="max-width: 100%" src="'+data.relativePath+'" />');
+            insertAfterText($answer[0], '<img style="max-width: 100%" src="' + data.relativePath + '" />');
             $("#previewImage").attr("src", data.relativePath);
             //提示语定时消失
             com.whuang.hsj.setMessage(null,'upload_result_tip',"上传成功","correct");
@@ -290,3 +291,33 @@ var ajaxUploadFileCommon=function ($this,successCallback) {
     uploadStatus=2;
     com.whuang.hsj.ajaxUploadFile($uploadFile.get(0).id/*'fileToUpload'*/, param);
 };
+/**
+ * 在光标后插入文本
+ * 参数：
+ *     textDom  [JavaScript DOM String] 当前对象
+ *     value  [String]  要插入的文本
+ */
+function insertAfterText(textDom, value) {
+    var selectRange;
+    if (document.selection) {
+        // IE Support
+        textDom.focus();
+        selectRange = document.selection.createRange();
+        selectRange.text = value;
+        textDom.focus();
+    } else if (textDom.selectionStart || textDom.selectionStart == '0') {
+        // Firefox support
+        var startPos = textDom.selectionStart;
+        var endPos = textDom.selectionEnd;
+        var scrollTop = textDom.scrollTop;
+        textDom.value = textDom.value.substring(0, startPos) + value + textDom.value.substring(endPos, textDom.value.length);
+        textDom.focus();
+        textDom.selectionStart = startPos + value.length;
+        textDom.selectionEnd = startPos + value.length;
+        textDom.scrollTop = scrollTop;
+    }
+    else {
+        textDom.value += value;
+        textDom.focus();
+    }
+}
