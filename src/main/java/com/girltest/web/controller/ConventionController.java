@@ -6,8 +6,8 @@ import com.girltest.dao.ConventionDao;
 import com.girltest.dao.Test2BoyDao;
 import com.girltest.entity.Convention;
 import com.girltest.entity.Test2Boy;
-import com.girltest.util.ConventionUtil;
 import com.girltest.web.controller.intercept.RepeatToken;
+import com.io.hw.json.HWJacksonUtils;
 import com.string.widget.util.ValueWidget;
 import com.time.util.TimeHWUtil;
 import oa.entity.common.AccessLog;
@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 /***
  *
@@ -63,14 +64,30 @@ public class ConventionController extends BaseController<Convention> {
         return Constant2.RESPONSE_RIGHT_RESULT;
     }
 
+    /***
+     * 方法名称不能为"update333","update33","update3","update3333","update2","update22","update4","update44","update444","updatea"<br>
+     *     否则,报400
+     * @param id
+     * @param answer
+     * @param testBoyId
+     * @param model
+     * @param request
+     * @param response
+     * @param targetView
+     * @return
+     * @throws SecurityException
+     * @throws NoSuchFieldException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     * @throws IOException
+     */
     @RequestMapping(value = "/update", method = RequestMethod.POST, produces = SystemHWUtil.RESPONSE_CONTENTTYPE_PLAIN_UTF)
-//    @ResponseBody
-    public String update334(int id, @RequestParam(required = true) Convention roleLevel, int testBoyId, Model model, HttpServletRequest request, HttpServletResponse response, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, IOException {
+    public String update334(int id, @RequestParam(required = true) String answer, int testBoyId, Model model, HttpServletRequest request, HttpServletResponse response, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, IOException {
         ConventionDao conventionDao = (ConventionDao) this.getDao();
         Convention convention = conventionDao.get(id);
         String oldAnswer = convention.getAnswer();
         convention.setUpdateTime(TimeHWUtil.getCurrentDateTime());
-        convention.setAnswer(roleLevel.getAnswer());
+        convention.setAnswer(answer);
         updateCommon(id, convention, model, request);
         test2BoyDao.updateTime(testBoyId);
 
@@ -80,7 +97,7 @@ public class ConventionController extends BaseController<Convention> {
         accessLog.setReserved(oldAnswer);
         logSave(accessLog, request, realSave);
 
-        roleLevel.setAnswer(ConventionUtil.convertBr(roleLevel.getAnswer()));
+//        roleLevel.setAnswer(ConventionUtil.convertBr(answer));
         Test2Boy test2Boy = test2BoyDao.get(testBoyId);
         model.addAttribute("test", test2Boy);
         if(ValueWidget.isNullOrEmpty(targetView)){
@@ -88,7 +105,7 @@ public class ConventionController extends BaseController<Convention> {
             response.setCharacterEncoding(SystemHWUtil.CHARSET_UTF);
             response.setContentType(SystemHWUtil.RESPONSE_CONTENTTYPE_PLAIN_UTF);
             PrintWriter out = response.getWriter();
-            out.write(roleLevel.getAnswer());
+            out.write(answer);
             out.flush();
             return null;
         }else{
@@ -97,6 +114,25 @@ public class ConventionController extends BaseController<Convention> {
         //getJspFolder() + "/detail";
     }
 
+    //    @RequestMapping(value = "/updateImagePath")
+    @ResponseBody
+    public String updateImagePath() {
+        ConventionDao conventionDao = (ConventionDao) this.getDao();
+        List<Convention> conventionList = conventionDao.getList("answer", "src=\"http://hbjltv.com:8084/convention/upload/");
+        int size = conventionList.size();
+        for (int i = 0; i < size; i++) {
+            Convention convention = conventionList.get(i);
+            String answer = convention.getAnswer();
+            if (!ValueWidget.isNullOrEmpty(answer) && answer.contains("hbjltv.com:8084/convention")) {
+                answer = answer.replace("http://hbjltv.com:8084/convention/upload", "http://hbjltv.com:8084/convention2/upload");
+                System.out.println(answer);
+//                convention.setAnswer(answer);
+//                conventionDao.update(convention);
+            }
+
+        }
+        return HWJacksonUtils.getJsonP(conventionList);
+    }
     @RequestMapping(value = "/add_answer")
     @RepeatToken(save = true)
     public String addAnswer(@RequestParam(value = "testBoyId", required = true) Integer testBoyId, Model model, HttpServletRequest request, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
@@ -110,6 +146,24 @@ public class ConventionController extends BaseController<Convention> {
         }
         return getJspFolder() + "/add";
     }
+
+    @RequestMapping(value = "/searchInput")
+    public String searchInput(Model model, HttpServletRequest request, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+
+        if (!ValueWidget.isNullOrEmpty(targetView)) {
+            return targetView;
+        }
+        return getJspFolder() + "/search";
+    }
+
+    @RequestMapping(value = "/getTestId")
+    @ResponseBody
+    public String getTestId(Model model, HttpServletRequest request, int conventionId, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+        ConventionDao conventionDao = (ConventionDao) this.getDao();
+        int testId = conventionDao.getTestId(conventionId);
+        return "{\"testId\":" + testId + "}";
+    }
+
 
     @RequestMapping("/edit")
     public String editAnswer(Model model, HttpServletRequest request, /*Test2Boy test2Boy,  */int testBoyId, @RequestParam(value = "conventionId", required = true) Integer conventionId, String targetView) {

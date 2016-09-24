@@ -3,6 +3,7 @@ package com.girltest.dao;
 import com.common.dao.generic.GenericDao;
 import com.common.dict.Constant2;
 import com.girltest.entity.Convention;
+import com.string.widget.util.ValueWidget;
 import com.time.util.TimeHWUtil;
 import org.apache.commons.collections.map.ListOrderedMap;
 import org.springframework.stereotype.Component;
@@ -34,6 +35,24 @@ public class ConventionDao extends GenericDao<Convention> {
 //        update(convention);
     }
 
+    /***
+     *  SELECT
+     test_id
+     FROM
+     t_mid_test_convention
+     where
+     convention_id=397
+     * @param conventionId
+     * @return
+     */
+    public int getTestId(int conventionId) {
+        List list = super.getCurrentSession().createSQLQuery("SELECT test_id FROM " + MID_TABLE_NAME + " where convention_id=" + conventionId).list();
+        int testId = -1;
+        if (!ValueWidget.isNullOrEmpty(list)) {
+            testId = (Integer) list.get(0);
+        }
+        return testId;
+    }
     public List<Convention> getFrontList(int maxRecordsNum, String notNullColumn, ListOrderedMap orderColumnModeMap) {
         Map map = new HashMap();
         map.put("status", Constant2.NEWS_STATUS_ON);

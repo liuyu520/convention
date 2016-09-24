@@ -213,6 +213,27 @@ var deedit4copy = function (conventionId) {
         $conventionDiv.html($conventionDiv.data("content"));
     }
 };
+/***
+ * 通过查找的答案,进入问题
+ * @param conventionId
+ */
+var toTestDetail = function (conventionId) {
+    var options = {
+        url: server_url + "/convention/getTestId?conventionId=" + conventionId,
+        type: "POST",
+        dataType: 'json',
+        success: function (json2) {
+            location.href = server_url + "/test/oneTest?testId=" + json2.testId;
+        },
+        error: function (er) {
+            console.log(er);
+            if (er.statusText == 'Internal Server Error') {
+                alert("服务器内部错误")
+            }
+        }
+    };
+    $.ajax(options);
+};
 var voteConvention = function (self, conventionId, testBoyId) {
     var options = {
         url: server_url + "/vote/vote?conventionId=" + conventionId + '&testBoyId=' + testBoyId,
