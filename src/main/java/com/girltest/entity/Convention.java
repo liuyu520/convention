@@ -1,9 +1,9 @@
 package com.girltest.entity;
 
-import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import javax.persistence.*;
 
 /***
  * 惯例
@@ -22,7 +22,7 @@ public class Convention {
      * 热度 <br>
      * 值越大,表示越受关注
      */
-    protected int stars;
+    protected Integer stars;
     private int id;
     /***
      * 不是最佳
@@ -63,11 +63,11 @@ public class Convention {
         this.updateTime = updateTime;
     }
 
-    public int getStars() {
+    public Integer getStars() {
         return stars;
     }
 
-    public void setStars(int stars) {
+    public void setStars(Integer stars) {
         this.stars = stars;
     }
 

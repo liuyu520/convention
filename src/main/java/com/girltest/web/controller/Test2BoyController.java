@@ -61,6 +61,17 @@ public class Test2BoyController extends BaseController<Test2Boy> {
                 && test2Boy.getUser().getId() != user2.getId();
     }
 
+    private static String justOneTest(Model model, Test2Boy test2Boy) {
+        PageView view = new PageView();
+        view.setTotalPages(1);
+        view.setTotalRecords(1);
+        List list = new ArrayList();
+        list.add(test2Boy);
+        view.setRecordList(list);
+        model.addAttribute("view", view);
+        return "test/list";
+    }
+
     @Override
     protected void beforeAddInput(Model model, HttpServletRequest request) {
         String testcase=request.getParameter("testcase");
@@ -142,7 +153,6 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         }
         return "redirect:/test/"+id;
     }
-
 
     @RequestMapping(value = "/{id}/update2", method = RequestMethod.POST)
     public String update(@PathVariable int id, Test2Boy roleLevel, Model model, HttpServletRequest request, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
@@ -334,14 +344,23 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         Test2BoyDao test2BoyDao = (Test2BoyDao) getDao();
         Test2Boy test2Boy = test2BoyDao.get(testId);
         session.setAttribute("testDetail", test2Boy);
-        PageView view = new PageView();
-        view.setTotalPages(1);
-        view.setTotalRecords(1);
-        List list = new ArrayList();
-        list.add(test2Boy);
-        view.setRecordList(list);
-        model.addAttribute("view", view);
-        return "test/list";
+        return justOneTest(model, test2Boy);
+    }
+
+    /***
+     * 获取当前的test,可能没有
+     * @param model
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/currentTest")
+    public String currentTest(Model model, HttpSession session) {
+        Test2BoyDao test2BoyDao = (Test2BoyDao) getDao();
+        Test2Boy test2Boy = (Test2Boy) session.getAttribute("testDetail");
+        if (null == test2Boy) {
+            return Constant2.SPRINGMVC_REDIRECT_PREFIX + "test/list";
+        }
+        return justOneTest(model, test2Boy);
     }
 
     public VoteLogDao getVoteLogDao() {
