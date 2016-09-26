@@ -104,7 +104,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
             anser = RegexUtil.filterExpression(anser);
             convention.setAnswer(anser);
         }
-        conventionDao.addAnswer(convention, testBoyId);
+        conventionDao.addAnswer(convention, test2Boy);
 
         AccessLog accessLog = logAdd(request);
         accessLog.setDescription("add convention");
@@ -340,7 +340,10 @@ public class Test2BoyController extends BaseController<Test2Boy> {
      * @return
      */
     @RequestMapping(value = "/oneTest")
-    public String oneTest(Model model, int testId, HttpSession session) {
+    public String oneTest(Model model, Integer testId, HttpSession session) {
+        if (testId == null) {
+            return Constant2.SPRINGMVC_REDIRECT_PREFIX + "test/list";
+        }
         Test2BoyDao test2BoyDao = (Test2BoyDao) getDao();
         Test2Boy test2Boy = test2BoyDao.get(testId);
         session.setAttribute("testDetail", test2Boy);
@@ -402,11 +405,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
         String queryKeyword = request.getParameter("keyword");
         if (!ValueWidget.isNullOrEmpty(queryKeyword) && !ValueWidget.isNullOrEmpty(recordList)) {
             queryKeyword = queryKeyword.trim();
-            if ("恶心".equals(queryKeyword) || "变态".equals(queryKeyword) || "rr".equals(queryKeyword)
-                    || "大姨妈 ".equals(queryKeyword)
-                    || "刘钰大姨妈 ".equals(queryKeyword)) {
-                return;
-            }
+            if (ConventionUtil.filterKeyword(queryKeyword)) return;
             HttpSession session = request.getSession(true);
             session.setAttribute("tests", recordList);
         }

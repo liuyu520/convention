@@ -2,10 +2,12 @@ package com.girltest.web.controller;
 
 import com.common.dict.Constant2;
 import com.common.util.SystemHWUtil;
+import com.common.web.view.PageView;
 import com.girltest.dao.ConventionDao;
 import com.girltest.dao.Test2BoyDao;
 import com.girltest.entity.Convention;
 import com.girltest.entity.Test2Boy;
+import com.girltest.util.ConventionUtil;
 import com.girltest.web.controller.intercept.RepeatToken;
 import com.io.hw.json.HWJacksonUtils;
 import com.string.widget.util.ValueWidget;
@@ -105,7 +107,7 @@ public class ConventionController extends BaseController<Convention> {
             response.setCharacterEncoding(SystemHWUtil.CHARSET_UTF);
             response.setContentType(SystemHWUtil.RESPONSE_CONTENTTYPE_PLAIN_UTF);
             PrintWriter out = response.getWriter();
-            out.write(answer);
+            out.write(ConventionUtil.convertBr(answer));
             out.flush();
             return null;
         }else{
@@ -187,5 +189,22 @@ public class ConventionController extends BaseController<Convention> {
     @Resource
     public void setTest2BoyDao(Test2BoyDao test2BoyDao) {
         this.test2BoyDao = test2BoyDao;
+    }
+
+    @Override
+    protected void listTODO(Model model, PageView view, HttpServletRequest request) {
+        super.listTODO(model, view, request);
+        List<Convention> conventions = view.getRecordList();
+        int size = conventions.size();
+        for (int i = 0; i < size; i++) {
+            Convention convention = conventions.get(i);
+            convention.setAnswer(ConventionUtil.convertBr(convention.getAnswer()));
+        }
+    }
+
+    @Override
+    protected void beforeList(Convention roleLevel) {
+        super.beforeList(roleLevel);
+        roleLevel.setStatus(Constant2.NEWS_STATUS_ON);
     }
 }

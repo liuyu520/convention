@@ -3,6 +3,8 @@ package com.girltest.dao;
 import com.common.dao.generic.GenericDao;
 import com.common.dict.Constant2;
 import com.girltest.entity.Convention;
+import com.girltest.entity.Test2Boy;
+import com.girltest.util.ConventionUtil;
 import com.string.widget.util.ValueWidget;
 import com.time.util.TimeHWUtil;
 import org.apache.commons.collections.map.ListOrderedMap;
@@ -69,15 +71,26 @@ public class ConventionDao extends GenericDao<Convention> {
     }
 
     /***
-     * 添加答案
+     * 添加答案 <br>
+     *     INSERT
+     INTO
+     t_mid_test_convention
+     (test_id, convention_id,status)
+     values
+     (221,1063,1)
      *
      * @param convention
-     * @param testBoyId
+     * @param test2Boy
      */
-    public void addAnswer(Convention convention, int testBoyId) {
+    public void addAnswer(Convention convention, Test2Boy test2Boy) {
+        if (null == convention.getStars()) {
+            convention.setStars(0);
+        }
         this.save(convention);
+        int testBoyId = test2Boy.getId();
         this.addConvention(convention.getId(), testBoyId);
 //        Test2BoyDao test2BoyDao=(Test2BoyDao)getDao();
+        if (ConventionUtil.filterKeyword(test2Boy.getTestcase())) return;
         test2BoyDao.updateTime(testBoyId);
     }
 
