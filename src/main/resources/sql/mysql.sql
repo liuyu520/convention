@@ -154,3 +154,20 @@ CREATE TABLE t_share_item (
   updateTime VARCHAR(255),
   PRIMARY KEY (id)
 );
+CREATE TABLE t_diary (
+  id         INTEGER NOT NULL AUTO_INCREMENT,
+  content    VARCHAR(255),
+  createTime VARCHAR(255),
+  stars      INTEGER,
+  status     TINYINT NOT NULL,
+  updateTime VARCHAR(255),
+  userId     INTEGER,
+  PRIMARY KEY (id)
+);
+ALTER TABLE t_diary
+  ADD INDEX FK_hbsm0eyqxw4j2mn4209fv7agg (userId),
+  ADD CONSTRAINT FK_hbsm0eyqxw4j2mn4209fv7agg FOREIGN KEY (userId) REFERENCES t_user (id);
+
+ALTER TABLE t_mid_test_convention
+  ADD INDEX FK_on9disi985cvkwdtar3bumxg5 (convention_id),
+  ADD CONSTRAINT FK_on9disi985cvkwdtar3bumxg5 FOREIGN KEY (convention_id) REFERENCES t_convention (id);
