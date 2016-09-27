@@ -70,6 +70,7 @@
             <tx:method name="change*" propagation="REQUIRED"/>
             <tx:method name="to*" propagation="REQUIRED"/>
             <tx:method name="modify*" propagation="REQUIRED"/>
+            <tx:method name="create*" propagation="REQUIRED"/>
             <tx:method name="verify*" read-only="true"/>
             <tx:method name="list*" read-only="true"/>
         </tx:attributes>
