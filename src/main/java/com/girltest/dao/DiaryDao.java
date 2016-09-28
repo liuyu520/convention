@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Component("diaryDao")
 public class DiaryDao extends GenericDao<Diary> {
@@ -52,6 +53,26 @@ public class DiaryDao extends GenericDao<Diary> {
         Criteria criteria= super.getCurrentSession().createCriteria(Diary.class).add(Restrictions.between("createTime",startDate,endDate));
         Diary diary= (Diary)criteria.uniqueResult();
         return diary;
+    }
+
+    /***
+     * 获取今天的所有日记<br>
+     *     正常情况下最多两篇
+     * @return
+     */
+    public List<Diary> getToday() {
+        Calendar morning0Calendar = Calendar.getInstance();
+        morning0Calendar.set(Calendar.HOUR_OF_DAY, 0);
+        morning0Calendar.set(Calendar.MINUTE, 0);
+        morning0Calendar.set(Calendar.SECOND, 0);
+        Date morning0 = morning0Calendar.getTime();
+
+        morning0Calendar.set(Calendar.HOUR_OF_DAY, 23);
+        morning0Calendar.set(Calendar.MINUTE, 59);
+        morning0Calendar.set(Calendar.SECOND, 59);
+        Date morning24 = morning0Calendar.getTime();
+        Criteria criteria = super.getCurrentSession().createCriteria(Diary.class).add(Restrictions.between("createTime", TimeHWUtil.formatDateTime(morning0), TimeHWUtil.formatDateTime(morning24)));
+        return criteria.list();
     }
     public Diary create(){
         Diary diary=getCurrent();

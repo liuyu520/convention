@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "t_diary")
 public class Diary {
-    private int id;
     /***
      * 更新时间
      */
@@ -18,7 +17,18 @@ public class Diary {
      * 创建时间
      */
     protected String createTime;
+    /***
+     * 热度 <br>
+     * 值越大,表示越受关注
+     */
+    protected Integer stars;
+    private int id;
     private String content;
+    /***
+     * 格式化之后的<br>
+     *     换行替换为br
+     */
+    private String formatContent;
     /***
      * 创建者
      */
@@ -27,11 +37,6 @@ public class Diary {
      * 1:有效;2:被删除
      */
     private int status;
-    /***
-     * 热度 <br>
-     * 值越大,表示越受关注
-     */
-    protected Integer stars;
 
     @Id
     @GeneratedValue
@@ -91,5 +96,14 @@ public class Diary {
 
     public void setStars(Integer stars) {
         this.stars = stars;
+    }
+
+    @Transient
+    public String getFormatContent() {
+        return formatContent;
+    }
+
+    public void setFormatContent(String formatContent) {
+        this.formatContent = formatContent;
     }
 }

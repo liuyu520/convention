@@ -157,7 +157,7 @@ public class Test2BoyController extends BaseController<Test2Boy> {
     @RequestMapping(value = "/{id}/update2", method = RequestMethod.POST)
     public String update(@PathVariable int id, Test2Boy roleLevel, Model model, HttpServletRequest request, String targetView) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         init(request);
-        beforeUpdate(roleLevel);
+        beforeUpdate(roleLevel, null);
         Test2BoyDao test2BoyDao = (Test2BoyDao) getDao();
         String oldTest = test2BoyDao.get(id).getTestcase();
         test2BoyDao.update2(roleLevel.getTestcase(), id);

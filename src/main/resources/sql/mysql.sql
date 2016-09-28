@@ -156,7 +156,7 @@ CREATE TABLE t_share_item (
 );
 CREATE TABLE t_diary (
   id         INTEGER NOT NULL AUTO_INCREMENT,
-  content    VARCHAR(255),
+  content    LONGTEXT,
   createTime VARCHAR(255),
   stars      INTEGER,
   status     TINYINT NOT NULL,
