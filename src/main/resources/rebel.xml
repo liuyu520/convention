@@ -3,13 +3,13 @@
              xsi:schemaLocation="http://www.zeroturnaround.com http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
 
     <classpath>
-        <dir name="E:/work/project/convention/src/main/webapp/WEB-INF/classes">
+        <dir name="/Users/whuanghkl/work/project/convention/src/main/webapp/WEB-INF/classes">
         </dir>
     </classpath>
 
     <web>
         <link target="/">
-            <dir name="E:/work/project/convention/src/main/webapp">
+            <dir name="/Users/whuanghkl/work/project/convention/src/main/webapp">
             </dir>
         </link>
     </web>

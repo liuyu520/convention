@@ -8,7 +8,7 @@ CREATE TABLE t_access_log (
   device_type    VARCHAR(255),
   extranet_ip    VARCHAR(255),
   ip             VARCHAR(255),
-  operate_result VARCHAR(255),
+  operate_result LONGTEXT,
   os_type        VARCHAR(255),
   query_string   VARCHAR(255),
   request_target VARCHAR(255),
@@ -143,7 +143,7 @@ CREATE TABLE t_girl (
   weight        TINYINT,
   work_place    VARCHAR(255),
   animal_sign   VARCHAR(255) COMMENT '生肖',
-  nation        VARCHAR(255) COMMENT '民族',
+  nation        VARCHAR(15) COMMENT '民族',
   PRIMARY KEY (id)
 );
 CREATE TABLE t_share_item (
