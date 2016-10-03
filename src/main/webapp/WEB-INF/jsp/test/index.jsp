@@ -19,7 +19,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    <script type="text/javascript" src="http://hbjltv.com/static/js/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="<%=path%>/static/js/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/page.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
     <script type="text/javascript" >
@@ -45,7 +45,9 @@
 <body>
 <jsp:include page="../public/top_admin.jsp"/>
 <div>
-    <h3>搜索 <a href="<%=path%>/test/add">添加测试</a> &nbsp; <a href="<%=path%>/test/list">列表</a></h3>
+    <h3>搜索 <a href="<%=path%>/test/add">添加测试</a> &nbsp; <a href="<%=path%>/test/list">列表</a>
+        &nbsp;  <a href="<%=path%>/convention/searchInput">搜索答案</a> &nbsp;
+    </h3>
     <form action="<%=path%>/test/list" method="post">
         <table>
             <tr>

@@ -22,7 +22,7 @@
     <script type="text/javascript" src="<%=path%>/static/js/common_util.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/page.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
-    <title>添加答案</title>
+    <title>记录日记</title>
     <script type="text/javascript">
 /*
 各手机浏览器的状况:
@@ -33,11 +33,11 @@ chrome自动就拥有这项功能:软键盘弹出时,自动上移
         var uploadStatus=0;//初始状态:0;  选择了图片但未上传:1;  上传成功:2
         var ajaxUploadFile = function (self) {
             var $this=$(self);
-            ajaxUploadFileCommon($this,$('textarea[name=answer]'),function () {
-                $('textarea[name=answer]').focus();
+            ajaxUploadFileCommon($this,$('textarea[name=content]'),function () {
+                $('textarea[name=content]').focus();
             });
         };
-        var adapterScrollTop=160;
+        var adapterScrollTop=120;
         /*if(navigator.userAgent.indexOf("OppoBrowser")==-1){
             adapterScrollTop=170;
         }else{
@@ -56,7 +56,7 @@ chrome自动就拥有这项功能:软键盘弹出时,自动上移
                 }
 
             },200);//200
-            $('textarea[name=answer]').focus().focus(footerIE8Throttle).click(footerIE8Throttle);
+            $('textarea[name=content]').focus().focus(footerIE8Throttle).click(footerIE8Throttle);
             //加载完成之后,文本框聚焦,因为弹出软键盘有一定延迟,所以需要使用定时器
             setTimeout(function () {
                 if(getInner().height<=293) {//说明软键盘弹出来了
@@ -64,6 +64,10 @@ chrome自动就拥有这项功能:软键盘弹出时,自动上移
                 }
             },180);
         });
+        var insertContent=function (txt) {
+            var $textara=$('textarea[name=content]');
+            insertAfterText($textara[0],"abc");
+        }
     </script>
 </head>
 <body>
@@ -72,21 +76,18 @@ chrome自动就拥有这项功能:软键盘弹出时,自动上移
     <span class="success">${message}</span>
 </div>
 <div>
-    <h3>添加答案</h3>
-    <h4>【${test.testcase}】</h4>
-    <a href="<%=path%>/test/add">添加测试</a>&nbsp; <a href="<%=path%>/test/${test.id}">返回详情</a>
-    &nbsp;<a href="<%=path%>/test/list">列表</a> &nbsp; <a href="<%=path%>/search">首页</a>
-    &nbsp; <a href="<%=path%>/test/${test.id}/alias">修改别名</a>
+    <h4>【${diary.createTime}】</h4>
+    <a href="<%=path%>/diary/getCurrent">今日日记</a>&nbsp; <a href="<%=path%>/diary/list">日记列表</a>
+    &nbsp;
     <div id="add_convention">
 
             <table style="width: 100%;" >
                 <tr>
                     <td>
-                        <form action="<%=path%>/test/save_answer" method="post">
-                            <input type="hidden" name="testcase" value="${test.testcase}">
+                        <form action="<%=path%>/diary/${diary.id}/update?targetView2=redirect%3A%2Fdiary%2F${diary.id}%2Fedit2" method="post">
+                            <input type="hidden" name="testBoyId" value="${diary.id}">
                             <%--<input type="hidden" name="testcase" value="${test.testcase}">--%>
-                            <textarea name="answer" id="" style="width:100%"  rows="5"  placeholder="请填写答案" ></textarea>
-                            <input type="hidden" name="token" value="${sessionScope.token}" >
+                            <textarea name="content" id="" style="width:100%"  rows="9"  placeholder="请填写日记" >${diary.content}</textarea>
                         </form>
                     </td>
                 </tr>
@@ -116,11 +117,13 @@ chrome自动就拥有这项功能:软键盘弹出时,自动上移
                             <option value="red_bold">红色并加粗</option>
                         </options>
                     </select>
+                        <input type="button" value="插入" onclick="insertContent()" >
                     </td>
                 </tr>
             </table>
 
     </div>
+    <p class="preview">${diary.formatContent}</p>
 </div>
 </body>
 </html>

@@ -36,6 +36,39 @@ $(function () {
         }
 
     });
+    $('.diary-list li img[data-id]').click(function () {
+        var $progress = $('img.progress');
+        var $imgDetail = $(this);
+        var offset = $imgDetail.offset();
+
+
+        var $next = $imgDetail.next();
+        var detail = $next.next();
+        //console.log(detail);
+        var id = $imgDetail.data('id');
+        if (detail.length === 0) {
+            $progress.css('top', offset.top + 'px');
+            $progress.css('left', offset.left + 'px');
+            $progress.show();
+            $next.after('<div id="answer_' + id + '" style="margin:10px 4px;" ></div>');
+            if (typeof(ajaxHtml)=== "undefined"){
+                console.log(false);//没有声明
+                alert('没有引入page.js');
+                return;
+            }else{
+                console.log(true);
+            }
+            $imgDetail.css('background-color','red');
+            ajaxHtml(server_url + "/diary/" + id + "/text",
+                $('#answer_' + id), null, function () {
+                    $progress.hide('normal');
+                    $imgDetail.css('background-color','');
+                });//page.js
+        } else {
+            $('#answer_' + id).toggle('toggleClass');
+        }
+
+    });
     //add answer
     var $add_convention = $('#add_convention');
     var addBtn=$add_convention.find('.submit');
@@ -88,7 +121,8 @@ var deleteConvention = function (conventionId,callback) {
                 }
             },
             error: function (er) {
-                console.log(er)
+                console.log(er);
+                dealResponseError(er);
             }
         };
         $.ajax(options);
@@ -110,6 +144,7 @@ var deleteConventionSearchPge = function (conventionId) {
     });
 };
 var test = {};
+diary={};
 test.query = function () {
     var $form = $('#form_page');
     $form.action = server_url + "/test/list";
@@ -173,6 +208,38 @@ test.list_menu = function (imgSelf, testId) {
     }
 
 };
+
+diary.list_diarymenu = function (imgSelf, testId) {
+    //alert(getInner().width)
+    console.log(testId);
+    var $menu = $('#list-menu_' + testId);
+    if ($menu && $menu.length) {
+        $menu.toggle('toggleClass');
+    } else {
+        var $self = $(imgSelf);
+        var offset2 = $self.offset();
+        var left = Number(offset2.left) + 20;
+        var delta = left + 90 - getInner().width;//90 表示下拉列表的最小宽度
+        if (delta > 0) {
+            left = left - delta;
+        }
+        var html = '<ul id="list-menu_' + testId + '" class="list-menu" style="top: ' + (Number(offset2.top))
+            + 'px;left: ' + left + 'px;">';
+        if (window.isAdmin) {
+            html = html + '<li> <a href="' + server_url + '/diary/' + testId + '/edit2">修改</a> </li>' +
+                '<li> <a href="' + server_url + '/test/' + testId + '/delete" onclick="return confirm(\'确认删除吗\')">删除</a> </li>';
+        }
+        html = html + '<li> <a href="' + server_url + '/convention/add_answer?testBoyId=' + testId + '">添加答案</a> </li>';
+        html = html + '<li> <a target="_blank" href="' + server_url + '/share/test/' + testId + '">分享</a> </li>';
+        html = html + '<li> <a  href="' + server_url + '/test/' + testId + '/alias">修改别名</a> </li>';
+        html = html + '<li> <a onclick="hideTest(' + testId + ')">匿了</a> </li>' ;
+        html = html +
+            '</ul>';
+
+        $('body div.draft').append(html);
+    }
+
+};
 var collapseTest=function (testId) {
     var $a=$('#test_li_'+testId+'>a');
     var content2=$a.html().trim();
@@ -213,6 +280,11 @@ var deedit4copy = function (conventionId) {
         $conventionDiv.html($conventionDiv.data("content"));
     }
 };
+var dealResponseError = function (er) {
+    if (er.statusText == 'Internal Server Error') {
+        alert("服务器内部错误")
+    }
+};
 /***
  * 通过查找的答案,进入问题
  * @param conventionId
@@ -223,13 +295,15 @@ var toTestDetail = function (conventionId) {
         type: "POST",
         dataType: 'json',
         success: function (json2) {
+            if(json2.testId===-1){
+                alert("未找到对应的测试");
+                return;
+            }
             location.href = server_url + "/test/oneTest?testId=" + json2.testId;
         },
         error: function (er) {
             console.log(er);
-            if (er.statusText == 'Internal Server Error') {
-                alert("服务器内部错误")
-            }
+            dealResponseError(er);
         }
     };
     $.ajax(options);
@@ -248,7 +322,8 @@ var voteConvention = function (self, conventionId, testBoyId) {
             }
         },
         error: function (er) {
-            console.log(er)
+            console.log(er);
+            dealResponseError(er);
         }
     };
     $.ajax(options);
@@ -270,7 +345,7 @@ var updateConvention = function (self, conventionId,embedded) {
     }
     formAjaxHtml(action, $answer_detail, $form);
 };
-var ajaxUploadFileCommon=function ($this,successCallback) {
+var ajaxUploadFileCommon=function ($this,$answer,successCallback) {
     console.log('ajaxUploadFileCommon222');
     var $thisForm = com.whuang.hsj.getForm($this);
     var $uploadFile = $thisForm.find('input[type=file]');
@@ -284,7 +359,7 @@ var ajaxUploadFileCommon=function ($this,successCallback) {
     param.success = function (data, status) {
         console.log(data);
         if (data && data.fullUrl) {
-            var $answer=$('textarea[name=answer]');
+            // var $answer=$('textarea[name=answer]');
             var oldVal=$answer.val();
             if(oldVal){
                 oldVal+='\r\n';

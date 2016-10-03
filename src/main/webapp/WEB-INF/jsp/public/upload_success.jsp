@@ -19,7 +19,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    <script type="text/javascript" src="http://hbjltv.com/static/js/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="<%=path%>/static/js/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/common_util.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
     <title>上传图片</title>

@@ -20,7 +20,6 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <script type="text/javascript" src="<%=path%>/static/js/jquery-1.11.1.js"></script>
-    <script type="text/javascript" src="<%=path%>/static/js/lib/appframework/af.touchEvents.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/jquery.form.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/common_util.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/page.js"></script>
@@ -44,31 +43,31 @@
 </head>
 <body>
 <jsp:include page="../public/top_admin.jsp"/>
-<a href="<%=path%>/test/add">添加测试</a> &nbsp; <a href="<%=path%>/search">首页</a>&nbsp;<a href="<%=path%>/test/list">列表</a>
+<a href="<%=path%>/diary/getCurrent">记录日记</a> &nbsp; <a href="<%=path%>/search">首页</a>&nbsp;<a href="<%=path%>/test/list">列表</a>
 &nbsp;<a href="<%=path%>/convention/searchInput">搜索答案</a>
 &nbsp;<a href="javascript:anchorGoIndexTop('bottomHref')">回到底部</a>
 <hr>
 <div>
     <a href="" name="topHref" ></a>
-    <ul class="test-list">
+    <ul class="diary-list">
 
         <c:choose>
             <c:when test="${view.recordList!=null && fn:length(view.recordList)!=0 }">
-                <c:forEach items="${view.recordList }" var="bbs" varStatus="status">
-                    <li id="test_li_${bbs.id}" ><span class="gray">(${bbs.id})</span>【<a title="${bbs.testcase}" data-content="${bbs.testcase}"
-                                                                 href="<%=path%>/test/${bbs.id}"><c:choose>
-                        <c:when test="${bbs.testcase!=null && fn:length(bbs.testcase)!=0 }">
+                <c:forEach items="${view.recordList }" var="diary" varStatus="status">
+                    <li id="test_li_${diary.id}" ><span class="gray">(${diary.id})</span>【<a title="<c:out value="${diary.content}" default="" escapeXml="true"/>" data-content="<c:out value="${diary.content}" default="" escapeXml="true"/>"
+                                                                 href="<%=path%>/diary/${diary.id}"><c:choose>
+                        <c:when test="${diary.content!=null && fn:length(diary.content)!=0 }">
                             <c:choose>
-                                <c:when test="${fn:length(bbs.testcase)>50 }">
-                                    ${fn:substring(bbs.testcase,0,50)}</c:when>
-                                <c:otherwise>${bbs.testcase}</c:otherwise>
+                                <c:when test="${fn:length(diary.content)>20 }">
+                                    ${fn:substring(diary.content,0,20)}</c:when>
+                                <c:otherwise>${diary.content}</c:otherwise>
                             </c:choose></c:when>
-                        <c:otherwise>未命名</c:otherwise>
+                        <c:otherwise>${diary.createTime}</c:otherwise>
                     </c:choose> </a>】
-                        <img data-id="${bbs.id}" style="padding-right: 20px;padding-top: 10px;padding-bottom: 5px;
+                        <img data-id="${diary.id}" style="padding-right: 20px;padding-top: 10px;padding-bottom: 5px;
     padding-left: 10px;cursor: pointer"
                              src="<%=path%>/static/img/icon_3.png" alt="详情">
-                        <img onclick="test.list_menu(this,${bbs.id})" style="cursor: pointer;" src="<%=path%>/static/img/col_list.gif" alt="菜单">
+                        <img onclick="diary.list_diarymenu(this,${diary.id})" style="cursor: pointer;" src="<%=path%>/static/img/col_list.gif" alt="菜单">
                     </li>
                 </c:forEach>
 
@@ -89,7 +88,7 @@
                 <div style="text-align:center;padding-top:20px;">
                     没有查询到符合条件的测试.
                 </div>
-                <div><a href="<%=path%>/test/add?testcase=${testcase}">添加测试</a></div>
+                <div><a href="<%=path%>/test/add?content=${content}">添加测试</a></div>
             </c:otherwise>
         </c:choose>
 
@@ -97,11 +96,6 @@
 </div>
 <div class="draft"></div>
 <img class="progress" style="position: absolute;display: none" src="<%=path%>/static/img/progress.gif" alt="正在加载...">
-<div class="upload-pic" >
-    <form action="<%=path%>/image/upload"  method="post" enctype="multipart/form-data" >
-        <input type="file"> <br>
-        <input type="button" value="上传图片" >
-    </form>
-</div>
+
 </body>
 </html>

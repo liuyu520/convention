@@ -21,9 +21,9 @@
     <link rel="stylesheet" type="text/css" href="<%=path%>/static/css/global.css">
     <%--<link rel="stylesheet" type="text/css" href="http://hbjltv.com/static/css/cannot_select.css">--%>
 
-    <script type="text/javascript" src="http://hbjltv.com/static/js/jquery-1.11.1.js"></script>
-    <script type="text/javascript" src="http://hbjltv.com/static/js/common_util.js"></script>
-    <script type="text/javascript" src="http://hbjltv.com/static/js/md5.js"></script>
+    <script type="text/javascript" src="<%=path%>/static/js/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="<%=path%>/static/js/common_util.js"></script>
+    <script type="text/javascript" src="<%=path%>/static/js/md5.js"></script>
     <%--<script type="text/javascript" src="http://hbjltv.com/static/js/prohibition_back.js"></script>--%>
     <script type="text/javascript">
         var loginFlag = "${sessionScope.logined}";

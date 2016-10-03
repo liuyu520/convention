@@ -42,6 +42,7 @@
 			<mvc:mapping path="/company/edit"></mvc:mapping>
 			<mvc:mapping path="/carousel/**"></mvc:mapping>
 			<mvc:mapping path="/recruitment/**"></mvc:mapping>
+            <mvc:mapping path="/**/update"></mvc:mapping>
 			<mvc:exclude-mapping path="/index/**" />
 			<mvc:exclude-mapping path="/user/loginInput" />
 			<bean class="com.girltest.web.controller.intercept.ConventionMemberInterceptor">

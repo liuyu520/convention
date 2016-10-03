@@ -37,7 +37,7 @@ h3{
     font-weight: bold;
 }
 
-.test-list > li {
+.test-list > li,.diary-list > li {
     border: 2px solid #ddd;
     border-radius: 5px;
     /*padding-bottom: 10px;*/
@@ -112,4 +112,18 @@ input.submit {
 .upload-pic{
     border: 2px solid #F1B5FD;
     border-radius: 4px;
+}
+.iconExit {
+    background: url('http://i.static.chanjet.com/chanjet/images/workbench/userExtMenuIcon_exit.png');
+    background-repeat: no-repeat;
+    margin-right: 5px;
+}
+.preview{
+    border: 1px solid #F1B5FD;
+    border-radius: 4px;
+    padding: 10px 4px;
+    background-color: #eff4f7;
+}
+.diary-list img,.preview img{
+    max-width: 100%;
 }
