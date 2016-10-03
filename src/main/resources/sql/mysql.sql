@@ -1,3 +1,4 @@
+create database pua DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 CREATE TABLE t_access_log (
   id             INTEGER NOT NULL AUTO_INCREMENT,
   access_day     VARCHAR(255),
