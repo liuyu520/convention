@@ -43,5 +43,10 @@
             </list>
         </property>
     </bean>
-    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!--<context:property-placeholder location="classpath:jdbc.properties"/>-->
+    <bean class="com.girltest.config.EncryptationAwarePropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>classpath:jdbc.properties</value>
+        </property>
+    </bean>
 </beans>
