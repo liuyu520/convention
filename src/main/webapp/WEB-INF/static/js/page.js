@@ -86,8 +86,8 @@ function toPageGo(action) {
         $("#view\\.currentPage").val(currentPage);
     }
     if (action && typeof action === 'function') {
-    action();
-}
+        action();
+    }
 }
 /***
  * 获取节点的标签名称,比如INPUT,SPAN,DIV,IMG

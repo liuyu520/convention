@@ -15,7 +15,9 @@ public class ConventionUtil {
         if ("恶心".equals(queryKeyword) || "变态".equals(queryKeyword) || "rr".equals(queryKeyword)
                 || "大姨妈".equals(queryKeyword)
                 || "刘钰大姨妈".equals(queryKeyword)
-                || "性观念".equals(queryKeyword)) {
+                || "性观念".equals(queryKeyword)
+                || "做爱".equals(queryKeyword)
+                || "性爱".equals(queryKeyword)) {
             return true;
         }
         return false;
