@@ -127,3 +127,9 @@ input.submit {
 .diary-list img,.preview img{
     max-width: 100%;
 }
+
+@media only screen and (max-width : 480px) {
+    textarea{
+        font-size: 18px;
+    }
+}

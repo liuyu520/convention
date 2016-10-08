@@ -19,7 +19,7 @@
             <table  style="width: 100%;">
                 <tr>
                     <td>
-                        <textarea name="answer" style="width:100%;font-size: 14px;" rows="5">${convention.answer}</textarea>
+                        <textarea name="answer" style="width:100%;" rows="5">${convention.answer}</textarea>
                     </td>
                 </tr>
                 <tr>
