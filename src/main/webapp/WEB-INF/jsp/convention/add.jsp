@@ -83,6 +83,7 @@ chrome自动就拥有这项功能:软键盘弹出时,自动上移
                 <tr>
                     <td>
                         <form action="<%=path%>/test/save_answer" method="post">
+                            <input type="hidden" name="testBoyId" value="${test.id}">
                             <input type="hidden" name="testcase" value="${test.testcase}">
                             <%--<input type="hidden" name="testcase" value="${test.testcase}">--%>
                             <textarea name="answer" id="" style="width:100%"  rows="5"  placeholder="请填写答案" ></textarea>

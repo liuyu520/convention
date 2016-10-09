@@ -16,6 +16,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" type="text/css" href="<%=path%>/static/css/global.css">
+    <link rel="stylesheet" type="text/css" href="http://codeseven.github.io/toastr/build/toastr.min.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -24,22 +25,46 @@
     <script type="text/javascript" src="<%=path%>/static/js/common_util.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/page.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
+    <script type="text/javascript" src="http://hammerjs.github.io/dist/hammer.min.js" ></script>
+    <script type="text/javascript" src="http://codeseven.github.io/toastr/build/toastr.min.js" ></script>
     <script type="text/javascript" >
     <c:if test="${sessionScope.user!=null &&sessionScope.user.level==2}">
     isAdmin=${sessionScope.user!=null &&sessionScope.user.level==2};
     </c:if>
         $(function () {
             console.log('onload');
-            $('body').bind("doubleTap",function(e){
-                alert('aa');
-            });
-            $('.test-list').bind("singleTap",function(e){
-                alert('aa');
-            });
+            toastr.options = {"timeOut": "3000","preventDuplicates": true,"hideDuration": "1"};
+            $('ul.diary-list>li').each(function (i, li) {
+                var $li=$(li);
+                var hammertime = new Hammer(li);
+                hammertime.get('press').set({ time: 500 });//Minimal press time in ms.
+                hammertime.on('press', function(ev) {
+                    console.log(ev);
+                    var updateTime=$li.data('datetime');
+//                    alert(updateTime);
+                    toastr.info(updateTime)
+                }).on('swiperight',function (ev) {
+                    var diaryContent=$li.find('a').attr('title');
+                    if(!diaryContent){
+                        diaryContent='暂无内容';
+                        toastr.warning(diaryContent);
+                    }else{
+                        toastr.success(diaryContent);
+                    }
+
+                })
+            })
         })
 
     </script>
-    <title>测试列表</title>
+    <title>日记列表</title>
+    <style>
+        #toast-container>div {
+             opacity: 1;
+            -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+            filter: alpha(opacity=100);
+        }
+    </style>
 </head>
 <body>
 <jsp:include page="../public/top_admin.jsp"/>
@@ -54,8 +79,8 @@
         <c:choose>
             <c:when test="${view.recordList!=null && fn:length(view.recordList)!=0 }">
                 <c:forEach items="${view.recordList }" var="diary" varStatus="status">
-                    <li id="test_li_${diary.id}" ><span class="gray">(${diary.id})</span>【<a title="<c:out value="${diary.content}" default="" escapeXml="true"/>" data-content="<c:out value="${diary.content}" default="" escapeXml="true"/>"
-                                                                 href="<%=path%>/diary/${diary.id}"><c:choose>
+                    <li id="test_li_${diary.id}"  data-datetime="${diary.updateTime}" ><span class="gray">(${diary.id})</span>【<a title="<c:out value="${diary.content}" default="" escapeXml="true"/>" data-content="<c:out value="${diary.content}" default="" escapeXml="true"/>"
+                                                                 ><c:choose>
                         <c:when test="${diary.content!=null && fn:length(diary.content)!=0 }">
                             <c:choose>
                                 <c:when test="${fn:length(diary.content)>20 }">
