@@ -195,7 +195,9 @@
                     closeHtml: '<button type="button">&times;</button>',
                     closeClass: 'toast-close-button',
                     newestOnTop: true,
-                    preventDuplicates: false,
+                    preventDuplicates: false,/*added by huangweii ,判断是相同的内容,则只允许出现一个toast,
+                    即,两次toast,如果内容相同,则第二个toast不会显示*/
+                    preventManyTimes: false,/* 同一时刻,只允许出现一个toast **/
                     progressBar: false,
                     progressClass: 'toast-progress',
                     rtl: false
@@ -409,6 +411,9 @@
                         } else {
                             previousToast = map.message;
                         }
+                    }
+                    if (options.preventManyTimes) {
+                        return true;
                     }
                     return false;
                 }
