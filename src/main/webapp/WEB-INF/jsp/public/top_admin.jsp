@@ -27,6 +27,9 @@
             <li>
                 <a href="<%=path%>/diary/getCurrent">记录日记</a>
             </li>
+            <li>
+                <a href="<%=path%>/diary/list">日记列表</a>
+            </li>
         </ul>
         &nbsp;&nbsp;
     </c:otherwise>

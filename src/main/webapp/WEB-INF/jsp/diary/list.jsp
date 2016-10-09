@@ -26,14 +26,14 @@
     <script type="text/javascript" src="<%=path%>/static/js/page.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
     <script type="text/javascript" src="http://hammerjs.github.io/dist/hammer.min.js" ></script>
-    <script type="text/javascript" src="http://codeseven.github.io/toastr/build/toastr.min.js" ></script>
+    <script type="text/javascript" src="<%=path%>/static/js/toastr.js" ></script>
     <script type="text/javascript" >
     <c:if test="${sessionScope.user!=null &&sessionScope.user.level==2}">
     isAdmin=${sessionScope.user!=null &&sessionScope.user.level==2};
     </c:if>
         $(function () {
             console.log('onload');
-            toastr.options = {"timeOut": "3000","preventDuplicates": true,"hideDuration": "1"};
+            toastr.options = {"timeOut": "3000","preventDuplicates": true,"preventManyTimes": true,"hideDuration": "1"};
             $('ul.diary-list>li').each(function (i, li) {
                 var $li=$(li);
                 var hammertime = new Hammer(li);
