@@ -102,6 +102,7 @@ public class ConventionController extends BaseController<Convention> {
 //        roleLevel.setAnswer(ConventionUtil.convertBr(answer));
         Test2Boy test2Boy = test2BoyDao.get(testBoyId);
         model.addAttribute("test", test2Boy);
+        model.addAttribute("convention", convention);
         if(ValueWidget.isNullOrEmpty(targetView)){
             //解决中文乱码问题
             response.setCharacterEncoding(SystemHWUtil.CHARSET_UTF);
@@ -172,6 +173,7 @@ public class ConventionController extends BaseController<Convention> {
         init(request);
         Test2Boy test2Boy=new Test2Boy();
         test2Boy.setId(testBoyId);
+        test2Boy.setTestcase(request.getParameter("testcase"));
         ConventionDao conventionDao = (ConventionDao) this.getDao();
         Convention convention = conventionDao.get(conventionId);
         model.addAttribute("test", test2Boy);

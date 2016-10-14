@@ -78,6 +78,8 @@ chrome自动就拥有这项功能:软键盘弹出时,自动上移
 <div>
     <h4>【${diary.createTime}】</h4>
     <a href="<%=path%>/diary/getCurrent">今日日记</a>&nbsp; <a href="<%=path%>/diary/list">日记列表</a>
+    &nbsp;<a href="<%=path%>/test/add">添加测试</a>
+    &nbsp;<a href="<%=path%>/test/list">列表</a> &nbsp; <a href="<%=path%>/search">首页</a>
     &nbsp;
     <div id="add_convention">
 
