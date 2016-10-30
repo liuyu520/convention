@@ -181,7 +181,7 @@ jQuery.extend({
             }
             ///////////added newly///////////////
             if (data === '') {
-                alert('file\'s name is not the same as server');
+                alert('file\'s name is not the same as server'+JSON.stringify(r));
                 return;
                 data = 'null';//added by whuang
             }
