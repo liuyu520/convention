@@ -2,6 +2,10 @@
  * Created by Administrator on 2015/12/27.
  */
 var server_url = "http://" + location.host+""//+"/convention";
+function showAllAnswer(answerDetailId){
+    var $answerDetail=$('#'+answerDetailId);
+    $answerDetail.html($answerDetail.attr('originalval'))
+};
 $(function () {
     $('.test-list li img[data-id]').click(function () {
         var $progress = $('img.progress');
@@ -30,6 +34,21 @@ $(function () {
                 $('#answer_' + id), null, function () {
                     $progress.hide('normal');
                     $imgDetail.css('background-color','');
+                    $('#answer_' + id).find('li.answer-list').each(function (i, li) {
+                        var $li=$(li);
+                        var $div=$li.find('>div');
+                        var $answerDiv=$div.find('>div');
+                        var answerContent=$answerDiv.html();
+                        var limit=300;//字符限制
+                        if(answerContent&&answerContent.length>limit){
+                            com.whuang.hsj.setCustomAttr($answerDiv.get(0),'originalVal',answerContent);
+                            answerContent=omitTooLongString(answerContent,limit,true);
+                            $answerDiv.html(answerContent);
+                            console.warn('超长');
+                            $div.find('ul.operate-list').append('<li> <a href="javascript:showAllAnswer(\''+$answerDiv.attr('id')+'\')">显示全部</a> </li>');
+                        }
+                        // console.log(answerContent)
+                    })
                 });//page.js
             var $menu = $('#list-menu_' + id);
             if ($menu && $menu.length) {
@@ -216,6 +235,23 @@ test.list_menu = function (imgSelf, testId) {
         $('body div.draft').append(html);
     }
 
+};
+createQRCode=function (testId) {
+    var options = {
+        url: server_url + "/share/create/test/"+testId+"/json" ,
+        type: "GET",
+        dataType: 'json',
+        success: function (json2) {
+            var qrcodeurl=server_url + '/share/share/' + json2.id+'/'+json2.shareCode;
+            console.log('qrcodeurl:'+qrcodeurl)
+            location.href = server_url + '/qrcode/cre?message='+encodeURIComponent(qrcodeurl);
+        },
+        error: function (er) {
+            console.log(er);
+            dealResponseError(er);
+        }
+    };
+    $.ajax(options);
 };
 
 diary.list_diarymenu = function (imgSelf, testId) {

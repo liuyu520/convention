@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="button" onclick="updateConvention(this,${convention.id},'${param.embedded}')" class="btn" value="修改">
+                        <input type="button" onclick="updateConvention(this,${convention.id},'${param.embedded}')" class="btn submit" value="修改">
                         <%--&nbsp;&nbsp;<a href="javascript:history.back();">返回</a>--%>
 <c:if test="${param.embedded=='yes' }">
     &nbsp;&nbsp;<a href="javascript:history.back();">返回</a>

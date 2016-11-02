@@ -3653,3 +3653,25 @@ var throttle = function (delay, action) {
         }
     };
 };
+/***
+ * 截断指定长度
+ * @param input
+ * @param length
+ * @param showEllipsis
+ * @returns {*}
+ */
+function omitTooLongString (input, length,showEllipsis/** 是否显示省略号*/) {
+    if (!input) {
+        return input;
+    }
+    var len = input.length;
+    if (len <= length) {
+        return input;
+    } else {
+        input = input.substring(0, length);
+        if(showEllipsis){
+            input += "...";
+        }
+    }
+    return input;
+}
