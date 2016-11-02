@@ -92,8 +92,12 @@ $(function () {
             document.forms[1].submit();//因为现在增加了搜索框
             return true;
         } else {
-            alert("请输入内容");
-            $conventionTA.focus();
+            if(!ajaxUploadFileCommon($('#upload_pic'),$conventionTA,function () {
+                addBtn.click();
+            })){
+                alert("请输入内容");
+                $conventionTA.focus();
+            }
             return false;
         }
     });
@@ -391,6 +395,7 @@ var ajaxUploadFileCommon=function ($this,$answer,successCallback) {
     $this.attr('disabled','disabled');
     uploadStatus=2;
     com.whuang.hsj.ajaxUploadFile($uploadFile.get(0).id/*'fileToUpload'*/, param);
+    return true;
 };
 /**
  * 在光标后插入文本

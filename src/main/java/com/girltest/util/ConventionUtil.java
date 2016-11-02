@@ -17,7 +17,8 @@ public class ConventionUtil {
                 || "刘钰大姨妈".equals(queryKeyword)
                 || "性观念".equals(queryKeyword)
                 || "做爱".equals(queryKeyword)
-                || "性爱".equals(queryKeyword)) {
+                || "性爱".equals(queryKeyword)
+                || "rr大姨妈".equals(queryKeyword)) {
             return true;
         }
         return false;

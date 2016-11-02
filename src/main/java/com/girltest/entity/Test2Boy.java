@@ -6,6 +6,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /***
@@ -16,7 +17,7 @@ import java.util.List;
 @Table(name = "t_test_to_boy")
 @JsonAutoDetect
 @JsonInclude(JsonInclude.Include.NON_NULL)//没有起作用
-public class Test2Boy {
+public class Test2Boy implements Serializable{
     /***
      * 更新时间
      */

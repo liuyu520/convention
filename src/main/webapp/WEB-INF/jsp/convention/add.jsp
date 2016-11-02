@@ -21,7 +21,7 @@
     <script type="text/javascript" src="<%=path%>/static/js/ajaxfileupload.js" ></script>
     <script type="text/javascript" src="<%=path%>/static/js/common_util.js"></script>
     <script type="text/javascript" src="<%=path%>/static/js/page.js"></script>
-    <script type="text/javascript" src="<%=path%>/static/js/convention.js"></script>
+    <script type="text/javascript" src="<%=path%>/static/js/convention.js?v=1.0"></script>
     <title>添加答案</title>
     <script type="text/javascript">
 /*
